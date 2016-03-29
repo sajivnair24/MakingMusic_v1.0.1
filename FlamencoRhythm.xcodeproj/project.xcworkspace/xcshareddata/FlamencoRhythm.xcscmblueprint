@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "08689d55-62e4-49b2-8494-c82fb59558a7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "08689d55-62e4-49b2-8494-c82fb59558a7" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "08689d55-62e4-49b2-8494-c82fb59558a7" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9241813F-BDE3-4BB1-A351-1F2E86046AA8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "08689d55-62e4-49b2-8494-c82fb59558a7" : "Work\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FlamencoRhythm",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Projects\/Flemenco \/working\/Flemenco14OCTAuRecorder copy 2\/FlamencoRhythm.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/172.20.3.16:81\/Specimen_iOS",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "08689d55-62e4-49b2-8494-c82fb59558a7"
+    }
+  ]
+}
