@@ -177,7 +177,7 @@ int caraouselIndex = 0;
     [_dronePickerView reloadAllComponents];
     [_dronePickerView selectRow:300 inComponent:0 animated:NO];
     
-    
+
     audioUnitCount = 0;
     isBpmPickerChanged = false;
     
@@ -340,6 +340,9 @@ int caraouselIndex = 0;
     bpmSlider.maximumValue = 240.0f;
     bpmSlider.value = 120.0f;
     
+    [bpmSlider setMinimumTrackTintColor:[UIColor grayColor]];
+    [bpmSlider setMaximumTrackTintColor:[UIColor lightGrayColor]];
+    
     //[bpmSlider autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:133];
     [bpmSlider autoAlignAxisToSuperviewAxis:ALAxisVertical];
     [bpmSlider autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
@@ -352,7 +355,6 @@ int caraouselIndex = 0;
     
     [bpmSlider addTarget:self action:@selector(sliderDidEndSliding:) forControlEvents:UIControlEventTouchUpInside];
     
-    [bpmSlider setMinimumTrackTintColor:[UIColor darkGrayColor]];
     [bpmSlider setThumbImage:[UIImage imageNamed:@"sliderThumb.png"] forState:UIControlStateNormal];
     [self micHides];
    // [bpmPickerArray addObject:[NSString stringWithFormat:@"%d",120]];
@@ -877,6 +879,7 @@ int caraouselIndex = 0;
     if (clapFlag4 == 0) {
         [btn setSelected:YES];
         clapFlag4 = 1;
+        
         if(playFlag == 1){
             [mixerController setInputVolume:(audioUnitCount - 1) value:clapFlag4];
         }
@@ -1352,7 +1355,12 @@ int caraouselIndex = 0;
     
     UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(7, 0, 50, 27)];
     [lbl setBackgroundColor:[UIColor clearColor]];
-    lbl.textColor = [UIColor whiteColor];
+    
+    UIColor *textColor;
+    
+    (clapFlag4 == 1) ? textColor = [UIColor whiteColor] : textColor = [UIColor blackColor];
+    lbl.textColor = textColor;
+    
     [lbl setFont:[UIFont fontWithName:@"HelveticaNeue" size:25.0]];
     
     lbl.text = dronePickerArray[row];

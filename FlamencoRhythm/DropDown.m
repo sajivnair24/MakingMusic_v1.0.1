@@ -152,13 +152,13 @@
         }
         else {
             [cell.rhythmButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [cell.rhythmButton.titleLabel setFont:[UIFont fontWithName:FONT_MEDIUM size:15]];
+            [cell.rhythmButton.titleLabel setFont:[UIFont fontWithName:FONT_REGULAR size:15]];
             [cell.rhythmButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
         }
     }
     else if (indexPath.row == 0){
         [cell.rhythmButton setTitleColor:[UIColor colorWithRed:0 green:126/255.0 blue:255/255.0 alpha:1] forState:UIControlStateNormal];
-        [cell.rhythmButton.titleLabel setFont:[UIFont fontWithName:FONT_MEDIUM size:15]];
+        [cell.rhythmButton.titleLabel setFont:[UIFont fontWithName:FONT_REGULAR size:15]];
         [cell.rhythmButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     }
     cell.rhythmButton.tag = indexPath.row;

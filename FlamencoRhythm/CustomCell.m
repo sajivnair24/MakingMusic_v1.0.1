@@ -35,7 +35,7 @@
         [_rhythmButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_rhythmButton setBackgroundColor:[UIColor clearColor]];
         
-        [_rhythmButton.titleLabel setFont:[UIFont fontWithName:FONT_MEDIUM size:15]];
+        [_rhythmButton.titleLabel setFont:[UIFont fontWithName:FONT_REGULAR size:15]];
         //[_rhythmButton setTitle:@"Hello" forState:UIControlStateNormal];
         [self.contentView addSubview:_rhythmButton];
         

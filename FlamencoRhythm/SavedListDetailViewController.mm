@@ -448,11 +448,13 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     //============== Change this =========================
    
-    if(![MainNavigationViewController inAppPurchaseEnabled]) {
-        self.recordingBtn.alpha =  0.3;
-    } else {
-        self.recordingBtn.alpha =  1.0;
-    }
+//    if(![MainNavigationViewController inAppPurchaseEnabled]) {
+//        self.recordingBtn.alpha =  0.3;
+//    } else {
+//        self.recordingBtn.alpha =  1.0;
+//    }
+    
+    self.recordingBtn.alpha =  1.0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioFilePlayedOnce:) name:@"AUDIOFILENOTLOOPING" object:nil];
     
@@ -1587,18 +1589,18 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
      //============== Change this =========================
     
-    if(![MainNavigationViewController inAppPurchaseEnabled]) {
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-        
-        if(![MainNavigationViewController checkNetworkStatus])
-            return;
-        
-        [waitAlertView addSubview:waitActivityView];
-        [waitActivityView startAnimating];
-        //[waitAlertView show];
-        //[self fetchAvailableProducts];
-    } else {
+//    if(![MainNavigationViewController inAppPurchaseEnabled]) {
+//        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+//        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+//        
+//        if(![MainNavigationViewController checkNetworkStatus])
+//            return;
+//        
+//        [waitAlertView addSubview:waitActivityView];
+//        [waitActivityView startAnimating];
+//        //[waitAlertView show];
+//        //[self fetchAvailableProducts];
+//    } else {
     
         if (![_recTrackFour isEqualToString:@"-1"]) {
             
@@ -1692,7 +1694,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             [self resetPlayButtonWithCell];
             [self recordingFinished];
         }
-    }
+    //}
 }
 
 - (IBAction)onVolumeBtnClicked:(id)sender {

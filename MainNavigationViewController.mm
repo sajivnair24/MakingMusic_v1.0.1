@@ -15,7 +15,7 @@
 #import "Reachability.h"
 #import "PureLayout.h"
 #import <sys/sysctl.h>
-
+#import "Constants.h"
 
 @interface MainNavigationViewController ()<RecordViewProtocol,savedListViewProtocol> {
     UIScrollView *pageScrollView;
@@ -209,7 +209,9 @@
     float vol = [[AVAudioSession sharedInstance] outputVolume];
     [_volumeSlider setValue:vol*10];
 
-    [_volumeSlider setMinimumTrackTintColor:[UIColor darkGrayColor]];
+    [_volumeSlider setMinimumTrackTintColor:[UIColor grayColor]];
+    [_volumeSlider setMaximumTrackTintColor:[UIColor lightGrayColor]];
+    
     //[_volumeSlider setMaximumTrackTintColor:[UIColor blackColor]];
    // [_volumeSlider setMaximumTrackImage:[UIImage imageNamed:@"slidertrackLatestBlack.png"] forState:UIControlStateNormal];
     //[_volumeSlider setMinimumTrackImage:[UIImage imageNamed:@"sliderprogressLatest.png"] forState:UIControlStateNormal];
@@ -403,14 +405,14 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:status forKey:@"inAppPurchase"];
 }
-#import "Constants.h"
+
 + (BOOL)inAppPurchaseEnabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *purshaseStatus = [defaults objectForKey:@"inAppPurchase"];
     
-    if(IN_APP_PURCHASE_ENABLE == 0){
-        return YES;
-    }
+//#if !IN_APP_PURCHASE_ENABLE
+//    return YES;
+//#endif
     
     if([purshaseStatus isEqualToString:@"not purchased"] || purshaseStatus == nil) {
         return NO;
