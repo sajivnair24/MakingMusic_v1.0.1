@@ -45,6 +45,8 @@ int caraouselIndex = 0;
     AVAudioPlayer *myplayer;
     NSTimeInterval myTime;
     
+    NSInteger pickerRow;
+    
     // Database related Tags or Flags
     NSString *musicDuration, *mergeFilePath;
     int inst1,inst2,inst3,inst4,vol1,vol2,vol3,vol4,pan1,pan2,pan3,pan4,bpm,timeStamp,t1,t2,t3,t4,t1Vol,t2Vol,t3Vol,t4Vol,t1Pan,t2Pan,t3Pan,t4Pan;
@@ -888,7 +890,14 @@ int caraouselIndex = 0;
         clapFlag4 = 0;
         [mixerController setInputVolume:(audioUnitCount - 1) value:clapFlag4];
     }
-
+    
+    [_dronePickerView selectRow:pickerRow inComponent:0 animated:NO];
+    
+    if ([[_dronePickerView viewForRow:pickerRow forComponent:0] isKindOfClass:[UILabel class]]) {
+        UILabel *selectedRow = (UILabel *)[_dronePickerView viewForRow:pickerRow forComponent:0];
+        selectedRow.textColor = (clapFlag4 == 1) ? [UIColor whiteColor] : [UIColor blackColor];
+    }
+   
     // [btn setImage:[UIImage imageNamed:@"Claps4_Blue.png"] forState:UIControlStateSelected];
 }
 #pragma mark - paly 4 players
@@ -1382,6 +1391,7 @@ int caraouselIndex = 0;
         mCurrentScore = currentBpm = updatedBpm;
     }
     else {
+        pickerRow = [pickerView selectedRowInComponent:component];
         _droneType = [dronePickerArray objectAtIndex:[pickerView selectedRowInComponent:component]];
         updatedBpm = bpmSlider.value;//[[bpmPickerArray objectAtIndex:[_bpmPickerView selectedRowInComponent:component]] intValue];
         mCurrentScore = currentBpm = updatedBpm;

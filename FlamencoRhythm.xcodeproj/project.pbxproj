@@ -485,6 +485,7 @@
 		59DFCCE21B949652008F6D28 /* SavedListDetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59DFCCE11B949652008F6D28 /* SavedListDetailViewController.mm */; };
 		631EF3741BE2719000FA6792 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 631EF3731BE2719000FA6792 /* libGoogleAdMobAds.a */; };
 		631EF3761BE271B900FA6792 /* libdywapitchtrack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 631EF3751BE271B900FA6792 /* libdywapitchtrack.a */; };
+		63740D8E1CAD32540037F22A /* volume_circle_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63740D8D1CAD32540037F22A /* volume_circle_black@2x.png */; };
 		63C6FE331B4BA99C00394A0A /* AudioUnitRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */; };
 		63C6FE361B4BA9B300394A0A /* InMemoryAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */; };
 		63D02E631BAC0D4200A82951 /* Sync 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 63D02E621BAC0D4200A82951 /* Sync 2.m4a */; };
@@ -1126,6 +1127,7 @@
 		59DFCCE11B949652008F6D28 /* SavedListDetailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SavedListDetailViewController.mm; sourceTree = "<group>"; };
 		631EF3731BE2719000FA6792 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		631EF3751BE271B900FA6792 /* libdywapitchtrack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libdywapitchtrack.a; sourceTree = "<group>"; };
+		63740D8D1CAD32540037F22A /* volume_circle_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume_circle_black@2x.png"; sourceTree = "<group>"; };
 		63C6FE311B4BA99C00394A0A /* AudioUnitRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioUnitRecorder.h; sourceTree = "<group>"; };
 		63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioUnitRecorder.m; sourceTree = "<group>"; };
 		63C6FE341B4BA9B300394A0A /* InMemoryAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMemoryAudioFile.h; sourceTree = "<group>"; };
@@ -1218,7 +1220,7 @@
 		C0FA30B51BBD6C140064C0A6 /* icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@3x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-60@3x.png"; sourceTree = "<group>"; };
 		C0FF8EC71BA04563009FF11F /* MHRotaryKnob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHRotaryKnob.h; sourceTree = "<group>"; };
 		C0FF8EC81BA04563009FF11F /* MHRotaryKnob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHRotaryKnob.m; sourceTree = "<group>"; };
-		C0FF8ECA1BA0528A009FF11F /* volume_circle1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume_circle1@2x.png"; sourceTree = "<group>"; };
+		C0FF8ECA1BA0528A009FF11F /* volume_circle1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "volume_circle1@2x.png"; path = "../../volume_circle1@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1705,6 +1707,8 @@
 				4EB34CE21CA11B1A009A282A /* wrong-mark@2x.png */,
 				4EB34CE01CA11AE5009A282A /* right-mark@2x..png */,
 				59B7BAF61AD7E68300D9F86A /* close-icon.png */,
+				C0FF8ECA1BA0528A009FF11F /* volume_circle1@2x.png */,
+				63740D8D1CAD32540037F22A /* volume_circle_black@2x.png */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -2023,7 +2027,6 @@
 		04DCEA1C1AB986F90008C50B /* Database file */ = {
 			isa = PBXGroup;
 			children = (
-				C0FF8ECA1BA0528A009FF11F /* volume_circle1@2x.png */,
 				63DD40931C914E79005469CB /* Flamenco.db */,
 				04DCEA191AB986F40008C50B /* DBManager.h */,
 				04DCEA1A1AB986F40008C50B /* DBManager.m */,
@@ -2390,6 +2393,7 @@
 				4EB34D031CA141B8009A282A /* Claps3_Gray@3x.png in Resources */,
 				044EFCD31AC28B5800941E3A /* Miami Booty.m4a in Resources */,
 				044EFD461AC28B5800941E3A /* orange-strip@@2x.png in Resources */,
+				63740D8E1CAD32540037F22A /* volume_circle_black@2x.png in Resources */,
 				C0E64E3F1AF27AA6009E7EDB /* three_blue@2x.png in Resources */,
 				0439F3211AE8D66100117E74 /* Bongos.png in Resources */,
 				044EFCD71AC28B5800941E3A /* Westcoast G Funk.m4a in Resources */,
