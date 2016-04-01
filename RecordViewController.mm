@@ -179,7 +179,7 @@ int caraouselIndex = 0;
     [_dronePickerView reloadAllComponents];
     [_dronePickerView selectRow:300 inComponent:0 animated:NO];
     
-
+    pickerRow = 0;
     audioUnitCount = 0;
     isBpmPickerChanged = false;
     
@@ -897,7 +897,7 @@ int caraouselIndex = 0;
         UILabel *selectedRow = (UILabel *)[_dronePickerView viewForRow:pickerRow forComponent:0];
         selectedRow.textColor = (clapFlag4 == 1) ? [UIColor whiteColor] : [UIColor blackColor];
     }
-   
+
     // [btn setImage:[UIImage imageNamed:@"Claps4_Blue.png"] forState:UIControlStateSelected];
 }
 #pragma mark - paly 4 players

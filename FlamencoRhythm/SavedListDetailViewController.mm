@@ -42,14 +42,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     UIActivityIndicatorView *waitActivityView;
     int mixerInputParam;
     BOOL isPurchaseRestored;
-    NSArray *rotatryViewsArray;
+    NSArray *rotataryViewsArray;
 }
 @property (strong, nonatomic) RAAlertController *alertController;
 @property (nonatomic, strong) UIPopoverController *activityPopoverController;
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryClap1;
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryClap2;
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryClap3;
-@property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryClap4;
+@property (strong, nonatomic) IBOutlet MHRotaryKnob *rotataryClap4;
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryT1;
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryT2;
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryT3;
@@ -102,10 +102,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     _volumeBtn.tintColor = self.view.tintColor;
     _panBtn.tintColor = [UIColor blackColor];
     
-    rotatryViewsArray = [[NSArray alloc] initWithObjects:_rotatryClap1,_rotatryClap2,_rotatryClap3,_rotatryClap3,_rotatryClap4,_rotatryT1,_rotatryT2,_rotatryT3,_rotatryT4, nil];
+    rotataryViewsArray = [[NSArray alloc] initWithObjects:_rotatryClap1,_rotatryClap2,_rotatryClap3,_rotatryClap3,_rotataryClap4,_rotatryT1,_rotatryT2,_rotatryT3,_rotatryT4, nil];
     
-    for (MHRotaryKnob *rotaryKnob in rotatryViewsArray)
+    for (MHRotaryKnob *rotaryKnob in rotataryViewsArray)
         [self initializeRotatryViews:rotaryKnob];
+    
+    //[self initializeRotatryViews:rotataryViewsArray];
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self trimRequiredAudioFiles];
@@ -190,7 +192,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _volImageInstru3.center = _instrument3.center;
         _volImageInstru4.center = _instrument4.center;
         _rotatryClap3.center = _instrument3.center;
-        _rotatryClap4.center = _instrument4.center;
+        _rotataryClap4.center = _instrument4.center;
         //_dronePickerBackView.frame = CGRectMake((xDist*2)+60, _dronePickerBackView.frame.origin.y, 60, 60);
         
         //            _Instrument3_Layout.constant = xDist;
@@ -212,7 +214,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _volImageInstru4.center = _instrument4.center;
         _rotatryClap2.center = _instrument2.center;
         _rotatryClap3.center = _instrument3.center;
-        _rotatryClap4.center = _instrument4.center;
+        _rotataryClap4.center = _instrument4.center;
         //_dronePickerBackView.frame = CGRectMake((xDist*3)+120, _dronePickerBackView.frame.origin.y, 60, 60);
         
         //            _Instrument2_Layout.constant = xDist;
@@ -233,7 +235,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         
         _rotatryClap1.center = _instrument1.center;
         _rotatryClap3.center = _instrument3.center;
-        _rotatryClap4.center = _instrument4.center;
+        _rotataryClap4.center = _instrument4.center;
         //_dronePickerBackView.frame = CGRectMake((xDist*3)+120, _dronePickerBackView.frame.origin.y, 60, 60);
         
         //            _Instrument1_Layout.constant = xDist;
@@ -257,7 +259,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _rotatryClap1.center = _instrument1.center;
         _rotatryClap2.center = _instrument2.center;
         _rotatryClap3.center = _instrument3.center;
-        _rotatryClap4.center = _instrument4.center;
+        _rotataryClap4.center = _instrument4.center;
         //_dronePickerBackView.frame = CGRectMake((xDist*4)+180, _dronePickerBackView.frame.origin.y, 60, 60);
         
         //            _Instrument1_Layout.constant = xDist;
@@ -334,42 +336,30 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     if(clapFlag1 == 1)
     {
         _instrument1.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap1 withImage:@"volume_circle1"];
     }
-    else {
+    else
         _instrument1.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap1 withImage:@"volume_circle_black"];
-    }
     
     if(clapFlag2 == 1)
     {
         _instrument2.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap2 withImage:@"volume_circle1"];
     }
-    else {
+    else
         _instrument2.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap2 withImage:@"volume_circle_black"];
-    }
     
     if(clapFlag3 == 1)
     {
         _instrument3.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap3 withImage:@"volume_circle1"];
     }
-    else {
+    else
         _instrument3.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap3 withImage:@"volume_circle_black"];
-    }
     
     if(clapFlag4 == 1)
     {
         _instrument4.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap4 withImage:@"volume_circle1"];
     }
-    else {
+    else
         _instrument4.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap4 withImage:@"volume_circle_black"];
-    }
     
     if(recFlag1 == 1)
     {
@@ -561,7 +551,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                                          repeats:YES];
 }
 
--(void)resetSliderOnSeek:(NSTimer *)timer {  //sn
+-(void)resetSliderOnSeek:(NSTimer *)timer {
     NSString *maxDuration = [self timeFormatted:[durationStringUnFormatted floatValue] - seconds];
     [self configureSliderValues:@{@"MINDURATION":[self timeFormatted:seconds],@"MAXDURATION":maxDuration}];
     _recSlider.value = seconds;
@@ -622,14 +612,16 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 {
     //[menuActionSheet dismissWithClickedButtonIndex:0 animated:YES];
     //[view removeFromSuperView];
-    //NSLog(@"rotatry knob");
+    //NSLog(@"rotatary knob");
     UIControl *control = sender.view;
     
     
     if (control.tag == 1 )
-{
+    {
         if (clapFlag1 == 0 ) {
+            
             [_instrument1 setSelected:YES];
+            
             clapFlag1 = 1;
             
             if(playFlag == 1)
@@ -641,10 +633,15 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             }
         } else {
             [_instrument1 setSelected:NO];
+            
+            
             clapFlag1 = 0;
             [self setMixerInputParameter:0 value:0 param:kMixerParam_Vol];
         }
+    
+        [self setRotaryKnobImageForButton:_instrument1 withRotaryKnob:_rotatryClap1];
     }
+    
     if (control.tag == 2 )
     {
         if (clapFlag2 == 0) {
@@ -672,7 +669,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                    withValue:0
                                     withName:@"clap2"];
         }
+        
+        [self setRotaryKnobImageForButton:_instrument2 withRotaryKnob:_rotatryClap2];
     }
+    
     if (control.tag == 3)
     {
         if (clapFlag3 == 0 ) {
@@ -708,6 +708,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                     withName:@"clap3"];
             //[mixerController setMetronomeVolume:0.0];
         }
+        
+        [self setRotaryKnobImageForButton:_instrument3 withRotaryKnob:_rotatryClap3];
     }
     
     if (control.tag == 4)
@@ -738,11 +740,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                     withName:@"clap4"];
         }
         
-        if([_instrument4 isSelected]) {
+        if([_instrument4 isSelected])
             [_instrument4 setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        } else {
+        else
             [_instrument4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
+        
+        [self setRotaryKnobImageForButton:_instrument4 withRotaryKnob:_rotataryClap4];
     }
     
     if (control.tag == 5 && ![_recTrackOne isEqualToString:@"-1"]) {
@@ -773,7 +776,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                    withValue:0
                                     withName:@"track1"];
         }
+        
+        [self setRotaryKnobImageForButton:_firstVolumeKnob withRotaryKnob:_rotatryT1];
     }
+    
     if (control.tag == 6 && ![_recTrackTwo isEqualToString:@"-1"]) {
         if (recFlag2 == 0) {
             [_secondVolumeKnob setSelected:YES];
@@ -800,7 +806,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                    withValue:0
                                     withName:@"track2"];
         }
+        
+        [self setRotaryKnobImageForButton:_secondVolumeKnob withRotaryKnob:_rotatryT2];
     }
+    
     if (control.tag == 7 && ![_recTrackThree isEqualToString:@"-1"]) {
         if (recFlag3 == 0) {
             [_thirdVolumeKnob setSelected:YES];
@@ -827,7 +836,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                    withValue:0
                                     withName:@"track3"];
         }
+        
+        [self setRotaryKnobImageForButton:_thirdVolumeKnob withRotaryKnob:_rotatryT3];
     }
+    
     if (control.tag == 8 && ![_recTrackFour isEqualToString:@"-1"]) {
         if (recFlag4 == 0) {
             [_fourthVolumeKnob setSelected:YES];
@@ -854,9 +866,16 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                    withValue:0
                                     withName:@"track4"];
         }
+        
+        [self setRotaryKnobImageForButton:_fourthVolumeKnob withRotaryKnob:_rotatryT4];
     }
 }
 
+-(void)setRotaryKnobImageForButton:(UIButton *)button withRotaryKnob:(MHRotaryKnob *)rotaryKnob {
+    NSString *knobImage;
+    ([button isSelected]) ? knobImage = @"volume_circle_white" : knobImage = @"volume_circle_black";
+    [self setRotaryKnobImage:rotaryKnob withImage:knobImage];
+}
 
 #pragma mark - notifications
 
@@ -1725,8 +1744,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_volumeBtn.titleLabel setFont:[UIFont fontWithName:FONT_MEDIUM size:15]];
     mixerInputParam = kMixerParam_Vol;
     
-    for (MHRotaryKnob *rotaryKnob in rotatryViewsArray)
+    for (MHRotaryKnob *rotaryKnob in rotataryViewsArray)
         [self initializeRotatryViews:rotaryKnob];
+    
+    //[self initializeRotatryViews:rotataryViewsArray];
     
 }
 
@@ -1737,8 +1758,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_volumeBtn.titleLabel setFont:[UIFont fontWithName:FONT_LIGHT size:15]];
     mixerInputParam = kMixerParam_Pan;
     
-    for (MHRotaryKnob *rotaryKnob in rotatryViewsArray)
+    for (MHRotaryKnob *rotaryKnob in rotataryViewsArray)
         [self initializeRotatryViews:rotaryKnob];
+    
+    //[self initializeRotatryViews:rotataryViewsArray];
 }
 
 - (IBAction)onTapClap1Btn:(id)sender {
@@ -2081,7 +2104,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_rotatryClap3 addGestureRecognizer:clap3];
     
     UITapGestureRecognizer *clap4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-    [_rotatryClap4 addGestureRecognizer:clap4];
+    [_rotataryClap4 addGestureRecognizer:clap4];
     
     UITapGestureRecognizer *T1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [_rotatryT1 addGestureRecognizer:T1];
@@ -2199,9 +2222,9 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 //        rotaryKnob.resetsToDefault = YES;
 //        rotaryKnob.backgroundColor = [UIColor clearColor];
 //        rotaryKnob.backgroundImage = [UIImage imageNamed:@""];
-//        
-//        //[self setRotaryKnobImage:rotaryKnob withImage:@"volume_circle_black"];
-//        
+//        [rotaryKnob setKnobImage:[UIImage imageNamed:@"volume_circle1"] forState:UIControlStateNormal];
+//        [rotaryKnob setKnobImage:[UIImage imageNamed:@"volume_circle1"] forState:UIControlStateHighlighted];
+//        [rotaryKnob setKnobImage:[UIImage imageNamed:@"volume_circle1"] forState:UIControlStateDisabled];
 //        rotaryKnob.knobImageCenter = CGPointMake(30.0, 30.0);
 //        [rotaryKnob addTarget:self action:@selector(rotaryKnobDidChange:) forControlEvents:UIControlEventValueChanged];
 //        int tag = (int)rotaryKnob.tag;
@@ -2263,71 +2286,71 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
 - (void)initializeRotatryViews:(MHRotaryKnob *)rotaryKnob {
     //for (MHRotaryKnob *rotaryKnob in rotatryViewArray) {
-        rotaryKnob.interactionStyle = MHRotaryKnobInteractionStyleSliderVertical;
-        rotaryKnob.scalingFactor = 1.5;
-        rotaryKnob.resetsToDefault = YES;
-        rotaryKnob.backgroundColor = [UIColor clearColor];
-        rotaryKnob.backgroundImage = [UIImage imageNamed:@""];
-        
-        //[self setRotaryKnobImage:rotaryKnob withImage:@"volume_circle_black"];
-        
-        rotaryKnob.knobImageCenter = CGPointMake(30.0, 30.0);
-        [rotaryKnob addTarget:self action:@selector(rotaryKnobDidChange:) forControlEvents:UIControlEventValueChanged];
-        int tag = (int)rotaryKnob.tag;
-        switch (tag) {
-            case 1:
-                if(mixerInputParam == kMixerParam_Vol)
-                    [rotaryKnob setValue:instrV1 animated:YES];
-                else
-                    [rotaryKnob setValue:instrP1 animated:YES];
-                break;
-            case 2:
-                if(mixerInputParam == kMixerParam_Vol)
-                    [rotaryKnob setValue:instrV2 animated:YES];
-                else
-                    [rotaryKnob setValue:instrP2 animated:YES];
-                break;
-            case 3:
-                if(mixerInputParam == kMixerParam_Vol)
-                    [rotaryKnob setValue:instrV3 animated:YES];
-                else
-                    [rotaryKnob setValue:instrP3 animated:YES];
-                break;
-            case 4:
-                if(mixerInputParam == kMixerParam_Vol)
-                    [rotaryKnob setValue:instrV4 animated:YES];
-                else
-                    [rotaryKnob setValue:instrP4 animated:YES];
-                break;
-            case 5:
-                if(mixerInputParam == kMixerParam_Vol)
-                    [rotaryKnob setValue:tV1 animated:YES];
-                else
-                    [rotaryKnob setValue:tP1 animated:YES];
-                break;
-            case 6:
-                if(mixerInputParam == kMixerParam_Vol)
-                    [rotaryKnob setValue:tV2 animated:YES];
-                else
-                    [rotaryKnob setValue:tP2 animated:YES];
-                break;
-            case 7:
-                if(mixerInputParam == kMixerParam_Vol)
-                    [rotaryKnob setValue:tV3 animated:YES];
-                else
-                    [rotaryKnob setValue:tP3 animated:YES];
-                break;
-            case 8:
-                if(mixerInputParam == kMixerParam_Vol)
-                    [rotaryKnob setValue:tV4 animated:YES];
-                else
-                    [rotaryKnob setValue:tP4 animated:YES];
-                break;
-                
-            default:
-                break;
-        }
-   // }
+    rotaryKnob.interactionStyle = MHRotaryKnobInteractionStyleSliderVertical;
+    rotaryKnob.scalingFactor = 1.5;
+    rotaryKnob.resetsToDefault = YES;
+    rotaryKnob.backgroundColor = [UIColor clearColor];
+    rotaryKnob.backgroundImage = [UIImage imageNamed:@""];
+    
+    //[self setRotaryKnobImage:rotaryKnob withImage:@"volume_circle_black"];
+    
+    rotaryKnob.knobImageCenter = CGPointMake(30.0, 30.0);
+    [rotaryKnob addTarget:self action:@selector(rotaryKnobDidChange:) forControlEvents:UIControlEventValueChanged];
+    int tag = (int)rotaryKnob.tag;
+    switch (tag) {
+        case 1:
+            if(mixerInputParam == kMixerParam_Vol)
+                [rotaryKnob setValue:instrV1 animated:YES];
+            else
+                [rotaryKnob setValue:instrP1 animated:YES];
+            break;
+        case 2:
+            if(mixerInputParam == kMixerParam_Vol)
+                [rotaryKnob setValue:instrV2 animated:YES];
+            else
+                [rotaryKnob setValue:instrP2 animated:YES];
+            break;
+        case 3:
+            if(mixerInputParam == kMixerParam_Vol)
+                [rotaryKnob setValue:instrV3 animated:YES];
+            else
+                [rotaryKnob setValue:instrP3 animated:YES];
+            break;
+        case 4:
+            if(mixerInputParam == kMixerParam_Vol)
+                [rotaryKnob setValue:instrV4 animated:YES];
+            else
+                [rotaryKnob setValue:instrP4 animated:YES];
+            break;
+        case 5:
+            if(mixerInputParam == kMixerParam_Vol)
+                [rotaryKnob setValue:tV1 animated:YES];
+            else
+                [rotaryKnob setValue:tP1 animated:YES];
+            break;
+        case 6:
+            if(mixerInputParam == kMixerParam_Vol)
+                [rotaryKnob setValue:tV2 animated:YES];
+            else
+                [rotaryKnob setValue:tP2 animated:YES];
+            break;
+        case 7:
+            if(mixerInputParam == kMixerParam_Vol)
+                [rotaryKnob setValue:tV3 animated:YES];
+            else
+                [rotaryKnob setValue:tP3 animated:YES];
+            break;
+        case 8:
+            if(mixerInputParam == kMixerParam_Vol)
+                [rotaryKnob setValue:tV4 animated:YES];
+            else
+                [rotaryKnob setValue:tP4 animated:YES];
+            break;
+            
+        default:
+            break;
+    }
+    // }
 }
 
 - (void)setRotaryKnobImage:(MHRotaryKnob *)rotaryKnob withImage:(NSString *)imageName {
@@ -2776,7 +2799,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _volImageInstru3.center = _instrument3.center;
         _volImageInstru4.center = _instrument4.center;
         _rotatryClap3.center = _instrument3.center;
-        _rotatryClap4.center = _instrument4.center;
+        _rotataryClap4.center = _instrument4.center;
         //_dronePickerBackView.frame = CGRectMake((xDist*2)+60, _dronePickerBackView.frame.origin.y, 60, 60);
         
         //            _Instrument3_Layout.constant = xDist;
@@ -2798,7 +2821,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _volImageInstru4.center = _instrument4.center;
         _rotatryClap2.center = _instrument2.center;
         _rotatryClap3.center = _instrument3.center;
-        _rotatryClap4.center = _instrument4.center;
+        _rotataryClap4.center = _instrument4.center;
         //_dronePickerBackView.frame = CGRectMake((xDist*3)+120, _dronePickerBackView.frame.origin.y, 60, 60);
         
         //            _Instrument2_Layout.constant = xDist;
@@ -2819,7 +2842,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         
         _rotatryClap1.center = _instrument1.center;
         _rotatryClap3.center = _instrument3.center;
-        _rotatryClap4.center = _instrument4.center;
+        _rotataryClap4.center = _instrument4.center;
         //_dronePickerBackView.frame = CGRectMake((xDist*3)+120, _dronePickerBackView.frame.origin.y, 60, 60);
         
         //            _Instrument1_Layout.constant = xDist;
@@ -2843,7 +2866,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _rotatryClap1.center = _instrument1.center;
         _rotatryClap2.center = _instrument2.center;
         _rotatryClap3.center = _instrument3.center;
-        _rotatryClap4.center = _instrument4.center;
+        _rotataryClap4.center = _instrument4.center;
         //_dronePickerBackView.frame = CGRectMake((xDist*4)+180, _dronePickerBackView.frame.origin.y, 60, 60);
         
         //            _Instrument1_Layout.constant = xDist;
@@ -2918,7 +2941,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     if([_recTrackOne isEqualToString:@"-1"])
         _maxRecDurationLbl.text = @"00:00";
     else
-        _maxRecDurationLbl.text = [NSString stringWithFormat:@"-%@",songDuration];
+        _maxRecDurationLbl.text = [NSString stringWithFormat:@"-%@", songDuration];
     
     if (![droneName isEqualToString:@"-1"])
     {
@@ -2929,63 +2952,82 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     if(clapFlag1 == 1)
     {
         _instrument1.selected = YES;
+        [self setRotaryKnobImage:_rotatryClap1 withImage:@"volume_circle_white"];
     }
-    else
+    else {
         _instrument1.selected = NO;
+        [self setRotaryKnobImage:_rotatryClap1 withImage:@"volume_circle_black"];
+    }
     
     if(clapFlag2 == 1)
     {
         _instrument2.selected = YES;
+        [self setRotaryKnobImage:_rotatryClap2 withImage:@"volume_circle_white"];
     }
-    else
+    else {
         _instrument2.selected = NO;
+        [self setRotaryKnobImage:_rotatryClap2 withImage:@"volume_circle_black"];
+    }
     
     if(clapFlag3 == 1)
     {
         _instrument3.selected = YES;
+        [self setRotaryKnobImage:_rotatryClap3 withImage:@"volume_circle_white"];
     }
-    else
+    else {
         _instrument3.selected = NO;
+        [self setRotaryKnobImage:_rotatryClap3 withImage:@"volume_circle_black"];
+    }
     
     if(clapFlag4 == 1)
     {
         _instrument4.selected = YES;
-        [_instrument4 setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [self setRotaryKnobImage:_rotataryClap4 withImage:@"volume_circle_white"];
     }
     else {
         _instrument4.selected = NO;
-        [_instrument4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self setRotaryKnobImage:_rotataryClap4 withImage:@"volume_circle_black"];
     }
     
     if(recFlag1 == 1)
     {
         _firstVolumeKnob.selected = YES;
+        [self setRotaryKnobImage:_rotatryT1 withImage:@"volume_circle_white"];
     }
-    else
+    else {
         _firstVolumeKnob.selected = NO;
+        [self setRotaryKnobImage:_rotatryT1 withImage:@"volume_circle_black"];
+    }
     
     if(recFlag2 == 1)
     {
         _secondVolumeKnob.selected = YES;
+        [self setRotaryKnobImage:_rotatryT2 withImage:@"volume_circle_white"];
     }
-    else
+    else {
         _secondVolumeKnob.selected = NO;
+        [self setRotaryKnobImage:_rotatryT2 withImage:@"volume_circle_black"];
+    }
     
     if(recFlag3 == 1)
     {
         _thirdVolumeKnob.selected = YES;
+        [self setRotaryKnobImage:_rotatryT3 withImage:@"volume_circle_white"];
     }
-    else
+    else {
         _thirdVolumeKnob.selected = NO;
+        [self setRotaryKnobImage:_rotatryT3 withImage:@"volume_circle_black"];
+    }
     
     if(recFlag4 == 1)
     {
         _fourthVolumeKnob.selected = YES;
+        [self setRotaryKnobImage:_rotatryT4 withImage:@"volume_circle_white"];
     }
-    else
+    else {
         _fourthVolumeKnob.selected = NO;
-    
-    
+        [self setRotaryKnobImage:_rotatryT4 withImage:@"volume_circle_black"];
+    }
 }
 
 
