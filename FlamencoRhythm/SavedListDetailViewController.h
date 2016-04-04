@@ -260,6 +260,8 @@
           withTotalDuration:(float)totalAudioDuration
         withRecordingString:(NSString *)recordingString;
 
+- (void)updateRecordingDb;
+
 ////In App purchase
 - (void)fetchAvailableProducts;
 - (BOOL)canMakePurchases;

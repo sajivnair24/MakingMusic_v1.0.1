@@ -56,6 +56,10 @@ static NSString *cellIdentifier = @"CELL";
     [super viewWillAppear:animated];
     
     //    songList = [[NSMutableArray alloc] initWithObjects:@"Tangos (100 BPM A#)",@"My Second Song",@"My Third Song",@"My Forth Song",@"Thriller Remix",@"MC Hammer"@"Save The World",@"Get Down",@"Get Up",@"Good Morning", nil];
+    
+//    if(songList != nil)
+//        [_expander updateRecordingDb];
+    
     songList = [[NSMutableArray alloc] init];
     songList = [sqlManager getAllRecordingData];
    
