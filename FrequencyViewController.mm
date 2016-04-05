@@ -8,6 +8,8 @@
 
 #import "FrequencyViewController.h"
 #include <iostream>
+#import "Constants.h"
+#define WHITE_CIRCLE_IMAGE_NAME @"beat_ball_grey"
 using namespace std;
 
 const float freq[12] = {16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87};
@@ -84,14 +86,27 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 
     droneArray = [[NSArray alloc]initWithObjects:@"C", @"D", @"D", @"E", @"E", @"F", @"G", @"G", @"A", @"A", @"B", @"B", nil];
-}
+    
+    firstLbl.font = [UIFont fontWithName:FONT_REGULAR size:125];
+    secondLbl.font = [UIFont fontWithName:FONT_REGULAR size:80];
+    self.view.backgroundColor = [UIColor clearColor];
+   _droneBeatMeter.backgroundColor = [UIColor clearColor];
+    UIView *alphabackground = [[UIView alloc]initWithFrame:self.view.bounds];
+    [self.view insertSubview:alphabackground atIndex:0];
+    alphabackground.backgroundColor = [UIColor blackColor];
+    alphabackground.alpha = 0.9;
+   // secondLbl.backgroundColor = [UIColor redColor];
+    //firstLbl.backgroundColor = [UIColor blueColor];
 
+}
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     for (int i = 1; i <14; i++) {
         UIImageView *img = (UIImageView*)[self.droneBeatMeter viewWithTag:i];
+        img.image = [UIImage imageNamed:WHITE_CIRCLE_IMAGE_NAME];
         [img setHidden:YES];
     }
+    _droneBeatMeter.backgroundColor = [UIColor clearColor];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -142,10 +157,10 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
             }
             
             centerImage = (UIImageView*)[self.droneBeatMeter viewWithTag:ind];
-            [centerImage setImage:[UIImage imageNamed:@"Claps4_Gray.png"]];
+            [centerImage setImage:[UIImage imageNamed:WHITE_CIRCLE_IMAGE_NAME]];
             
             centerImage1 = (UIImageView*)[self.droneBeatMeter viewWithTag:otherInd];
-            [centerImage1 setImage:[UIImage imageNamed:@"Claps4_Gray.png"]];
+            [centerImage1 setImage:[UIImage imageNamed:WHITE_CIRCLE_IMAGE_NAME]];
             
             
             if ((smallestIndex == 1) || (smallestIndex == 3) || (smallestIndex == 6) || (smallestIndex == 8) || (smallestIndex == 10)) {
@@ -154,7 +169,8 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
                 [secondLbl setHidden:NO];
                 // Show Both Labels
                 firstLbl.frame = CGRectMake(2, 35, 85, 110);
-                secondLbl.frame = CGRectMake(82, 5, 60, 110);
+                //secondLbl.frame = CGRectMake(82, 5, 200, 110);
+                secondLbl.frame = CGRectMake(70, -10, 200, 130);
                 
             } else {
                 [secondLbl setHidden:YES];
@@ -173,10 +189,10 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
         firstLbl.text = @"";
         secondLbl.text = @"";
         centerImage = (UIImageView*)[self.droneBeatMeter viewWithTag:ind];
-        [centerImage setImage:[UIImage imageNamed:@"Claps4_Gray.png"]];
+        [centerImage setImage:[UIImage imageNamed:WHITE_CIRCLE_IMAGE_NAME]];
         
         centerImage1 = (UIImageView*)[self.droneBeatMeter viewWithTag:otherInd];
-        [centerImage1 setImage:[UIImage imageNamed:@"Claps4_Gray.png"]];
+        [centerImage1 setImage:[UIImage imageNamed:WHITE_CIRCLE_IMAGE_NAME]];
     }
 }
 

@@ -352,7 +352,7 @@
     NSString *lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
     
     if (![beatOneMusicFile isEqualToString:@"-1"]) {
-        fileLocation = [MainNavigationViewController getAbsoluteDocumentsPath:@"Beats"];
+        fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
         fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
         
         [mixArray addObject:[self getFilePathWithFormat:fileLocation
@@ -363,7 +363,7 @@
         listItems = [beatTwoMusicFile componentsSeparatedByString:@"/"];
         lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
         
-        fileLocation = [MainNavigationViewController getAbsoluteDocumentsPath:@"Beats"];
+        fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
         fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
         
         [mixArray addObject:[self getFilePathWithFormat:fileLocation
@@ -406,7 +406,7 @@
                                             withTotalDuration:songDuration
                                           withRecordingString:currentRythmName];
     
-    NSString *beatsDirectory = [MainNavigationViewController getAbsoluteDocumentsPath:@"Beats"];
+    NSString *beatsDirectory = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
     if ([[NSFileManager defaultManager] isDeletableFileAtPath:beatsDirectory]) {
         [[NSFileManager defaultManager] removeItemAtPath:beatsDirectory error:nil];
     }
@@ -464,8 +464,8 @@
         NSArray *beatTwoItems = [beatTwoMusicFile componentsSeparatedByString:@"/"];
         NSString *beatTwo = [NSString stringWithFormat:@"%@", beatTwoItems.lastObject];
         
-        beatOne = [MainNavigationViewController getAbsoluteBundlePath:beatOne];
-        NSString *beatOneTimeStretched = [MainNavigationViewController getAbsoluteDocumentsPath:@"Beats"];
+        beatOne = [MainNavigationViewController getAbsBundlePath:beatOne];
+        NSString *beatOneTimeStretched = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
         
         BOOL isDir;
         
@@ -483,8 +483,8 @@
                               withOutputFile:beatOneTimeStretched
                                    withTempo:tempo];
         
-        beatTwo = [MainNavigationViewController getAbsoluteBundlePath:beatTwo];
-        NSString *beatTwoTimeStretched = [MainNavigationViewController getAbsoluteDocumentsPath:@"Beats"];
+        beatTwo = [MainNavigationViewController getAbsBundlePath:beatTwo];
+        NSString *beatTwoTimeStretched = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
         beatTwoTimeStretched = [NSString stringWithFormat:@"%@/%@", beatTwoTimeStretched, beatTwoItems.lastObject];
         
         [timeStretcher timeStretchAndConvert:beatTwo

@@ -13,6 +13,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "SavedListDetailViewController.h"
 
+static BOOL headphonePlugged;
 
 @class AppDelegate;
 
@@ -51,13 +52,14 @@
 -(void)viewToPresent:(int)_index withDictionary:(NSDictionary*)_dict;
 - (IBAction)OnChangeVolumeSlider:(id)sender;
 - (IBAction)onTapChromaticTuner:(id)sender;
++ (BOOL)isHeadphonePlugged;
 + (BOOL)isIPhoneOlderThanVersion6;
 + (BOOL)checkNetworkStatus;
 + (void)setPurchaseInfo:(NSString *)status;
 + (BOOL)inAppPurchaseEnabled;
 + (void)trimClickFile:(int)currentBpm;
-+ (NSString *)getAbsoluteBundlePath:(NSString *)fileName;
-+ (NSString *)getAbsoluteDocumentsPath:(NSString *)fileName;
++ (NSString *)getAbsBundlePath:(NSString *)fileName;
++ (NSString *)getAbsDocumentsPath:(NSString *)fileName;
 
 //navigation funcations
 -(void)openRecordingView;

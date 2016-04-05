@@ -51,7 +51,7 @@ dispatch_source_t createDispatchTimer(double interval, dispatch_queue_t queue, d
     dispatch_once(&onceToken, ^{
         audioRecorder = [[self alloc] init];
         auRecorder = [[AudioUnitRecorder alloc] init];
-        [auRecorder initializeAudioSession];
+        //[auRecorder initializeAudioSession];
         
         //avRecorder = [[AVAudioRecorder alloc] init];
         //        [self createAudioReocrder];

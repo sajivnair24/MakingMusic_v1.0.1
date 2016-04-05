@@ -59,8 +59,14 @@
                                name:@"enablePagingNotification"
                              object:nil];
     
+    [notificationCenter addObserver:self
+                           selector:@selector(audioRouteChangeListenerCallback:)
+                               name:AVAudioSessionRouteChangeNotification
+                             object:nil];
+    
     //[self registerForMediaPlayerNotifications];
     [_musicPlayer beginGeneratingPlaybackNotifications];
+    headphonePlugged = [self areHeadphonesPluggedIn];
     
     self.pageController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     self.pageController.dataSource = self;
@@ -260,7 +266,18 @@
 
 - (IBAction)onTapChromaticTuner:(id)sender {
     FrequencyViewController *productDetailsView =[self.storyboard instantiateViewControllerWithIdentifier:@"frequencyVC"];
+    productDetailsView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:productDetailsView animated:YES completion:nil];
+}
+
+- (BOOL)areHeadphonesPluggedIn {
+    NSArray *availableOutputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
+    for (AVAudioSessionPortDescription *portDescription in availableOutputs) {
+        if ([portDescription.portType isEqualToString:AVAudioSessionPortHeadphones]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - Page View Controller Data Source
@@ -326,6 +343,33 @@
     } else {
        // pageController.dataSource = self;
     }
+}
+
+- (void)audioRouteChangeListenerCallback:(NSNotification*)notification {
+    NSDictionary *interuptionDict = notification.userInfo;
+    
+    NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    
+    switch (routeChangeReason) {
+            
+        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+            NSLog(@"Headphone/Line plugged in");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HIDEMICSWITCH"
+                                                                object:@"NO"];
+            headphonePlugged = YES;
+            break;
+            
+        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+            NSLog(@"Headphone/Line was pulled. Stopping player....");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HIDEMICSWITCH"
+                                                                object:@"YES"];
+            headphonePlugged = NO;
+            break;
+    }
+}
+
++ (BOOL)isHeadphonePlugged {
+    return headphonePlugged;
 }
 
 + (NSString *)platformType:(NSString *)platform
@@ -424,8 +468,8 @@
 + (void)trimClickFile:(int)currentBpm {
     
     // Path of your source audio file
-    NSURL *audioFileInput = [NSURL fileURLWithPath:[self getAbsoluteBundlePath:@"Click AccentedNew.wav"]];
-    NSURL *audioFileOutput = [NSURL fileURLWithPath:[self getAbsoluteDocumentsPath:@"Click.m4a"]];
+    NSURL *audioFileInput = [NSURL fileURLWithPath:[self getAbsBundlePath:@"Click AccentedNew.wav"]];
+    NSURL *audioFileOutput = [NSURL fileURLWithPath:[self getAbsDocumentsPath:@"Click.m4a"]];
     
     [[NSFileManager defaultManager] removeItemAtURL:audioFileOutput error:NULL];
     AVAsset *asset = [AVAsset assetWithURL:audioFileInput];
@@ -457,11 +501,11 @@
      }];
 }
 
-+ (NSString *)getAbsoluteBundlePath:(NSString *)fileName {
++ (NSString *)getAbsBundlePath:(NSString *)fileName {
     return [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], fileName];
 }
 
-+ (NSString *)getAbsoluteDocumentsPath:(NSString *)fileName {
++ (NSString *)getAbsDocumentsPath:(NSString *)fileName {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     return [NSString stringWithFormat:@"%@/%@", documentsDirectory, fileName];

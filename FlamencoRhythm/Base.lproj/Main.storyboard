@@ -5,6 +5,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="SF-UI-Text-Regular.otf">
+            <string>SFUIText-Regular</string>
+            <string>SFUIText-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Main Navigation View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -31,7 +37,7 @@
                                 </constraints>
                             </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="K2z-V7-WsJ">
-                                <rect key="frame" x="47" y="561" width="488" height="31"/>
+                                <rect key="frame" x="45" y="560" width="490" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="wzP-rj-12C"/>
                                 </constraints>
@@ -66,11 +72,11 @@
                             <constraint firstItem="uwC-5n-lsf" firstAttribute="top" secondItem="WJF-EB-Jb2" secondAttribute="bottom" constant="-3" id="5W4-2S-kSn"/>
                             <constraint firstItem="GT4-T8-i1S" firstAttribute="top" secondItem="WJF-EB-Jb2" secondAttribute="bottom" constant="-3" id="CEF-fU-uKV"/>
                             <constraint firstAttribute="trailing" secondItem="uwC-5n-lsf" secondAttribute="trailing" id="CII-5V-Pcd"/>
-                            <constraint firstItem="K2z-V7-WsJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="49" id="LsA-BJ-lWo"/>
+                            <constraint firstItem="K2z-V7-WsJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="47" id="LsA-BJ-lWo"/>
                             <constraint firstItem="uwC-5n-lsf" firstAttribute="leading" secondItem="K2z-V7-WsJ" secondAttribute="trailing" constant="15" id="Lug-kt-31Z"/>
                             <constraint firstItem="IQu-5D-Nxm" firstAttribute="leading" secondItem="K2z-V7-WsJ" secondAttribute="trailing" constant="36" id="MYC-sU-BA4"/>
                             <constraint firstItem="IQu-5D-Nxm" firstAttribute="top" secondItem="WJF-EB-Jb2" secondAttribute="bottom" constant="6" id="Ssz-Qf-fa4"/>
-                            <constraint firstItem="K2z-V7-WsJ" firstAttribute="top" secondItem="WJF-EB-Jb2" secondAttribute="bottom" constant="8" id="YkF-EA-SDb"/>
+                            <constraint firstItem="K2z-V7-WsJ" firstAttribute="top" secondItem="WJF-EB-Jb2" secondAttribute="bottom" constant="7" id="YkF-EA-SDb"/>
                             <constraint firstAttribute="bottom" secondItem="WJF-EB-Jb2" secondAttribute="bottom" constant="47" id="fnV-Dh-AS2"/>
                             <constraint firstAttribute="trailing" secondItem="WJF-EB-Jb2" secondAttribute="trailing" id="iHz-81-pDo"/>
                             <constraint firstAttribute="trailing" secondItem="GT4-T8-i1S" secondAttribute="trailing" id="oTF-kl-IO1"/>
@@ -1073,7 +1079,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Fc-jh-J26" secondAttribute="trailing" id="eeJ-23-v1Y"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FE952220-7221-4F2D-B47F-4F81F2D4AC2F" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5425F94D-AB28-4B06-9E0F-15547CCF9E09" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
                                         <rect key="frame" x="0.0" y="64" width="600" height="72"/>
                                     </imageView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwJ-Ky-7ck" userLabel="iCarousel" customClass="iCarousel">
@@ -1493,7 +1499,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" tag="786" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3O-F1-Y42">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <rect key="frame" x="33" y="0.0" width="600" height="600"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1510,8 +1516,8 @@
                                     <constraint firstItem="lld-LY-l63" firstAttribute="bottom" secondItem="mEi-8k-xJl" secondAttribute="bottom" multiplier="0.62324" constant="1.0559999999999832" id="r8Q-jb-adc"/>
                                 </constraints>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FE4-cT-dH8" userLabel="RhythmLabel">
-                                <rect key="frame" x="236" y="65" width="129" height="150"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FE4-cT-dH8" userLabel="RhythmLabel">
+                                <rect key="frame" x="226" y="65" width="150" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLM-MP-bx5" userLabel="FirstLbl">
                                         <rect key="frame" x="2" y="35" width="85" height="110"/>
@@ -1519,17 +1525,17 @@
                                             <constraint firstAttribute="width" constant="85" id="Zf7-cR-UT7"/>
                                             <constraint firstAttribute="height" constant="110" id="moe-Mx-PQg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="125"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="120"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJH-8M-fTu" userLabel="SecondLbl">
-                                        <rect key="frame" x="82" y="5" width="45" height="95"/>
+                                        <rect key="frame" x="82" y="5" width="62" height="95"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="95" id="kv6-L2-scg"/>
-                                            <constraint firstAttribute="width" constant="45" id="mq6-hB-xAp"/>
+                                            <constraint firstAttribute="width" constant="62" id="mq6-hB-xAp"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="90"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="90"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1538,7 +1544,7 @@
                                     <constraint firstItem="YJH-8M-fTu" firstAttribute="leading" secondItem="XLM-MP-bx5" secondAttribute="trailing" constant="-5" id="HM3-5D-Bch"/>
                                     <constraint firstItem="XLM-MP-bx5" firstAttribute="leading" secondItem="FE4-cT-dH8" secondAttribute="leading" constant="2" id="Rnw-46-EFU"/>
                                     <constraint firstItem="XLM-MP-bx5" firstAttribute="top" secondItem="FE4-cT-dH8" secondAttribute="top" constant="35" id="V4h-vc-lsH"/>
-                                    <constraint firstAttribute="width" constant="129" id="n0n-OF-BZA"/>
+                                    <constraint firstAttribute="width" constant="150" id="n0n-OF-BZA"/>
                                     <constraint firstAttribute="height" constant="150" id="piY-al-HwW"/>
                                     <constraint firstItem="YJH-8M-fTu" firstAttribute="top" secondItem="FE4-cT-dH8" secondAttribute="top" constant="5" id="rgG-nj-PyC"/>
                                 </constraints>
@@ -1685,17 +1691,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Bar.png" width="620" height="86"/>
-        <image name="BlockBlue.png" width="620" height="86"/>
-        <image name="Cajon.png" width="61" height="61"/>
-        <image name="Cajon_disabled.png" width="60" height="60"/>
-        <image name="Claps.png" width="92" height="92"/>
-        <image name="Claps3_Blue.png" width="122" height="122"/>
-        <image name="Claps3_Gray.png" width="61" height="61"/>
-        <image name="Claps4_Blue.png" width="120" height="120"/>
-        <image name="Claps4_Gray.png" width="120" height="120"/>
-        <image name="Claps_disabled.png" width="60" height="60"/>
-        <image name="FE952220-7221-4F2D-B47F-4F81F2D4AC2F" width="320" height="74">
+        <image name="5425F94D-AB28-4B06-9E0F-15547CCF9E09" width="320" height="74">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -3346,6 +3342,16 @@ AAGAfgABgIAAAYCFAAGAjQABgJAAAYCVAAGAnQABgKAAAYCyAAGAtQABgLoAAAAAAAAEAQAAAAAAAAA/
 AAAAAAAAAAAAAAAAAAGAvA
 </mutableData>
         </image>
+        <image name="Bar.png" width="620" height="86"/>
+        <image name="BlockBlue.png" width="620" height="86"/>
+        <image name="Cajon.png" width="61" height="61"/>
+        <image name="Cajon_disabled.png" width="60" height="60"/>
+        <image name="Claps.png" width="92" height="92"/>
+        <image name="Claps3_Blue.png" width="122" height="122"/>
+        <image name="Claps3_Gray.png" width="61" height="61"/>
+        <image name="Claps4_Blue.png" width="120" height="120"/>
+        <image name="Claps4_Gray.png" width="44" height="44"/>
+        <image name="Claps_disabled.png" width="60" height="60"/>
         <image name="circle_volume_white.png" width="60" height="60"/>
         <image name="closebutton.png" width="122" height="122"/>
         <image name="closenew.png" width="30" height="30"/>

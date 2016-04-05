@@ -1939,7 +1939,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         
         if(clapFlag1 == 1)
         {
-            NSString *p1 = [MainNavigationViewController getAbsoluteDocumentsPath:[clap1Path lastPathComponent]];
+            NSString *p1 = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
             //            p1 = [p1 stringByDeletingPathExtension];
             //            p1 = [p1 stringByAppendingPathExtension:@"wav"];
             //            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
@@ -1954,10 +1954,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         {
             NSString *p2;
             if([[clap2Path lastPathComponent] isEqualToString:@"Sync 2.m4a"]) {       //snn
-                p2 = [MainNavigationViewController getAbsoluteDocumentsPath:@"Click.m4a"];
+                p2 = [MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"];
             }
             else {
-                p2 = [MainNavigationViewController getAbsoluteDocumentsPath:[clap2Path lastPathComponent]];
+                p2 = [MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]];
             }
             //            p2 = [p2 stringByDeletingPathExtension];
             //            p2 = [p2 stringByAppendingPathExtension:@"wav"];
@@ -2415,24 +2415,24 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 }
 
 - (void)trimRequiredAudioFiles {
-    [self trimAudioFileWithInputFilePath:[MainNavigationViewController getAbsoluteBundlePath:@"Click AccentedNew.wav"]
-                        toOutputFilePath:[MainNavigationViewController getAbsoluteDocumentsPath:@"Click.m4a"]
+    [self trimAudioFileWithInputFilePath:[MainNavigationViewController getAbsBundlePath:@"Click AccentedNew.wav"]
+                        toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"]
                                 withFlag:NO];
     
     float tempo = [_startBPM floatValue]/[originalBPM floatValue];
     [self timeStretchRhythmsAndSave:clap1Path withSecondInstr:clap2Path withTempo:tempo];
     
     // Trim code
-    NSString *inst1Path = [MainNavigationViewController getAbsoluteDocumentsPath:[clap1Path lastPathComponent]];
+    NSString *inst1Path = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
     inst1Path = [inst1Path stringByDeletingPathExtension];
     inst1Path = [inst1Path stringByAppendingPathExtension:@"wav"];
     
-    NSString *inst2Path = [MainNavigationViewController getAbsoluteDocumentsPath:[clap2Path lastPathComponent]];
+    NSString *inst2Path = [MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]];
     inst2Path = [inst2Path stringByDeletingPathExtension];
     inst2Path = [inst2Path stringByAppendingPathExtension:@"wav"];
     
-    [self trimAudioFileInputFilePath:inst1Path toOutputFilePath:[MainNavigationViewController getAbsoluteDocumentsPath:[clap1Path lastPathComponent]]];
-    [self trimAudioFileInputFilePath:inst2Path toOutputFilePath:[MainNavigationViewController getAbsoluteDocumentsPath:[clap2Path lastPathComponent]]];
+    [self trimAudioFileInputFilePath:inst1Path toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]]];
+    [self trimAudioFileInputFilePath:inst2Path toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]]];
 }
 
 - (void)timeStretchRhythmsAndSave:(NSString *)firstInstr
@@ -2440,11 +2440,11 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                         withTempo:(float)tempo {
     
     [timeStretcher timeStretchAndConvert:firstInstr
-                          withOutputFile:[MainNavigationViewController getAbsoluteDocumentsPath:[firstInstr lastPathComponent]]
+                          withOutputFile:[MainNavigationViewController getAbsDocumentsPath:[firstInstr lastPathComponent]]
                                withTempo:tempo];
     
     [timeStretcher timeStretchAndConvert:secondInstr
-                          withOutputFile:[MainNavigationViewController getAbsoluteDocumentsPath:[secondInstr lastPathComponent]]
+                          withOutputFile:[MainNavigationViewController getAbsDocumentsPath:[secondInstr lastPathComponent]]
                                withTempo:tempo];
 }
 
@@ -4237,7 +4237,7 @@ float roundUp (float value, int digits) {
         [audioPlayerArray addObject:dct];
     }
     
-    fileLocation = [MainNavigationViewController getAbsoluteDocumentsPath:@"Click.m4a"];
+    fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"];
     //volume = playerVolume(clapFlag2);
     if(clapFlag3 == 1) {
         if (instrV3 == 0)

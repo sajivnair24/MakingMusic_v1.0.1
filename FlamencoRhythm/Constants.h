@@ -39,6 +39,8 @@ alpha:1.0]
 #endif // DLog
 
 #define IN_APP_PURCHASE_ENABLE 1
+enum UserInputMic { kUserInput_BuiltIn, kUserInput_Headphone };
+
 /********************************colors***************************/
  #define FONT_BLUE_COLOR 0x0070ff //0x007aff //0x0079ff  //2,122,255
 #define FONT_COLOR [UIColor colorWithRed:0/225.0 green:122/255.0 blue:255.0/255.0 alpha:1]

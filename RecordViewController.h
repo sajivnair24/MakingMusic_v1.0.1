@@ -71,6 +71,8 @@
     UIVisualEffectView *visualEffectView;
     UIButton *clap3ImageView;
     UIView *footerFadedBackground;
+    NSLayoutConstraint *headPhoneDropdownViewWidthConstraint;
+    UILabel *headPhoneLabel;
     /***Nirma***/
 }
 
@@ -164,6 +166,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *genreBGView;
 @property (weak, nonatomic) IBOutlet UILabel *micDropDownLbl;
 @property (weak, nonatomic) IBOutlet UIView *controlsView;
+@property (strong, nonatomic) IBOutlet UIView *headPhoneMic;
 
 
 - (IBAction)onTapClap1Btn:(id)sender;
