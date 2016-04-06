@@ -2029,7 +2029,8 @@ int inputMic;
     NSString *fileLocation;
     NSString *volume;
     NSDictionary *dct;
-    NSNumber *rhythmBpm = [NSNumber numberWithInt:currentBpm];
+    //NSNumber *rhythmBpm = [NSNumber numberWithInt:currentBpm];
+    NSNumber *rhythmBpm = [NSNumber numberWithInt:mCurrentScore];
     
     //NSLog(@"the nill value: %@",rhytmObj.rhythmBPM);
     if (![rhytmObj.rhythmBeatOne isEqualToString:@"-1"]) {
