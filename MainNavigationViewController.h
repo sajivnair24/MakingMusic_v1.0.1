@@ -46,6 +46,7 @@ static BOOL headphonePlugged;
 @property (strong, nonatomic)  MPMusicPlayerController *musicPlayer;
 @property (strong, nonatomic) IBOutlet UIButton *tunerBtn;
 @property (strong, nonatomic) IBOutlet UIImageView *tunerBlackImage;
+@property (assign, nonatomic) int previousPageIndex;
 
 @property (nonatomic, assign) id<MainNavigationViewControllerDelegate> delegate;
 

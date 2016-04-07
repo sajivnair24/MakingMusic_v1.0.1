@@ -9,7 +9,7 @@
 #import "SessionCell.h"
 #import "PureLayout.h"
 #import "Constants.h"
-#define DIFFERENCE_FROM_PLAY_BUTTON 13
+#define DIFFERENCE_FROM_PLAY_BUTTON 0
 @implementation SessionCell
 @synthesize songNameLbl,dateLbl,TotalTimeLbl,songDetailLbl,tapCount,seprator,playButton,sessionSelectButton;;
 - (void)awakeFromNib {
@@ -42,7 +42,7 @@
         NSLog(@"imageSize w=%f ,h=%f",playImage.size.width,playImage.size.height);
         [playButton setImage:playImage forState:UIControlStateNormal];
         [playButton autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:DIFFERENCE_FROM_PLAY_BUTTON];
-        [playButton autoSetDimensionsToSize:CGSizeMake(16, 18)];
+        [playButton autoSetDimensionsToSize:CGSizeMake(42, 48)];
         // [playButton autoSetDimensionsToSize:playImage.size];
         [playButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
        // playButton.backgroundColor = [UIColor redColor];

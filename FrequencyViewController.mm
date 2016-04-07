@@ -94,7 +94,7 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
     UIView *alphabackground = [[UIView alloc]initWithFrame:self.view.bounds];
     [self.view insertSubview:alphabackground atIndex:0];
     alphabackground.backgroundColor = [UIColor blackColor];
-    alphabackground.alpha = 0.9;
+    alphabackground.alpha = 0.92;
    // secondLbl.backgroundColor = [UIColor redColor];
     //firstLbl.backgroundColor = [UIColor blueColor];
 

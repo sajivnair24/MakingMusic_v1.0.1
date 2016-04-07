@@ -2151,7 +2151,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "2994d5bd-4c40-4bad-9d3c-82e6460bd8e3";
+				PROVISIONING_PROFILE = "a88267b1-8d6e-44b4-a055-8215d32e7bb1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -2191,7 +2191,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "ab60a534-dbfe-489e-9dd6-607b4ac0c5b1";
+				PROVISIONING_PROFILE = "5ca5c148-ac9b-4ce8-9783-e87a452fe766";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2223,7 +2223,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.musicmemos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2994d5bd-4c40-4bad-9d3c-82e6460bd8e3";
+				PROVISIONING_PROFILE = "a88267b1-8d6e-44b4-a055-8215d32e7bb1";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2253,7 +2253,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.musicmemos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ab60a534-dbfe-489e-9dd6-607b4ac0c5b1";
+				PROVISIONING_PROFILE = "5ca5c148-ac9b-4ce8-9783-e87a452fe766";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2276,7 +2276,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2994d5bd-4c40-4bad-9d3c-82e6460bd8e3";
+				PROVISIONING_PROFILE = "a88267b1-8d6e-44b4-a055-8215d32e7bb1";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlamencoRhythm.app/FlamencoRhythm";
 			};
 			name = Debug;
@@ -2294,7 +2294,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5ca5c148-ac9b-4ce8-9783-e87a452fe766";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlamencoRhythm.app/FlamencoRhythm";
 			};
 			name = Release;

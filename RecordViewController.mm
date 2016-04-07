@@ -242,7 +242,7 @@ int inputMic;
     headPhoneLabel = [[UILabel alloc]init];
     [_headPhoneMic addSubview:headPhoneLabel];
     headPhoneLabel.text = @"Headphone Mic";
-    headPhoneLabel.font = [UIFont fontWithName:FONT_REGULAR size:12];
+    headPhoneLabel.font = [UIFont fontWithName:FONT_REGULAR size:9];
     headPhoneLabel.textColor = UIColorFromRGB(FONT_BLUE_COLOR);
     [headPhoneLabel autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:5];
     [headPhoneLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
@@ -250,6 +250,7 @@ int inputMic;
     UIImageView *dropDownImageView = [[UIImageView alloc]init];
     //dropDownImageView.backgroundColor = [UIColor blueColor];
     dropDownImageView.image = [UIImage imageNamed:@"dropdown"];
+    [dropDownImageView autoSetDimensionsToSize:CGSizeMake(6, 4)];
     [_headPhoneMic addSubview:dropDownImageView];
     [dropDownImageView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:5];
     [dropDownImageView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
@@ -257,8 +258,8 @@ int inputMic;
     
     [_headPhoneMic autoAlignAxis:ALAxisVertical toSameAxisOfView:_stopBtn];
     [_headPhoneMic autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_stopBtn withOffset:0];
-    [_headPhoneMic autoSetDimension:ALDimensionHeight toSize:30];
-    headPhoneDropdownViewWidthConstraint =  [_headPhoneMic autoSetDimension:ALDimensionWidth toSize:114];
+    [_headPhoneMic autoSetDimension:ALDimensionHeight toSize:20];
+    headPhoneDropdownViewWidthConstraint =  [_headPhoneMic autoSetDimension:ALDimensionWidth toSize:84];
     
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headPhoneOptions:)];
@@ -276,13 +277,13 @@ int inputMic;
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Built In Mic" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        headPhoneDropdownViewWidthConstraint.constant = 90;
+        headPhoneDropdownViewWidthConstraint.constant = 64;
         headPhoneLabel.text = @"Built In Mic";
         inputMic = kUserInput_BuiltIn;
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Headphone Mic" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        headPhoneDropdownViewWidthConstraint.constant = 114;
+        headPhoneDropdownViewWidthConstraint.constant = 84;
         headPhoneLabel.text = @"Headphone Mic";
         inputMic = kUserInput_Headphone;
     }]];
@@ -413,7 +414,8 @@ int inputMic;
     [bpmSliderBackGround addSubview:minusButton];
     [minusButton autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:11];
     [minusButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
-    [minusButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+   
+    //[minusButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [minusButton addTarget:self action:@selector(bpmMinus:) forControlEvents:UIControlEventTouchUpInside];
     [minusButton setImage:[UIImage imageNamed:@"minusBtn.png"] forState:UIControlStateNormal];
     //[minusButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:143];
@@ -425,6 +427,7 @@ int inputMic;
     [plusButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [plusButton addTarget:self action:@selector(bpmPlus:) forControlEvents:UIControlEventTouchUpInside];
     [plusButton setImage:[UIImage imageNamed:@"plusBtn.png"] forState:UIControlStateNormal];
+     [minusButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:plusButton withOffset:0.77];
     //minusButton.backgroundColor = [UIColor redColor];
     //plusButton.backgroundColor = [UIColor redColor];
     //[plusButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:143];
@@ -470,13 +473,13 @@ int inputMic;
     [topSeprator autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [topSeprator autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [topSeprator autoPinEdgeToSuperviewEdge:ALEdgeTop];
-    [topSeprator autoSetDimension:ALDimensionHeight toSize:1];
+    [topSeprator autoSetDimension:ALDimensionHeight toSize:0.5];
     //[topSeprator autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_carousel withOffset:-0.5];
     
     [bottomSeprator autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [bottomSeprator autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [bottomSeprator autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-    [bottomSeprator autoSetDimension:ALDimensionHeight toSize:1];
+    [bottomSeprator autoSetDimension:ALDimensionHeight toSize:0.5];
     //[bottomSeprator autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_carousel];
     
     
@@ -986,6 +989,7 @@ int inputMic;
 }
 
 - (IBAction)onTapClap4Btn:(id)sender {
+    
     UIButton *btn = (UIButton*)sender;
     if (clapFlag4 == 0) {
         [btn setSelected:YES];
@@ -1005,10 +1009,28 @@ int inputMic;
     if ([[_dronePickerView viewForRow:pickerRow forComponent:0] isKindOfClass:[UILabel class]]) {
         UILabel *selectedRow = (UILabel *)[_dronePickerView viewForRow:pickerRow forComponent:0];
         selectedRow.textColor = (clapFlag4 == 1) ? [UIColor whiteColor] : [UIColor blackColor];
+        //selectedRow.textColor = (clapFlag4 == 1) ? [self lighterColorForColor:[UIColor whiteColor]] : [UIColor blackColor];
     }
 
     // [btn setImage:[UIImage imageNamed:@"Claps4_Blue.png"] forState:UIControlStateSelected];
 }
+
+//- (UIColor *)lighterColorForColor:(UIColor *)c
+//{
+//    CGFloat hue, saturation, brightness, alpha ;
+//    BOOL ok = [ c getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha ] ;
+//    if ( !ok ) {
+//        // handle error
+//    }
+//    
+//    hue = hue + 1.0;
+//    brightness = brightness + 1.0;
+//    alpha = alpha + 1.0;
+//    
+//    UIColor *newColor = [ UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha ] ;
+//    return newColor;
+//}
+
 #pragma mark - paly 4 players
 // '-(void)play4Players' Method has been removed
 
@@ -1479,11 +1501,27 @@ int inputMic;
     [lbl setBackgroundColor:[UIColor clearColor]];
     
     UIColor *textColor;
-    
+
     (clapFlag4 == 1) ? textColor = [UIColor whiteColor] : textColor = [UIColor blackColor];
     lbl.textColor = textColor;
     
     [lbl setFont:[UIFont fontWithName:@"HelveticaNeue" size:25.0]];
+    
+    
+//    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25];
+//    
+//    NSString *droneTxt = dronePickerArray[row];
+//    if([droneTxt length] > 1) {
+//
+//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneTxt
+//                                                                                             attributes:@{NSFontAttributeName: font}];
+//        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
+//                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+//        
+//        lbl.attributedText = attributedString;
+//    } else {
+//        lbl.text = droneTxt;
+//    }
     
     lbl.text = dronePickerArray[row];
     

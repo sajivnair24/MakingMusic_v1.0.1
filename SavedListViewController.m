@@ -112,7 +112,7 @@ static NSString *cellIdentifier = @"CELL";
     sepratorLine.backgroundColor = UIColorFromRGB(GRAY_COLOR);
     [sepratorLine autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [sepratorLine autoPinEdgeToSuperviewEdge:ALEdgeLeading];
-    [sepratorLine autoSetDimension:ALDimensionHeight toSize:1];
+    [sepratorLine autoSetDimension:ALDimensionHeight toSize:0.5];
     [sepratorLine autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:headerView withOffset:0];
     
     [self.recordingTableView registerClass:[SessionCell class] forCellReuseIdentifier:cellIdentifier];
@@ -199,6 +199,7 @@ static NSString *cellIdentifier = @"CELL";
     currentRythmName = cellData.recordingName;
     songDuration = [NSString stringWithFormat:@"%@",[self timeFormatted:[cellData.durationString floatValue]]];
     dateOfRecording = cellData.dateString;
+        
     songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
     
 }
@@ -265,6 +266,20 @@ static NSString *cellIdentifier = @"CELL";
     currentRythmName = cellData.recordingName;
     songDuration = [NSString stringWithFormat:@"%@",[self timeFormatted:[cellData.durationString floatValue]]];
     dateOfRecording = cellData.dateString;
+    
+//    if([cellData.droneType length] > 1) {
+//        UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25];
+//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cellData.droneType
+//                                                                                             attributes:@{NSFontAttributeName: font}];
+//        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:5]
+//                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+//        
+//        songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM, attributedString];
+//        //lbl.attributedText = attributedString;
+//    } else {
+//        songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
+//    }
+
     songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
     cell.songNameLbl.text = currentRythmName;
     [cell.TotalTimeLbl setText:songDuration];

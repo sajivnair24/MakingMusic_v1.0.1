@@ -177,6 +177,7 @@
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
 }
 -(void)openRecordingView{
+    _previousPageIndex = 0;
     NSArray *viewControllers = @[[viewControllerArray objectAtIndex:1]];
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }

@@ -2411,6 +2411,24 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 }
 
 -(void)setDroneTitleColor:(UIColor *)color forState:(UIControlState)state {
+
+//    if([droneName length] > 1) {
+//        UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25];
+//        
+//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneName
+//                                                                                             attributes:@{NSFontAttributeName: font}];
+//        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
+//                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+//        
+//        [attributedString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0,attributedString.length)];
+//
+//        
+//        [_instrument4 setAttributedTitle:attributedString forState:UIControlStateNormal];
+//        [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
+//    } else {
+//        [_instrument4 setTitleColor:color forState:state];
+//    }
+    
     [_instrument4 setTitleColor:color forState:state];
 }
 
@@ -3000,6 +3018,23 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     if (![droneName isEqualToString:@"-1"])
     {
+//        if([droneName length] > 1) {
+//            
+//            UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25];
+//            
+//            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneName
+//                                                                                                 attributes:@{NSFontAttributeName: font}];
+//            [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
+//                                              , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+//            
+//            [_instrument4 setAttributedTitle:attributedString forState:UIControlStateNormal];
+//            [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
+//        } else {
+//            [_instrument4 setAttributedTitle:nil forState:UIControlStateNormal];
+//            [_instrument4 setTitle:droneName forState:UIControlStateNormal];
+//            [_instrument4 setTitle:droneName forState:UIControlStateSelected];
+//        }
+        
         [_instrument4 setTitle:droneName forState:UIControlStateNormal];
         [_instrument4 setTitle:droneName forState:UIControlStateSelected];
     }
