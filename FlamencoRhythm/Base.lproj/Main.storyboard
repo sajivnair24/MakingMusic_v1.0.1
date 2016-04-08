@@ -657,7 +657,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="959-JY-D3s" userLabel="Play/Cross">
                                         <rect key="frame" x="0.0" y="109" width="136" height="60"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" backgroundImage="play-button.png">
+                                        <state key="normal" backgroundImage="PlayIcon">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" backgroundImage="wrong-mark.png"/>
@@ -1080,7 +1080,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Fc-jh-J26" secondAttribute="trailing" id="eeJ-23-v1Y"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8D29849F-341F-49EB-BB24-070255DD966D" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="4170C28F-0606-43AE-A547-7ADCD91A6DE4" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
                                         <rect key="frame" x="0.0" y="64" width="600" height="72"/>
                                     </imageView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwJ-Ky-7ck" userLabel="iCarousel" customClass="iCarousel">
@@ -1229,7 +1229,7 @@
                                                     <constraint firstAttribute="width" constant="137" id="g8R-Nn-3OF"/>
                                                     <constraint firstAttribute="height" constant="60" id="mb7-K0-WnR"/>
                                                 </constraints>
-                                                <state key="normal" backgroundImage="play-button.png">
+                                                <state key="normal" backgroundImage="PlayIcon">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" backgroundImage="wrong-mark.png"/>
@@ -1692,7 +1692,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="8D29849F-341F-49EB-BB24-070255DD966D" width="320" height="74">
+        <image name="4170C28F-0606-43AE-A547-7ADCD91A6DE4" width="320" height="74">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -3353,6 +3353,7 @@ AAAAAAAAAAAAAAAAAAGAvA
         <image name="Claps4_Blue.png" width="120" height="120"/>
         <image name="Claps4_Gray.png" width="44" height="44"/>
         <image name="Claps_disabled.png" width="60" height="60"/>
+        <image name="PlayIcon" width="135" height="59"/>
         <image name="circle_volume_white.png" width="60" height="60"/>
         <image name="closebutton.png" width="122" height="122"/>
         <image name="closenew.png" width="30" height="30"/>
@@ -3361,13 +3362,12 @@ AAAAAAAAAAAAAAAAAAGAvA
         <image name="four_blue.png" width="60" height="60"/>
         <image name="four_darkgrey.png" width="60" height="60"/>
         <image name="grey_strips.png" width="26" height="3"/>
-        <image name="magnet" width="15" height="32"/>
+        <image name="magnet" width="13" height="31"/>
         <image name="menu.png" width="23" height="4"/>
         <image name="music_bar.png" width="320" height="50"/>
         <image name="one_blue.png" width="60" height="60"/>
         <image name="one_darkgrey.png" width="60" height="60"/>
         <image name="one_greyoutline.png" width="60" height="60"/>
-        <image name="play-button.png" width="138" height="61"/>
         <image name="recording-button.png" width="137" height="60"/>
         <image name="right-mark.png" width="138" height="61"/>
         <image name="seperator_line.png" width="304" height="2"/>

@@ -258,7 +258,9 @@ int inputMic;
     
     [_headPhoneMic autoAlignAxis:ALAxisVertical toSameAxisOfView:_stopBtn];
     [_headPhoneMic autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_stopBtn withOffset:0];
-    [_headPhoneMic autoSetDimension:ALDimensionHeight toSize:20];
+    [_headPhoneMic autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+   // [_headPhoneMic autoSetDimension:ALDimensionHeight toSize:20];
+   // _headPhoneMic.backgroundColor = [UIColor redColor];
     headPhoneDropdownViewWidthConstraint =  [_headPhoneMic autoSetDimension:ALDimensionWidth toSize:84];
     
     
@@ -424,14 +426,15 @@ int inputMic;
     [bpmSliderBackGround addSubview:plusButton];
     [plusButton autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:11];
     [plusButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
-    [plusButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    //[plusButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [plusButton addTarget:self action:@selector(bpmPlus:) forControlEvents:UIControlEventTouchUpInside];
     [plusButton setImage:[UIImage imageNamed:@"plusBtn.png"] forState:UIControlStateNormal];
-     [minusButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:plusButton withOffset:0.77];
+    [plusButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:bpmSliderBackGround withOffset:0.77];
+     [minusButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:bpmSliderBackGround withOffset:0.77];
     //minusButton.backgroundColor = [UIColor redColor];
     //plusButton.backgroundColor = [UIColor redColor];
     //[plusButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:143];
-    
+    //bpmSliderBackGround.backgroundColor = [UIColor redColor];
     bpmSlider = [[UISlider alloc]init];
     [bpmSliderBackGround addSubview:bpmSlider];
     
@@ -692,7 +695,7 @@ int inputMic;
 -(void)setDefaultValuesToMusicFiles{
     inst1 = inst2 = 1;
     inst3 = inst4 = 0;
-    vol1 = vol2 = vol3 = vol4 = 10;
+    vol1 = vol2 = vol3 = vol4 = 60;
     pan1 = pan2 = pan3 = pan4 = 50;
     t1 = t2 = t3 = t4 = -1;
     t1Vol = t2Vol = t3Vol = t4Vol = -1;
@@ -874,7 +877,7 @@ int inputMic;
         for(micCounter = 1;micCounter <= gain;micCounter++){
             if(micCounter <= 7){
                 UIImageView *img = (UIImageView*)[micArray objectAtIndex:(micCounter - 1)];
-                [img setImage:[UIImage imageNamed:@"green-strip.png"]];
+                [img setImage:[UIImage imageNamed:@"green-strip"]];
             }
             else if(micCounter == 8 || micCounter == 9){
                 UIImageView *img = (UIImageView*)[micArray objectAtIndex:(micCounter - 1)];
@@ -1351,7 +1354,7 @@ int inputMic;
                                @"-1",@"t2",
                                @"-1",@"t3",
                                @"-1",@"t4",
-                               @"10",@"t1vol",
+                               @"100",@"t1vol",
                                @"-1",@"t2vol",
                                @"-1",@"t3vol",
                                @"-1",@"t4vol",
@@ -1501,29 +1504,27 @@ int inputMic;
     [lbl setBackgroundColor:[UIColor clearColor]];
     
     UIColor *textColor;
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25.0];
 
     (clapFlag4 == 1) ? textColor = [UIColor whiteColor] : textColor = [UIColor blackColor];
     lbl.textColor = textColor;
     
-    [lbl setFont:[UIFont fontWithName:@"HelveticaNeue" size:25.0]];
+    [lbl setFont:font];
     
+    NSString *droneTxt = dronePickerArray[row];
+    if([droneTxt length] > 1) {
+
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneTxt
+                                                                                             attributes:@{NSFontAttributeName: font}];
+        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
+                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+        
+        lbl.attributedText = attributedString;
+    } else {
+        lbl.text = droneTxt;
+    }
     
-//    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25];
-//    
-//    NSString *droneTxt = dronePickerArray[row];
-//    if([droneTxt length] > 1) {
-//
-//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneTxt
-//                                                                                             attributes:@{NSFontAttributeName: font}];
-//        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
-//                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
-//        
-//        lbl.attributedText = attributedString;
-//    } else {
-//        lbl.text = droneTxt;
-//    }
-    
-    lbl.text = dronePickerArray[row];
+    //lbl.text = dronePickerArray[row];
     
     [lbl setTextAlignment:NSTextAlignmentCenter];
     return lbl;

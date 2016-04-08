@@ -314,6 +314,7 @@
 		638EE06D1CAE875400689D7D /* volume_circle_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 638EE06C1CAE875400689D7D /* volume_circle_black@2x.png */; };
 		63C6FE331B4BA99C00394A0A /* AudioUnitRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */; };
 		63C6FE361B4BA9B300394A0A /* InMemoryAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */; };
+		63CABCB71CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */; };
 		63D02E631BAC0D4200A82951 /* Sync 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 63D02E621BAC0D4200A82951 /* Sync 2.m4a */; };
 		63DD40941C914E79005469CB /* Flamenco.db in Resources */ = {isa = PBXBuildFile; fileRef = 63DD40931C914E79005469CB /* Flamenco.db */; };
 		63DD40A21C91882B005469CB /* System San Francisco Display Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63DD40A11C91882B005469CB /* System San Francisco Display Bold.ttf */; };
@@ -759,6 +760,7 @@
 		63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioUnitRecorder.m; sourceTree = "<group>"; };
 		63C6FE341B4BA9B300394A0A /* InMemoryAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMemoryAudioFile.h; sourceTree = "<group>"; };
 		63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InMemoryAudioFile.m; sourceTree = "<group>"; };
+		63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Ultralight.ttf"; sourceTree = "<group>"; };
 		63D02E621BAC0D4200A82951 /* Sync 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sync 2.m4a"; sourceTree = "<group>"; };
 		63DD40931C914E79005469CB /* Flamenco.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flamenco.db; sourceTree = "<group>"; };
 		63DD40A11C91882B005469CB /* System San Francisco Display Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Bold.ttf"; sourceTree = "<group>"; };
@@ -1574,6 +1576,7 @@
 				63DD40A61C918A4E005469CB /* SystemSanFranciscoDisplayThin.ttf */,
 				63DD40A31C918957005469CB /* SystemSanDisplayBold.ttf */,
 				63DD40A11C91882B005469CB /* System San Francisco Display Bold.ttf */,
+				63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -1976,6 +1979,7 @@
 				044EFCC91AC28B5800941E3A /* Atlanta Trap.m4a in Resources */,
 				044EFCB81AC28B5800941E3A /* Jaleos 2.m4a in Resources */,
 				04B04CCA1AFCBD1100AF3666 /* bar_lightgrey@3x.png in Resources */,
+				63CABCB71CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf in Resources */,
 				044EFD4B1AC28B5800941E3A /* play-pointer.png in Resources */,
 				4EBED0951C9826CA00B4A7B2 /* SF-UI-Text-Light.otf in Resources */,
 				044EFD281AC28B5800941E3A /* Country Shuffle 1.m4a in Resources */,

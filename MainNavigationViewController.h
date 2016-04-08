@@ -23,11 +23,12 @@ static BOOL headphonePlugged;
 - (void)tappedChromaticButton;
 @end
 
-@interface MainNavigationViewController : UIViewController <UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIScrollViewDelegate>{
+@interface MainNavigationViewController : UIViewController <UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIScrollViewDelegate,UIGestureRecognizerDelegate>{
     NSArray *viewControllerArray;
     
     AppDelegate *appDelegate;
     
+    UINavigationController *navigationController;
    
     
 }

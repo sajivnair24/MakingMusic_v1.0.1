@@ -97,10 +97,10 @@
     // Change the size of page view controller
     self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 50);
     
-    [self.view addSubview:pageController.view];
-    [self addChildViewController:pageController];
-    [self.pageController didMoveToParentViewController:self];
-    
+  //  [self.view addSubview:pageController.view];
+   // [self addChildViewController:pageController];
+   // [self.pageController didMoveToParentViewController:self];
+    [self addNavigationController];
     [self setUpVolumeSlide];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -113,6 +113,20 @@
     volumeView = [[MPVolumeView alloc] init];
     self.pageController.dataSource = nil;
     [self addFooterBackGround];
+}
+-(void)addNavigationController{
+    navigationController = [[UINavigationController alloc]initWithRootViewController:thirdVC];
+    [self.view addSubview:navigationController.view];
+    [self addChildViewController:navigationController];
+    navigationController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 50);
+    navigationController.navigationBarHidden = YES;
+    [navigationController.interactivePopGestureRecognizer setDelegate:self];
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if ([navigationController.viewControllers count]>1) {
+        return YES;
+    }
+    return NO;
 }
 -(void)addFooterBackGround{
     [_tunerBlackImage setImage:[UIImage imageNamed:@"magnet"]];
@@ -173,19 +187,23 @@
 }
 
 -(void)goBackToSoundListing{
-     NSArray *viewControllers = @[[viewControllerArray objectAtIndex:0]];
-    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+    // NSArray *viewControllers = @[[viewControllerArray objectAtIndex:0]];
+   // [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+    [navigationController popViewControllerAnimated:YES];
 }
 -(void)openRecordingView{
-    _previousPageIndex = 0;
-    NSArray *viewControllers = @[[viewControllerArray objectAtIndex:1]];
-    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    secondVC= [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
+    secondVC.myNavigationController = self;
+    [navigationController pushViewController:secondVC animated:YES];
+   // NSArray *viewControllers = @[[viewControllerArray objectAtIndex:1]];
+   // [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 -(void)openDetailRecordingView:(RecordingListData *)recordingData{
     savedDetailVC.recordingData = recordingData ;
+    [navigationController pushViewController:savedDetailVC animated:YES];
    // [savedDetailVC setDataForUIElements:0 RecordingData:recordingData];
-    NSArray *viewControllers = @[[viewControllerArray objectAtIndex:2]];
-    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    //NSArray *viewControllers = @[[viewControllerArray objectAtIndex:2]];
+    //[self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
    // [self viewToPresent:2 withDictionary:nil];
     
 }

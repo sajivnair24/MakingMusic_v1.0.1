@@ -11,16 +11,18 @@
 
 #define HELVETICA_BOLD @"HelveticaNeue-Bold"
 #define HELVETICA_LIGHT @"HelveticaNeue-Light"
-#define HELEVTICA_REGULAR @"HelveticaNeue"
+#define HELVETICA_REGULAR @"HelveticaNeue"
 #define SANFRANSISCO_BOLD @".HelveticaNeueDeskInterface-Bold"
 #define SANFRANSISCO_REGULAR @"SFUIText-Regular"
 #define SANFRANSISCO_LIGHT @"SFUIText-Light"
 #define SANFRANSISCO_MEDIUM @"SFUIText-Medium"
+#define SANFRANSISCO_ULTRALIGHT @"SFUIDisplay-Ultralight"
 
 #define FONT_REGULAR SANFRANSISCO_REGULAR
 #define FONT_BOLD SANFRANSISCO_BOLD
 #define FONT_LIGHT SANFRANSISCO_LIGHT
 #define FONT_MEDIUM SANFRANSISCO_MEDIUM
+#define FONT_ULTRALIGHT SANFRANSISCO_ULTRALIGHT
 
 #define FONT_NAME @"Gill Sans"
 

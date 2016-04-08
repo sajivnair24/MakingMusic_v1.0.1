@@ -49,6 +49,7 @@
 		<string>SF-UI-Text-Regular.otf</string>
 		<string>SF-UI-Text-Light.otf</string>
 		<string>SF-UI-Text-Medium.otf</string>
+		<string>SFUIDisplay-Ultralight.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

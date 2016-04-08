@@ -118,7 +118,9 @@
     UILongPressGestureRecognizer *longPressForKnob4;
     
     NSString *beatOneMusicFile, *beatTwoMusicFile, *rythmName;
-    NSString *currentRythmName,*songDuration,*dateOfRecording,*songDetail,*durationStringUnFormatted,*t1Duration,*t2Duration,*t3Duration,*t4Duration;
+    NSString *currentRythmName,*songDuration,*dateOfRecording,*durationStringUnFormatted,*t1Duration,*t2Duration,*t3Duration,*t4Duration;
+    NSMutableAttributedString *songDetail;
+    
     NSString *currentMusicFileName;
     NSString *newPath, *clap1Path,*clap2Path,*clap3Path,*clap4Path;
     NSString *documentDir;

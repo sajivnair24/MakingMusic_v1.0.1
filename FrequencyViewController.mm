@@ -87,8 +87,9 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
 
     droneArray = [[NSArray alloc]initWithObjects:@"C", @"D", @"D", @"E", @"E", @"F", @"G", @"G", @"A", @"A", @"B", @"B", nil];
     
-    firstLbl.font = [UIFont fontWithName:FONT_REGULAR size:125];
-    secondLbl.font = [UIFont fontWithName:FONT_REGULAR size:80];
+    //firstLbl.font = [UIFont fontWithName:FONT_REGULAR size:125];
+    firstLbl.font = [UIFont fontWithName:FONT_ULTRALIGHT size:125];
+    secondLbl.font = [UIFont fontWithName:FONT_ULTRALIGHT size:80];
     self.view.backgroundColor = [UIColor clearColor];
    _droneBeatMeter.backgroundColor = [UIColor clearColor];
     UIView *alphabackground = [[UIView alloc]initWithFrame:self.view.bounds];

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ok.png",
+      "filename" : "right tick.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ok_B@2x.png",
+      "filename" : "right tick@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ok@3x.png",
+      "filename" : "right tick@3x.png",
       "scale" : "3x"
     }
   ],

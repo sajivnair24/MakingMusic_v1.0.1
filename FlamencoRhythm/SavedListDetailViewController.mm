@@ -2412,24 +2412,22 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
 -(void)setDroneTitleColor:(UIColor *)color forState:(UIControlState)state {
 
-//    if([droneName length] > 1) {
-//        UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25];
-//        
-//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneName
-//                                                                                             attributes:@{NSFontAttributeName: font}];
-//        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
-//                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
-//        
-//        [attributedString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0,attributedString.length)];
-//
-//        
-//        [_instrument4 setAttributedTitle:attributedString forState:UIControlStateNormal];
-//        [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
-//    } else {
-//        [_instrument4 setTitleColor:color forState:state];
-//    }
+    UIFont *font = [UIFont fontWithName:HELVETICA_REGULAR size:25];
     
-    [_instrument4 setTitleColor:color forState:state];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneName
+                                                                                         attributes:@{NSFontAttributeName: font}];
+    if([droneName length] > 1) {
+        
+        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:HELVETICA_REGULAR size:18]
+                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+    }
+    
+    [attributedString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0,attributedString.length)];
+    
+    [_instrument4 setAttributedTitle:attributedString forState:UIControlStateNormal];
+    [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
+    
+    //[_instrument4 setTitleColor:color forState:state];
 }
 
 - (void)trimRequiredAudioFiles {
@@ -2809,7 +2807,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     _songNameTxtFld.text = currentRythmName;
     _songNameTxtFld.returnKeyType = UIReturnKeyDone;
     _songNameTxtFld.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    _songDetailLbl.text = songDetail;
+    _songDetailLbl.attributedText = songDetail;
     _dateLbl.text = dateOfRecording;
     _TotalTimeLbl.text = songDuration;
     _minRecDurationLbl.text = @"00:00";
@@ -3018,25 +3016,18 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     if (![droneName isEqualToString:@"-1"])
     {
-//        if([droneName length] > 1) {
-//            
-//            UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25];
-//            
-//            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneName
-//                                                                                                 attributes:@{NSFontAttributeName: font}];
-//            [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
-//                                              , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
-//            
-//            [_instrument4 setAttributedTitle:attributedString forState:UIControlStateNormal];
-//            [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
-//        } else {
-//            [_instrument4 setAttributedTitle:nil forState:UIControlStateNormal];
-//            [_instrument4 setTitle:droneName forState:UIControlStateNormal];
-//            [_instrument4 setTitle:droneName forState:UIControlStateSelected];
-//        }
+        UIFont *font = [UIFont fontWithName:HELVETICA_REGULAR size:25];
         
-        [_instrument4 setTitle:droneName forState:UIControlStateNormal];
-        [_instrument4 setTitle:droneName forState:UIControlStateSelected];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneName
+                                                                                             attributes:@{NSFontAttributeName: font}];
+        if([droneName length] > 1) {
+        
+            [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:HELVETICA_REGULAR size:18]
+                                              , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+        }
+        
+        [_instrument4 setAttributedTitle:attributedString forState:UIControlStateNormal];
+        [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
     }
     
     if(clapFlag1 == 1)
@@ -3200,7 +3191,26 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     currentRythmName = cellData.recordingName;
     songDuration = [NSString stringWithFormat:@"%@",[self timeFormatted:[durationStringUnFormatted intValue]]];
     dateOfRecording = cellData.dateString;
-    songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
+    
+    NSAttributedString *drone = [[NSAttributedString alloc] initWithString:cellData.droneType];
+    
+    NSString *audioInfo = [NSString stringWithFormat:@"%@ %@ bpm ", rhythmRecord.rhythmName, [cellData.BPM stringValue]];
+    
+    songDetail = [[NSMutableAttributedString alloc] initWithString:audioInfo];
+    
+    if([cellData.droneType length] > 1) {
+        UIFont *font = [UIFont fontWithName:FONT_LIGHT size:10];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cellData.droneType
+                                                                                             attributes:@{NSFontAttributeName: font}];
+        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:8]
+                                          , NSBaselineOffsetAttributeName:@5} range:NSMakeRange(1, 1)];
+        
+        [songDetail appendAttributedString:attributedString];
+    } else {
+        [songDetail appendAttributedString:drone];
+    }
+
+    //songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
     
     NSArray *listItems = [beatOneMusicFile componentsSeparatedByString:@"/"];
     NSString *lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
@@ -3466,7 +3476,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_recSlider setMinimumTrackImage:[UIImage imageNamed:@"volumeslider_sqaure_blue.png"] forState:UIControlStateNormal];
     _recSlider.minimumValue = 0.00;
     
-    [_playRecBtn setBackgroundImage:[UIImage imageNamed:@"play-button.png"] forState:UIControlStateNormal];
+    [_playRecBtn setBackgroundImage:[UIImage imageNamed:@"PlayIcon"] forState:UIControlStateNormal];
     [_recordingBtn setEnabled:YES];
     [_playRecBtn setEnabled:YES];
     [_recordingBtn setSelected:NO];
@@ -3883,8 +3893,8 @@ float roundUp (float value, int digits) {
         
         _recTrackOne = newPath;
         recFlag1 = 1;
-        tV1 = 10;
-        [_rotatryT1 setValue:1 animated:NO];
+        tV1 = 100;
+        [_rotatryT1 setValue:100 animated:NO];
         t1Duration = [NSString stringWithFormat:@"%f",recordingDuration];
         
         [_firstVolumeKnob setSelected:YES];
@@ -3899,8 +3909,8 @@ float roundUp (float value, int digits) {
         [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue]  trackSequence:2 track:newPath maxTrackDuration:songDurationToSave trackDuration:[NSString stringWithFormat:@"%f",recordingDuration]];
         _recTrackTwo = newPath;
         recFlag2 = 1;
-        tV2 = 10;
-        [_rotatryT2 setValue:1 animated:NO];
+        tV2 = 100;
+        [_rotatryT2 setValue:100 animated:NO];
         t2Duration = [NSString stringWithFormat:@"%f",recordingDuration];
         
         //[_secondVolumeKnob setHighlighted:NO];
@@ -3917,8 +3927,8 @@ float roundUp (float value, int digits) {
         [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue]  trackSequence:3 track:newPath maxTrackDuration:songDurationToSave trackDuration:[NSString stringWithFormat:@"%f",recordingDuration]];
         _recTrackThree = newPath;
         recFlag3 = 1;
-        tV3 = 10;
-        [_rotatryT3 setValue:1 animated:NO];
+        tV3 = 100;
+        [_rotatryT3 setValue:100 animated:NO];
         [_thirdVolumeKnob setSelected:YES];
         [_rotatryT3 setHidden:NO];
         
@@ -3934,8 +3944,8 @@ float roundUp (float value, int digits) {
         [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue]  trackSequence:4 track:newPath maxTrackDuration:songDurationToSave trackDuration:[NSString stringWithFormat:@"%f",recordingDuration]];
         _recTrackFour = newPath;
         recFlag4 = 1;
-        tV4 = 10;
-        [_rotatryT4 setValue:1 animated:YES];
+        tV4 = 100;
+        [_rotatryT4 setValue:100 animated:YES];
         t4Duration = [NSString stringWithFormat:@"%f",recordingDuration];
         
         [_fourthVolumeKnob setSelected:YES];

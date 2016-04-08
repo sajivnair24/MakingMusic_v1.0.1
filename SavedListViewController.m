@@ -200,7 +200,7 @@ static NSString *cellIdentifier = @"CELL";
     songDuration = [NSString stringWithFormat:@"%@",[self timeFormatted:[cellData.durationString floatValue]]];
     dateOfRecording = cellData.dateString;
         
-    songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
+    //songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
     
 }
 
@@ -267,24 +267,28 @@ static NSString *cellIdentifier = @"CELL";
     songDuration = [NSString stringWithFormat:@"%@",[self timeFormatted:[cellData.durationString floatValue]]];
     dateOfRecording = cellData.dateString;
     
-//    if([cellData.droneType length] > 1) {
-//        UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25];
-//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cellData.droneType
-//                                                                                             attributes:@{NSFontAttributeName: font}];
-//        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:5]
-//                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
-//        
-//        songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM, attributedString];
-//        //lbl.attributedText = attributedString;
-//    } else {
-//        songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
-//    }
+    NSAttributedString *drone = [[NSAttributedString alloc] initWithString:cellData.droneType];
+    
+    NSString *audioInfo = [NSString stringWithFormat:@"%@ %@ bpm ", rhythmRecord.rhythmName, [cellData.BPM stringValue]];
+    
+    songDetail = [[NSMutableAttributedString alloc] initWithString:audioInfo];
 
-    songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
+    if([cellData.droneType length] > 1) {
+        UIFont *font = [UIFont fontWithName:FONT_LIGHT size:10];;//[UIFont fontWithName:@"HelveticaNeue" size:10];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cellData.droneType
+                                                                                             attributes:@{NSFontAttributeName: font}];
+        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:HELVETICA_REGULAR size:8]
+                                          , NSBaselineOffsetAttributeName:@5} range:NSMakeRange(1, 1)];
+        
+        [songDetail appendAttributedString:attributedString];
+    } else {
+        [songDetail appendAttributedString:drone];
+    }
+
     cell.songNameLbl.text = currentRythmName;
     [cell.TotalTimeLbl setText:songDuration];
     cell.dateLbl.text = dateOfRecording;
-    cell.songDetailLbl.text = songDetail;
+    cell.songDetailLbl.attributedText = songDetail;
     
     [self setPlayButtonImage:cell.playButton State:cellData];
     [cell.playButton addTarget:self action:@selector(playSound:) forControlEvents:UIControlEventTouchUpInside];

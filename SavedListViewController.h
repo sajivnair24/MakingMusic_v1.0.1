@@ -26,7 +26,8 @@
      // array of arrays
     NSMutableArray *songList;
    
-    NSString *currentRythmName,*songDuration,*dateOfRecording,*songDetail,*durationStringUnFormatted;
+    NSString *currentRythmName,*songDuration,*dateOfRecording,*durationStringUnFormatted;
+    NSMutableAttributedString *songDetail;
    
     BOOL bannerStatus;
     DBManager *sqlManager;

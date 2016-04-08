@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "graycircle.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "EN_ copy.png",
+      "filename" : "graycircle@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "EN_.png",
+      "filename" : "graycircle@3x.png",
       "scale" : "3x"
     }
   ],
