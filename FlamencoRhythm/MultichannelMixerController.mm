@@ -778,7 +778,7 @@ static OSStatus renderInput(void *inRefCon,
             bpmMultiplier =(i < kNumOfRecordStartBus - 2) ? kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
         }
         else{
-            bpmMultiplier =(i < _numbuses - 2) ? kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
+            bpmMultiplier =(i < _numbuses - 2) ? (bpmValue[i] == 1) ? kGraphSampleRate + 1 : kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
         }
         
         AVAudioFormat *clientFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32

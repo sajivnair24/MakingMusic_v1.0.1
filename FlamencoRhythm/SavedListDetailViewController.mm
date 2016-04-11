@@ -163,7 +163,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         [_instrument1 setImage:[UIImage imageNamed:rhythmRecord.rhythmInstOneImage] forState:UIControlStateSelected];
         [_instrument1 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_disabled.png",lastWordString]] forState:UIControlStateNormal];
         
-        
         img1 = 1;
     }else{
         [_instrument1 setHidden:YES];
@@ -1716,7 +1715,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         if (stopFlag == 0) {
             [_playRecBtn setUserInteractionEnabled:NO];
             [_recordingBtn setUserInteractionEnabled:NO];
-            [self.savedDetailDelegate tappedRecordButton];// delegate called
+            //[self.savedDetailDelegate tappedRecordButton];// delegate called
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"tappedRecordButton" object:nil];
             
             [_playRecBtn setSelected:YES];
             [_recordingBtn setSelected:YES];
@@ -3894,6 +3894,7 @@ float roundUp (float value, int digits) {
         _recTrackOne = newPath;
         recFlag1 = 1;
         tV1 = 100;
+        tP1 = 50;
         [_rotatryT1 setValue:100 animated:NO];
         t1Duration = [NSString stringWithFormat:@"%f",recordingDuration];
         
@@ -3910,6 +3911,7 @@ float roundUp (float value, int digits) {
         _recTrackTwo = newPath;
         recFlag2 = 1;
         tV2 = 100;
+        tP2 = 50;
         [_rotatryT2 setValue:100 animated:NO];
         t2Duration = [NSString stringWithFormat:@"%f",recordingDuration];
         
@@ -3928,6 +3930,7 @@ float roundUp (float value, int digits) {
         _recTrackThree = newPath;
         recFlag3 = 1;
         tV3 = 100;
+        tP3 = 50;
         [_rotatryT3 setValue:100 animated:NO];
         [_thirdVolumeKnob setSelected:YES];
         [_rotatryT3 setHidden:NO];
@@ -3945,6 +3948,7 @@ float roundUp (float value, int digits) {
         _recTrackFour = newPath;
         recFlag4 = 1;
         tV4 = 100;
+        tP4 = 50;
         [_rotatryT4 setValue:100 animated:YES];
         t4Duration = [NSString stringWithFormat:@"%f",recordingDuration];
         

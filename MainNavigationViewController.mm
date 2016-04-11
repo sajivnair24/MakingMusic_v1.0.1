@@ -130,6 +130,7 @@
 }
 -(void)addFooterBackGround{
     [_tunerBlackImage setImage:[UIImage imageNamed:@"magnet"]];
+    
     _footerFadedBackground = [[UIView alloc]initWithFrame:CGRectMake(0,457, self.view.frame.size.width,  150)];
     _footerFadedBackground.backgroundColor = [UIColor blackColor];
     _footerFadedBackground.alpha = 0.0;

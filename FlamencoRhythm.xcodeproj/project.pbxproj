@@ -309,9 +309,10 @@
 		59D215701AD677A800292D13 /* Click AccentedNew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 59D2156F1AD677A800292D13 /* Click AccentedNew.wav */; };
 		59D9A3F31ADFFDBE0021446A /* Tangos 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 59D9A3F21ADFFDBE0021446A /* Tangos 2.mp3 */; };
 		59DFCCE21B949652008F6D28 /* SavedListDetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59DFCCE11B949652008F6D28 /* SavedListDetailViewController.mm */; };
+		630E23FB1CBBC3D4008D95D8 /* volume_circle_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 630E23FA1CBBC3D4008D95D8 /* volume_circle_white@2x.png */; };
+		630E23FD1CBBCEF9008D95D8 /* volume_circle_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 630E23FC1CBBCEF9008D95D8 /* volume_circle_black@2x.png */; };
 		631EF3741BE2719000FA6792 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 631EF3731BE2719000FA6792 /* libGoogleAdMobAds.a */; };
 		631EF3761BE271B900FA6792 /* libdywapitchtrack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 631EF3751BE271B900FA6792 /* libdywapitchtrack.a */; };
-		638EE06D1CAE875400689D7D /* volume_circle_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 638EE06C1CAE875400689D7D /* volume_circle_black@2x.png */; };
 		63C6FE331B4BA99C00394A0A /* AudioUnitRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */; };
 		63C6FE361B4BA9B300394A0A /* InMemoryAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */; };
 		63CABCB71CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */; };
@@ -363,7 +364,6 @@
 		C0FA30BD1BBD6C140064C0A6 /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30B41BBD6C140064C0A6 /* icon-60@2x.png */; };
 		C0FA30BE1BBD6C140064C0A6 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30B51BBD6C140064C0A6 /* icon-60@3x.png */; };
 		C0FF8EC91BA04563009FF11F /* MHRotaryKnob.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FF8EC81BA04563009FF11F /* MHRotaryKnob.m */; };
-		C0FF8ECB1BA0528A009FF11F /* volume_circle_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FF8ECA1BA0528A009FF11F /* volume_circle_white@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -753,9 +753,10 @@
 		59D9A3F21ADFFDBE0021446A /* Tangos 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Tangos 2.mp3"; sourceTree = "<group>"; };
 		59DFCCE01B949652008F6D28 /* SavedListDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedListDetailViewController.h; sourceTree = "<group>"; };
 		59DFCCE11B949652008F6D28 /* SavedListDetailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SavedListDetailViewController.mm; sourceTree = "<group>"; };
+		630E23FA1CBBC3D4008D95D8 /* volume_circle_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume_circle_white@2x.png"; sourceTree = "<group>"; };
+		630E23FC1CBBCEF9008D95D8 /* volume_circle_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume_circle_black@2x.png"; sourceTree = "<group>"; };
 		631EF3731BE2719000FA6792 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		631EF3751BE271B900FA6792 /* libdywapitchtrack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libdywapitchtrack.a; sourceTree = "<group>"; };
-		638EE06C1CAE875400689D7D /* volume_circle_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume_circle_black@2x.png"; sourceTree = "<group>"; };
 		63C6FE311B4BA99C00394A0A /* AudioUnitRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioUnitRecorder.h; sourceTree = "<group>"; };
 		63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioUnitRecorder.m; sourceTree = "<group>"; };
 		63C6FE341B4BA9B300394A0A /* InMemoryAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMemoryAudioFile.h; sourceTree = "<group>"; };
@@ -824,7 +825,6 @@
 		C0FA30B51BBD6C140064C0A6 /* icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@3x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-60@3x.png"; sourceTree = "<group>"; };
 		C0FF8EC71BA04563009FF11F /* MHRotaryKnob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHRotaryKnob.h; sourceTree = "<group>"; };
 		C0FF8EC81BA04563009FF11F /* MHRotaryKnob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHRotaryKnob.m; sourceTree = "<group>"; };
-		C0FF8ECA1BA0528A009FF11F /* volume_circle_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume_circle_white@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1395,8 +1395,8 @@
 		04DCEA1C1AB986F90008C50B /* Database file */ = {
 			isa = PBXGroup;
 			children = (
-				C0FF8ECA1BA0528A009FF11F /* volume_circle_white@2x.png */,
-				638EE06C1CAE875400689D7D /* volume_circle_black@2x.png */,
+				630E23FA1CBBC3D4008D95D8 /* volume_circle_white@2x.png */,
+				630E23FC1CBBCEF9008D95D8 /* volume_circle_black@2x.png */,
 				63DD40931C914E79005469CB /* Flamenco.db */,
 				04DCEA191AB986F40008C50B /* DBManager.h */,
 				04DCEA1A1AB986F40008C50B /* DBManager.m */,
@@ -1703,6 +1703,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630E23FB1CBBC3D4008D95D8 /* volume_circle_white@2x.png in Resources */,
 				C0FA30B61BBD6C140064C0A6 /* icon-29.png in Resources */,
 				C0FA30B71BBD6C140064C0A6 /* icon-29@2x.png in Resources */,
 				C0FA30B81BBD6C140064C0A6 /* icon-29@3x.png in Resources */,
@@ -1737,7 +1738,6 @@
 				044EFD0C1AC28B5800941E3A /* Merengue 1.m4a in Resources */,
 				044EFCD31AC28B5800941E3A /* Miami Booty.m4a in Resources */,
 				044EFD461AC28B5800941E3A /* orange-strip@@2x.png in Resources */,
-				638EE06D1CAE875400689D7D /* volume_circle_black@2x.png in Resources */,
 				044EFCD71AC28B5800941E3A /* Westcoast G Funk.m4a in Resources */,
 				044EFCBA1AC28B5800941E3A /* Rumba 2.m4a in Resources */,
 				044EFD2B1AC28B5800941E3A /* Country Swing 2.m4a in Resources */,
@@ -1747,6 +1747,7 @@
 				046A6AEA1AF8989300597225 /* splash_screen-320x480.png in Resources */,
 				044EFD471AC28B5800941E3A /* play-bar.png in Resources */,
 				044EFCEA1AC28B5800941E3A /* Deepchandi 1.m4a in Resources */,
+				630E23FD1CBBCEF9008D95D8 /* volume_circle_black@2x.png in Resources */,
 				044EFD4D1AC28B5800941E3A /* plus@2x.png in Resources */,
 				044EFCE81AC28B5800941E3A /* Dadra 1.m4a in Resources */,
 				04F20A771AE53D6B007E5880 /* sharp@2x.png in Resources */,
@@ -1769,7 +1770,6 @@
 				C00B0A191B1761F1004FFE92 /* volumeslider_sqaure_gred@2x.png in Resources */,
 				044EFD131AC28B5800941E3A /* Tango Argentina 2.m4a in Resources */,
 				044EFCDB1AC28B5800941E3A /* Bhangra 2 2.m4a in Resources */,
-				C0FF8ECB1BA0528A009FF11F /* volume_circle_white@2x.png in Resources */,
 				59D033B41AD528AA00F199DF /* arrow@2x.png in Resources */,
 				044EFD431AC28B5800941E3A /* minus.png in Resources */,
 				044EFD301AC28B5800941E3A /* Triplets 1.m4a in Resources */,

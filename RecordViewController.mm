@@ -18,6 +18,7 @@
 #import "AudioRecorderManager.h"
 #import "PureLayout.h"
 #import "Constants.h"
+#define DRONE_PICKERVIEW_NUMBER_OF_ROWS 20000
 // get the volume of player
 #define playerVolume(playerOn) (playerOn == 0 ? @"0" : @"1")
 float tempo = 94.0f;
@@ -174,14 +175,15 @@ int inputMic;
     }
     
     // Populating drone Values
-    for (int i = 0; i < 50; i++) {
+    for (int i = 0; i < 1; i++) {
         [dronePickerArray addObjectsFromArray:droneArray];
     }
     _droneType = [droneArray objectAtIndex:0];
     [_dronePickerView reloadAllComponents];
-    [_dronePickerView selectRow:300 inComponent:0 animated:NO];
-    
-    pickerRow = 0;
+   // [_dronePickerView selectRow:300 inComponent:0 animated:NO];
+    int startIndex = (DRONE_PICKERVIEW_NUMBER_OF_ROWS/2)- ((DRONE_PICKERVIEW_NUMBER_OF_ROWS/2)%[dronePickerArray count]);
+    [_dronePickerView selectRow:startIndex inComponent:0 animated:NO];
+    pickerRow = startIndex;
     audioUnitCount = 0;
     isBpmPickerChanged = false;
     
@@ -258,7 +260,7 @@ int inputMic;
     
     [_headPhoneMic autoAlignAxis:ALAxisVertical toSameAxisOfView:_stopBtn];
     [_headPhoneMic autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_stopBtn withOffset:0];
-    [_headPhoneMic autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+    [_headPhoneMic autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:6];
    // [_headPhoneMic autoSetDimension:ALDimensionHeight toSize:20];
    // _headPhoneMic.backgroundColor = [UIColor redColor];
     headPhoneDropdownViewWidthConstraint =  [_headPhoneMic autoSetDimension:ALDimensionWidth toSize:84];
@@ -732,7 +734,7 @@ int inputMic;
         redCounter = 0;
     }
     UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:counter];
-    [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+    [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
     
     UIImageView *beatImg = (UIImageView*)[self.beatsView viewWithTag:redCounter];
     [beatImg setImage:[UIImage imageNamed:@"beat_ball_red.png"]];
@@ -808,11 +810,13 @@ int inputMic;
             _recImgTimer = nil;
             
             UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:redCounter-1];
-            [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+            [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
             
             //[_recorder stop];
             [audioRecorder stopAudioRecording];
-            [self.recordDelegate recordingDone];
+            //[self.recordDelegate recordingDone];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"recordingDone"
+                                                                object:nil];
             
             [_playTimer invalidate];
             _playTimer = nil;
@@ -1012,27 +1016,10 @@ int inputMic;
     if ([[_dronePickerView viewForRow:pickerRow forComponent:0] isKindOfClass:[UILabel class]]) {
         UILabel *selectedRow = (UILabel *)[_dronePickerView viewForRow:pickerRow forComponent:0];
         selectedRow.textColor = (clapFlag4 == 1) ? [UIColor whiteColor] : [UIColor blackColor];
-        //selectedRow.textColor = (clapFlag4 == 1) ? [self lighterColorForColor:[UIColor whiteColor]] : [UIColor blackColor];
     }
 
     // [btn setImage:[UIImage imageNamed:@"Claps4_Blue.png"] forState:UIControlStateSelected];
 }
-
-//- (UIColor *)lighterColorForColor:(UIColor *)c
-//{
-//    CGFloat hue, saturation, brightness, alpha ;
-//    BOOL ok = [ c getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha ] ;
-//    if ( !ok ) {
-//        // handle error
-//    }
-//    
-//    hue = hue + 1.0;
-//    brightness = brightness + 1.0;
-//    alpha = alpha + 1.0;
-//    
-//    UIColor *newColor = [ UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha ] ;
-//    return newColor;
-//}
 
 #pragma mark - paly 4 players
 // '-(void)play4Players' Method has been removed
@@ -1070,11 +1057,13 @@ int inputMic;
         [self resetAllTimers];
         
         //_recordTimerText.text = @"00:00";
-        [self.recordDelegate recordingDone];
+        //[self.recordDelegate recordingDone];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"recordingDone"
+                                                            object:nil];
         
         for (int i = 0; i < 12; i++) {
             UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:i];
-            [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+            [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
         }
         seconds = 0;
         minutes = 0;
@@ -1121,7 +1110,9 @@ int inputMic;
         
         [self micShow];
         
-        [self.recordDelegate tappedRecordButton];
+        //[self.recordDelegate tappedRecordButton];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"tappedRecordButton"
+                                                            object:nil];
         
         [_recordTimerText setText:@"00:00"];
         
@@ -1139,11 +1130,13 @@ int inputMic;
         _recImgTimer = nil;
         
         UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:redCounter-1];
-        [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+        [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
         
         //[_recorder stop];
         [audioRecorder stopAudioRecording];
-        [self.recordDelegate recordingDone];
+        //[self.recordDelegate recordingDone];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"recordingDone"
+                                                            object:nil];
         
         [_playTimer invalidate];
         _playTimer = nil;
@@ -1411,11 +1404,13 @@ int inputMic;
         [self resetAllTimers];
         
         _recordTimerText.text = @"00:00";
-        [self.recordDelegate recordingDone];
+        //[self.recordDelegate recordingDone];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"recordingDone"
+                                                            object:nil];
         
         for (int i = 0; i < 12; i++) {
             UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:i];
-            [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+            [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
         }
         seconds = 0;
         minutes = 0;
@@ -1460,7 +1455,7 @@ int inputMic;
     }
     
     UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:grayCounter];
-    [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+    [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
     
     UIImageView *beatImg = (UIImageView*)[self.beatsView viewWithTag:counter];
     [beatImg setImage:[UIImage imageNamed:@"beat_ball_green.png"]];
@@ -1479,12 +1474,12 @@ int inputMic;
     if (pickerView.tag) {
         return (int)bpmPickerArray.count;
     }
-    return (int)[dronePickerArray count];
+    return DRONE_PICKERVIEW_NUMBER_OF_ROWS;//(int)[dronePickerArray count];
 }
 
 // The data to return for the row and component (column) that's being passed in
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return dronePickerArray[row];
+    return dronePickerArray[row%[dronePickerArray count]];;//dronePickerArray[row];
 }
 
 -(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
@@ -1505,26 +1500,21 @@ int inputMic;
     
     UIColor *textColor;
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25.0];
+    [lbl setFont:font];
 
     (clapFlag4 == 1) ? textColor = [UIColor whiteColor] : textColor = [UIColor blackColor];
-    lbl.textColor = textColor;
     
-    [lbl setFont:font];
+    NSString *droneTxt =  dronePickerArray[row%[dronePickerArray count]];//dronePickerArray[row];
     
-    NSString *droneTxt = dronePickerArray[row];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneTxt
+                                                                                         attributes:@{NSFontAttributeName: font}];
     if([droneTxt length] > 1) {
-
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneTxt
-                                                                                             attributes:@{NSFontAttributeName: font}];
         [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
                                           , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
-        
-        lbl.attributedText = attributedString;
-    } else {
-        lbl.text = droneTxt;
     }
+    [attributedString addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0,attributedString.length)];
     
-    //lbl.text = dronePickerArray[row];
+    lbl.attributedText = attributedString;
     
     [lbl setTextAlignment:NSTextAlignmentCenter];
     return lbl;
@@ -1539,12 +1529,12 @@ int inputMic;
     if (pickerView.tag) {
         isBpmPickerChanged = true;
         updatedBpm = bpmSlider.value;//[[bpmPickerArray objectAtIndex:[pickerView selectedRowInComponent:component]] intValue];
-        _droneType = [dronePickerArray objectAtIndex:[_dronePickerView selectedRowInComponent:component]];
+        _droneType = [dronePickerArray objectAtIndex:pickerRow%[dronePickerArray count]];
         mCurrentScore = currentBpm = updatedBpm;
     }
     else {
         pickerRow = [pickerView selectedRowInComponent:component];
-        _droneType = [dronePickerArray objectAtIndex:[pickerView selectedRowInComponent:component]];
+        _droneType = [dronePickerArray objectAtIndex:pickerRow%[dronePickerArray count]];
         updatedBpm = bpmSlider.value;//[[bpmPickerArray objectAtIndex:[_bpmPickerView selectedRowInComponent:component]] intValue];
         mCurrentScore = currentBpm = updatedBpm;
     }
@@ -1669,7 +1659,7 @@ int inputMic;
     beatTimer = nil;
     for (int i = 0; i < 12; i++) {
         UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:i];
-        [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+        [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
     }
     
     seconds = 0;
@@ -2043,7 +2033,7 @@ int inputMic;
 - (void) resetBeatMeterImages {
     for (int i = 0; i < 12; i++) {
         UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:i];
-        [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+        [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
     }
     seconds = 0;
     minutes = 0;
@@ -2216,9 +2206,10 @@ int inputMic;
         grayCounter = beatCount;
         for (int i = 0; i < 12; i++) {
             UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:i];
-            i == 0 ? [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_green.png"]] : [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey.png"]];
+            i == 0 ? [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_green.png"]] : [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
         }
         [self changeBeatMeterImages];
+        
 //        [_playTimer invalidate];
 //        _playTimer = nil;
 //        seconds = 0;
