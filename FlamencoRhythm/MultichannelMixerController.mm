@@ -1,535 +1,15 @@
-///*
-// Copyright (C) 2015 Apple Inc. All Rights Reserved.
-// See LICENSE.txt for this sample’s licensing information
-// 
-// Abstract:
-// The Controller Class for the AUGraph.
-// */
-//
-//#import "MultiChannelMixerController.h"
-//
-//#define kChannels   8
-//#define kInputBus   1
-//
-//const Float64 kGraphSampleRate = 44100.0;//44100.0; // 48000.0 optional tests
-//UInt32 kNumOfRecordStartBus;
-//UInt32 kInputBusDifference;
-//
-//#pragma mark- RenderProc
-//
-//static OSStatus renderInput(void *inRefCon,
-//                            AudioUnitRenderActionFlags *ioActionFlags,
-//                            const AudioTimeStamp *inTimeStamp,
-//                            UInt32 inBusNumber,
-//                            UInt32 inNumberFrames,
-//                            AudioBufferList *ioData) {
-//    //NSLog(@"Mixer");
-//    
-//    SoundBufferPtr sndbuf = (SoundBufferPtr)inRefCon;
-//    // frame number to start from
-//    UInt32 sample = sndbuf[inBusNumber].sampleNum;
-//    // total number of frames in the sound buffer
-//    UInt32 bufSamples = sndbuf[inBusNumber].numFrames;
-//    // audio data buffer
-//    Float32 *in = sndbuf[inBusNumber].data;
-//    
-//    // output audio buffer for L channel
-//    Float32 *outA = (Float32 *)ioData->mBuffers[0].mData;
-//    
-//    for (UInt32 i = 0; i < inNumberFrames; ++i) {
-//        outA[i] = in[sample++];
-//        if (sample > bufSamples) {
-//            // start over from the beginning of the data, our audio simply loops
-//            sample = 0;
-//        }
-//    }
-//    // keep track of where we are in the source data buffer
-//    sndbuf[inBusNumber].sampleNum = sample;
-//    return noErr;
-//}
-//
-//static OSStatus renderInputRec(void *inRefCon,
-//                               AudioUnitRenderActionFlags *ioActionFlags,
-//                               const AudioTimeStamp *inTimeStamp,
-//                               UInt32 inBusNumber,
-//                               UInt32 inNumberFrames,
-//                               AudioBufferList *ioData) {
-//    //NSLog(@"Recorded Files Mixer");
-//    SoundBufferRecPtr sndbuf = (SoundBufferRecPtr)inRefCon;
-//    UInt32 sample = sndbuf[inBusNumber].sampleNum;
-//    UInt32 bufSamples = sndbuf[inBusNumber].numFrames;
-//    Float32 *in = sndbuf[inBusNumber].data;
-//    Float32 *outA = (Float32 *)ioData->mBuffers[0].mData;
-//    
-//    for (UInt32 i = 0; i < inNumberFrames; ++i) {
-//        if(sample < bufSamples && inBusNumber > kNumOfRecordStartBus)
-//            outA[i] = in[sample++];
-//        else if(inBusNumber < kNumOfRecordStartBus){    // removed + 1
-//            outA[i] = in[sample++];
-//            if (sample > bufSamples) {
-//                sample = 0;
-//            }
-//        }
-//        else if(inBusNumber == kNumOfRecordStartBus) {
-//            sample++;
-//        }
-//    }
-//    if(sndbuf[inBusNumber].numFrames == sample) {
-//        UInt32 inputBus = inBusNumber + kInputBusDifference;
-//        [[NSNotificationCenter defaultCenter] postNotificationName: @"AUDIOFILENOTLOOPING" object: @{@"BUSNUMBER":[NSString stringWithFormat:@"%d",inputBus]}];
-//    }
-//    else
-//        sndbuf[inBusNumber].sampleNum = sample;
-//    return noErr;
-//}
-//
-//#pragma mark- MultichannelMixerController
-//
-//@interface MultichannelMixerController (hidden)
-//
-//- (void)loadFiles;
-//
-//@end
-//
-//@implementation MultichannelMixerController
-//
-//@synthesize isPlaying;
-//
-//- (void)dealloc{
-//    DisposeAUGraph(mTGraph);
-//    
-//    // ############ This needs to be inside condition ###########
-//    DisposeAUGraph(mRGraph);   //sn29thSept
-//    
-//}
-//
-//-(void)fillBuffers:(id)options andNumberOfBus:(UInt32)numBuses {
-//    kNumOfRecordStartBus = 0;
-//    int numRecorded = 0;
-//    isPlaying = false;
-//    memset(&mSoundBuffer, 0, sizeof(mSoundBuffer));
-//    
-//    // ############ This needs to be moved ###########
-//    memset(&mSoundRecBuffer, 0, sizeof(mSoundRecBuffer));
-//    
-//    NSMutableArray *fileArray = (NSMutableArray *)options;
-//    
-//    for (int i=0;i<fileArray.count;i++) {
-//        NSDictionary *dict = [fileArray objectAtIndex:i];
-//        if( [[dict valueForKey:@"type"] isEqualToString:@"Recorded"]) {
-//            recordedURL[numRecorded] = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (CFStringRef)[dict valueForKey:@"fileLocation"], kCFURLPOSIXPathStyle, false);
-//            numRecorded++;
-//        } else {
-//            sourceURL[i] = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (CFStringRef)[dict valueForKey:@"fileLocation"], kCFURLPOSIXPathStyle, false);
-//            bpmValue[i] = [[dict valueForKey:@"bpm"] floatValue] / [[dict valueForKey:@"startbpm"] floatValue];
-//            if( [[dict valueForKey:@"type"] isEqualToString:@"metronome"]) {
-//                currentBpm = [[dict valueForKey:@"startbpm"] floatValue];           // sn
-//            }
-//        }
-//    }
-//    
-//    [fileArray enumerateObjectsUsingBlock:^(NSDictionary *object,NSUInteger idX, BOOL *stop){
-//        if([[object valueForKey:@"type"] isEqualToString:@"Recorded"]){
-//            kNumOfRecordStartBus = (UInt32)idX;
-//            hasRecordedFiles = true;
-//            *stop = YES;
-//        }
-//        else{
-//            kNumOfRecordStartBus = (UInt32)idX;
-//            hasRecordedFiles = false;
-//        }
-//    }];
-//    
-//    _numRecbuses = numRecorded;
-//    _numbuses = numBuses - numRecorded;
-//    kInputBusDifference = _numbuses;
-//}
-//
-//- (void)initializeAUGraph{
-//    @try {
-//        AUNode tOutputNode;
-//        AUNode tMixerNode;
-//        AUNode timePitchNode;
-//        
-//        // this is the format for the graph
-//        mAudioFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32
-//                                                        sampleRate:kGraphSampleRate
-//                                                          channels:1
-//                                                       interleaved:NO];
-//        OSStatus result = noErr;
-//        
-//        // load up the audio data
-//        [self performSelectorInBackground:@selector(loadFiles) withObject:nil];
-//        
-//        // create a new AUGraph
-//        result = NewAUGraph(&mTGraph);
-//        
-//        if (result) {return; }
-//        
-//        // output unit for looping tracks
-//        CAComponentDescription t_output_desc(kAudioUnitType_Output,
-//                                             kAudioUnitSubType_RemoteIO,
-//                                             kAudioUnitManufacturer_Apple);
-//        CAShowComponentDescription(&t_output_desc);
-//        
-//        // timePitchNode unit for looping tracks
-//        CAComponentDescription timePitch_desc(kAudioUnitType_FormatConverter,
-//                                              //kAudioUnitSubType_AUiPodTimeOther,
-//                                              kAudioUnitSubType_NewTimePitch,
-//                                              kAudioUnitManufacturer_Apple);
-//        CAShowComponentDescription(&timePitch_desc);
-//        
-//        
-//        // multichannel mixer unit for looping tracks
-//        CAComponentDescription t_mixer_desc(kAudioUnitType_Mixer,
-//                                            kAudioUnitSubType_MultiChannelMixer,
-//                                            kAudioUnitManufacturer_Apple);
-//        CAShowComponentDescription(&t_mixer_desc);
-//        
-//        
-//        // create a node in the graph that is an AudioUnit, using the supplied AudioComponentDescription to find and open that unit
-//        result = AUGraphAddNode(mTGraph, &t_output_desc, &tOutputNode);
-//        if (result) {return; }
-//        
-//        result = AUGraphAddNode(mTGraph, &timePitch_desc, &timePitchNode);
-//        if (result) { return; }
-//        
-//        result = AUGraphAddNode(mTGraph, &t_mixer_desc, &tMixerNode );
-//        if (result) { return; }
-//        
-//        // connect a node's output to a node's input
-//        // mixer -> timepitch -> output
-//        
-//        result = AUGraphConnectNodeInput(mTGraph, tMixerNode, 0, timePitchNode, 0);
-//        if (result) { return; }
-//        
-//        result = AUGraphConnectNodeInput(mTGraph, timePitchNode, 0, tOutputNode, 0);
-//        if (result) { return; }
-//        
-//        
-//        // open the graph AudioUnits are open but not initialized (no resource allocation occurs here)
-//        result = AUGraphOpen(mTGraph);
-//        if (result) { return; }
-//        
-//        result = AUGraphNodeInfo(mTGraph, tMixerNode, NULL, &mTMixer);
-//        if (result) { return; }
-//        
-//        result = AUGraphNodeInfo(mTGraph, timePitchNode, NULL, &mTimePitchAU);
-//        if (result) { return; }
-//        
-//        
-//        // set bus count
-//        //UInt32 numbuses = 2;
-//        
-//        result = AudioUnitSetProperty(mTMixer, kAudioUnitProperty_ElementCount,
-//                                      kAudioUnitScope_Input, 0, &_numbuses, sizeof(_numbuses));
-//        
-//        if (result) {return; }
-//        
-//        for (int i = 0; i < _numbuses; ++i) {
-//            // setup render callback struct
-//            AURenderCallbackStruct rcbs;
-//            rcbs.inputProc = &renderInput;
-//            rcbs.inputProcRefCon = mSoundBuffer;
-//            
-//            // Set a callback for the specified node's specified input
-//            result = AUGraphSetNodeInputCallback(mTGraph, tMixerNode, i, &rcbs);
-//            // equivalent to AudioUnitSetProperty(mMixer, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, i, &rcbs, sizeof(rcbs));
-//            if (result) {return; }
-//            
-//            // set input stream format to what we want
-//            result = AudioUnitSetProperty(mTMixer, kAudioUnitProperty_StreamFormat,
-//                                          kAudioUnitScope_Input, i, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
-//            
-//            if (result) { return; }
-//        }
-//        
-//        // set output stream format to what we want
-//        result = AudioUnitSetProperty(mTMixer, kAudioUnitProperty_StreamFormat,
-//                                      kAudioUnitScope_Output, 0, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
-//        if (result) {return; }
-//        
-//        result = AudioUnitSetProperty(mTimePitchAU, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
-//        
-//        [self changePlaybackRate:bpmValue[0]];
-//        
-//        // now that we've set everything up we can initialize the graph, this will also validate the connections
-//        result = AUGraphInitialize(mTGraph);
-//        if (result) {return; }
-//        
-//        // Added this for creation of a different AudioGraph for recordings.
-//        if(hasRecordedFiles) {
-//            AUNode rOutputNode;
-//            AUNode rMixerNode;
-//            
-//            result = NewAUGraph(&mRGraph);
-//            
-//            // output unit for recordings
-//            CAComponentDescription r_output_desc(kAudioUnitType_Output,
-//                                                 kAudioUnitSubType_RemoteIO,
-//                                                 kAudioUnitManufacturer_Apple);
-//            CAShowComponentDescription(&r_output_desc);
-//            
-//            // multichannel mixer unit for recordings
-//            CAComponentDescription r_mixer_desc(kAudioUnitType_Mixer,
-//                                                kAudioUnitSubType_MultiChannelMixer,
-//                                                kAudioUnitManufacturer_Apple);
-//            CAShowComponentDescription(&r_mixer_desc);
-//            
-//            
-//            result = AUGraphAddNode(mRGraph, &r_output_desc, &rOutputNode);
-//            if (result) {return; }
-//            
-//            result = AUGraphAddNode(mRGraph, &r_mixer_desc, &rMixerNode );
-//            if (result) { return; }
-//            
-//            // mixer -> output
-//            result = AUGraphConnectNodeInput(mRGraph, rMixerNode, 0, rOutputNode, 0);
-//            if (result) { return; }
-//            
-//            result = AUGraphOpen(mRGraph);
-//            if (result) { return; }
-//            
-//            result = AUGraphNodeInfo(mRGraph, rMixerNode, NULL, &mRMixer);
-//            if (result) { return; }
-//            
-//            result = AudioUnitSetProperty(mRMixer, kAudioUnitProperty_ElementCount,
-//                                          kAudioUnitScope_Input, 0, &_numRecbuses, sizeof(_numRecbuses));
-//            
-//            for (int i = 0; i < _numRecbuses; ++i) {
-//                // setup render callback struct
-//                AURenderCallbackStruct rcbs;
-//                rcbs.inputProc = &renderInputRec;
-//                rcbs.inputProcRefCon = mSoundRecBuffer;
-//                
-//                // Set a callback for the specified node's specified input
-//                result = AUGraphSetNodeInputCallback(mRGraph, rMixerNode, i, &rcbs);
-//                // equivalent to AudioUnitSetProperty(mMixer, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, i, &rcbs, sizeof(rcbs));
-//                if (result) {return; }
-//                
-//                // set input stream format to what we want
-//                result = AudioUnitSetProperty(mRMixer, kAudioUnitProperty_StreamFormat,
-//                                              kAudioUnitScope_Input, i, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
-//                if (result) { return; }
-//            }
-//            
-//            result = AudioUnitSetProperty(mRMixer, kAudioUnitProperty_StreamFormat,
-//                                          kAudioUnitScope_Output, 0, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
-//            if (result) {return; }
-//            
-//            result = AUGraphInitialize(mRGraph);
-//            CAShow(mRGraph);
-//            if (result) {return; }
-//        }
-//        
-//        metronomePlayer = [[MetronomePlayer alloc] init];
-//        
-//        CAShow(mTGraph);
-//    }
-//    @catch (NSException *exception) {
-//        NSLog(@"exception is: %@",exception);
-//    }
-//    @finally {
-//        
-//    }
-//}
-//
-//// load up audio data from the demo files into mSoundBuffer.data used in the render proc
-//- (void)loadFiles{
-//    
-//    AVAudioFormat *clientFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32
-//                                                                   sampleRate:kGraphSampleRate
-//                                                                     channels:1
-//                                                                  interleaved:NO];
-//    
-//    [self loadFilesForMixerInput:mSoundBuffer
-//                  fromFilesArray:sourceURL
-//                 withAudioFormat:clientFormat];
-//    
-//    if(hasRecordedFiles) {
-//        [self loadFilesForMixerInput:mSoundRecBuffer
-//                      fromFilesArray:recordedURL
-//                     withAudioFormat:clientFormat];
-//    }
-//}
-//
-//-(void) loadFilesForMixerInput:(SoundBuffer*)soundBuffer
-//                fromFilesArray:(CFURLRef*) filesArray
-//               withAudioFormat:(AVAudioFormat*) audioFormat {
-//    
-//    for (int i = 0; i < NUMFILES && i < MAXBUFS; i++)  {
-//        
-//        ExtAudioFileRef xafref = 0;
-//        
-//        // open one of the two source files
-//        OSStatus result = ExtAudioFileOpenURL(filesArray[i], &xafref);
-//        if (result || !xafref) {break; }
-//        
-//        // get the file data format, this represents the file's actual data format
-//        AudioStreamBasicDescription fileFormat;
-//        UInt32 propSize = sizeof(fileFormat);
-//        
-//        result = ExtAudioFileGetProperty(xafref, kExtAudioFileProperty_FileDataFormat, &propSize, &fileFormat);
-//        if (result) { break; }
-//        
-//        // set the client format - this is the format we want back from ExtAudioFile and corresponds to the format
-//        // we will be providing to the input callback of the mixer, therefore the data type must be the same
-//        
-//        double rateRatio = kGraphSampleRate / fileFormat.mSampleRate;
-//        
-//        propSize = sizeof(AudioStreamBasicDescription);
-//        result = ExtAudioFileSetProperty(xafref, kExtAudioFileProperty_ClientDataFormat, propSize, audioFormat.streamDescription);
-//        if (result) { break; }
-//        
-//        // get the file's length in sample frames
-//        UInt64 numFrames = 0;
-//        propSize = sizeof(numFrames);
-//        result = ExtAudioFileGetProperty(xafref, kExtAudioFileProperty_FileLengthFrames, &propSize, &numFrames);
-//        if (result) { break; }
-//        
-//        numFrames *= rateRatio;
-//        
-//        // set up our buffer
-//        soundBuffer[i].numFrames = (UInt32)numFrames;
-//        soundBuffer[i].asbd = *(audioFormat.streamDescription);
-//        
-//        UInt32 samples = (UInt32)numFrames * mSoundBuffer[i].asbd.mChannelsPerFrame;
-//        soundBuffer[i].data = (Float32 *)calloc(samples, sizeof(Float32));
-//        soundBuffer[i].sampleNum = 0;
-//        
-//        // set up a AudioBufferList to read data into
-//        AudioBufferList bufList;
-//        bufList.mNumberBuffers = 1;
-//        bufList.mBuffers[0].mNumberChannels = 1;
-//        bufList.mBuffers[0].mData = soundBuffer[i].data;
-//        bufList.mBuffers[0].mDataByteSize = samples * sizeof(Float32);
-//        
-//        // perform a synchronous sequential read of the audio data out of the file into our allocated data buffer
-//        UInt32 numPackets = (UInt32)numFrames;
-//        
-//        result = ExtAudioFileRead(xafref, &numPackets, &bufList);
-//        if (result) {
-//            free(soundBuffer[i].data);
-//            soundBuffer[i].data = 0;
-//        }
-//        
-//        // close the file and dispose the ExtAudioFileRef
-//        ExtAudioFileDispose(xafref);
-//    }
-//}
-//
-//#pragma mark-
-//
-//// enable or disables a specific bus
-//- (void)enableInput:(UInt32)inputNum isOn:(AudioUnitParameterValue)isONValue{
-//    
-//    OSStatus result = AudioUnitSetParameter(mTMixer, kMultiChannelMixerParam_Enable, kAudioUnitScope_Input, inputNum, isONValue, 0);
-//    if (result) {return; }
-//}
-//
-//// sets the input volume for a specific bus
-//- (void)setInputVolume:(UInt32)inputNum value:(AudioUnitParameterValue)value
-//{
-//    OSStatus result;
-//    // Set volume for input buses with recordings.
-//    if(inputNum >= _numbuses) {
-//        UInt32 recInputBus = inputNum - _numbuses;
-//        result = AudioUnitSetParameter(mRMixer, kMultiChannelMixerParam_Volume, kAudioUnitScope_Input, recInputBus, value, 0);
-//        if (result) { return; }
-//    } else {
-//        result = AudioUnitSetParameter(mTMixer, kMultiChannelMixerParam_Volume, kAudioUnitScope_Input, inputNum, value, 0);
-//        if (result) { return; }
-//    }
-//}
-//
-//// sets the overall mixer output volume
-//- (void)setOutputVolume:(AudioUnitParameterValue)value
-//{
-//    OSStatus result = AudioUnitSetParameter(mTMixer, kMultiChannelMixerParam_Volume, kAudioUnitScope_Output, 0, value, 0);
-//    if (result) { return; }
-//    
-//    if(hasRecordedFiles) {
-//        OSStatus result = AudioUnitSetParameter(mRMixer, kMultiChannelMixerParam_Volume, kAudioUnitScope_Output, 0, value, 0);
-//        if (result) { return; }
-//        
-//    }
-//}
-//
-//// starts render
-//- (void)startAUGraph
-//{
-//    [metronomePlayer open:@"Click AccentedNew.wav"];
-//    
-//    if(hasRecordedFiles)       //sn29thSept
-//        AUGraphStart(mRGraph);
-//    OSStatus result = AUGraphStart(mTGraph);
-//    [NSThread sleepForTimeInterval:0.1f];   //sn
-//    [metronomePlayer play:currentBpm];      //sn
-//    
-//    if (result) { return; }
-//    isPlaying = true;
-//}
-//
-//// stops render
-//- (void)stopAUGraph{
-//    Boolean isRunning = false;
-//    OSStatus result = AUGraphIsRunning(mTGraph, &isRunning);
-//    if (result) {return; }
-//    
-//    if (isRunning) {
-//        [metronomePlayer stop];
-//        result = AUGraphStop(mTGraph);
-//        if(hasRecordedFiles)       //sn29thSept
-//            result = AUGraphStop(mRGraph);
-//        if (result) {return; }
-//        isPlaying = false;
-//    }
-//}
-//
-//- (void)setCurrentBpm:(float)currBpm {  //sn
-//    currentBpm = currBpm;
-//}
-//
-//// Changes playback rate
-//-(void)changePlaybackRate:(AudioUnitParameterValue)inputNum{
-//    
-//    OSStatus result = AudioUnitSetParameter(mTimePitchAU,
-//                                            kTimePitchParam_Rate,
-//                                            kAudioUnitScope_Global,
-//                                            0,
-//                                            inputNum,
-//                                            0);
-//    
-//    [metronomePlayer reset:currentBpm];
-//    
-//    if (result) {return; }
-//}
-//
-//-(void)setMetronomeVolume:(float)volume{
-//    [metronomePlayer setVolume:volume];
-//}
-//
-//@end
-
-/*
- Copyright (C) 2015 Apple Inc. All Rights Reserved.
- See LICENSE.txt for this sample’s licensing information
- 
- Abstract:
- The Controller Class for the AUGraph.
- */
 
 #import "MultiChannelMixerController.h"
 
 #define kChannels   8
 #define kInputBus   1
 
-const Float64 kGraphSampleRate = 44100.0;//44100.0; // 48000.0 optional tests
+const Float64 kGraphSampleRate = 44100.0;
 UInt32 kNumOfLoopStartBus;
 UInt32 kNumOfRecordStartBus;
 
 int seekEnabled = 0;
-UInt32 numFramesArr[8];      //sn
+UInt32 numFramesArr[8];
 UInt32 framesDiffArr[8];
 
 int _mutx = 0;
@@ -578,12 +58,18 @@ static OSStatus renderInput(void *inRefCon,
         }
     }
     
-    if(sndbuf[inBusNumber].numFrames == sample)
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName: @"AUDIOFILENOTLOOPING"
-         object: @{@"BUSNUMBER":[NSString stringWithFormat:@"%ud",inBusNumber]}];
+    if(sndbuf[inBusNumber].numFrames == sample) {
+        if(kNumOfRecordStartBus != 0) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName: @"AUDIOFILENOTLOOPING"
+             object: @{@"BUSNUMBER":[NSString stringWithFormat:@"%ud",inBusNumber]}];
+        }
+        else
+            sndbuf[inBusNumber].sampleNum = sample;
+    }
     else
         sndbuf[inBusNumber].sampleNum = sample;
+    
     return noErr;
 }
 
@@ -618,12 +104,6 @@ static OSStatus renderInput(void *inRefCon,
         if( [[dict valueForKey:@"type"] isEqualToString:@"metronome"]){
             metronomeBusIndex = i;
         }
-        //    currentBpm = [[dict valueForKey:@"startbpm"] floatValue];           // sn
-        
-        
-            // metronomeMultiplier = [[dict valueForKey:@"startbpm"] floatValue] / 60.0;
-           // bpmMultiplier = [[dict valueForKey:@"startbpm"] floatValue] / [[dict valueForKey:@"bpm"] floatValue];
-       //// }
     }
     
     [fileArray enumerateObjectsUsingBlock:^(NSDictionary *object,NSUInteger idX, BOOL *stop){
@@ -631,9 +111,6 @@ static OSStatus renderInput(void *inRefCon,
             kNumOfRecordStartBus = (UInt32)idX;
             *stop = YES;
         }
-//        else{
-//            kNumOfRecordStartBus = (UInt32)idX;
-//        }
     }];
     
     _numbuses = numBuses;
@@ -735,9 +212,6 @@ static OSStatus renderInput(void *inRefCon,
             result = AudioUnitSetProperty(mMixer, kAudioUnitProperty_StreamFormat,
                                           kAudioUnitScope_Input, i, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
             
-//            result = AudioUnitSetProperty(mTimeAU, kAudioUnitProperty_StreamFormat,
-//                                          kAudioUnitScope_Input, i, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
-            
             if (result) { return; }
         }
         
@@ -746,12 +220,7 @@ static OSStatus renderInput(void *inRefCon,
                                       kAudioUnitScope_Output, 0, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
         if (result) {return; }
         
-        //result = AudioUnitSetProperty(mOutput, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
-        //if (result) {return; }
-        
         result = AudioUnitSetProperty(mTimeAU, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, mAudioFormat.streamDescription, sizeof(AudioStreamBasicDescription));
-        
-        //[self changePlaybackRate:bpmValue[0]];
         
         // now that we've set everything up we can initialize the graph, this will also validate the connections
         result = AUGraphInitialize(mGraph);
@@ -777,7 +246,7 @@ static OSStatus renderInput(void *inRefCon,
         if(kNumOfRecordStartBus != 0){
             bpmMultiplier =(i < kNumOfRecordStartBus - 2) ? kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
         }
-        else{
+        else {
             bpmMultiplier =(i < _numbuses - 2) ? (bpmValue[i] == 1) ? kGraphSampleRate + 1 : kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
         }
         

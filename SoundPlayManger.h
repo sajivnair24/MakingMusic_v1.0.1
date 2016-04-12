@@ -13,6 +13,12 @@
 #import "RhythmClass.h"
 
 #include <AVFoundation/AVFoundation.h>
+@protocol SoundManagerDelegate <NSObject>
+
+@optional
+-(void)soundStopped;
+@end
+
 
 #define MAX_VOL 100.0f
 @interface SoundPlayManger : NSObject{
@@ -33,7 +39,7 @@
     NSMutableArray *audioPlayerArray;
     NSTimer *stopSoundTimer;
 }
-
+@property (nonatomic, assign) id<SoundManagerDelegate> delegate;
 - (void) playSelectedRecording:(RecordingListData *)data;
 
 - (NSString *)loadFilesForMixingAndSharing:(RecordingListData *)data;

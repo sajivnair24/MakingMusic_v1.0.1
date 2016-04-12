@@ -702,6 +702,7 @@
                         <outlet property="TotalTimeLbl" destination="WwJ-97-d78" id="3vw-tG-ziS"/>
                         <outlet property="backButton" destination="OPW-mQ-PAo" id="yk9-b2-G4P"/>
                         <outlet property="cell" destination="HpB-kh-1Uu" id="EfD-Ri-Aeq"/>
+                        <outlet property="cellTopSeprator" destination="ObB-Fg-Lll" id="f8K-DX-7sf"/>
                         <outlet property="collapseButton" destination="OhX-bY-RQe" id="Vkn-EQ-0vE"/>
                         <outlet property="dateLbl" destination="ECY-lS-72P" id="cvU-Uh-XJM"/>
                         <outlet property="deleteBGView" destination="W3w-uY-zGG" id="wQh-Ui-Kca"/>
@@ -1080,7 +1081,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Fc-jh-J26" secondAttribute="trailing" id="eeJ-23-v1Y"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="6EE759FC-A7D7-46A5-BD80-F2B94D92E2BF" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="9964B717-5F29-41A3-860F-50ACD07499C8" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
                                         <rect key="frame" x="0.0" y="64" width="600" height="72"/>
                                     </imageView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwJ-Ky-7ck" userLabel="iCarousel" customClass="iCarousel">
@@ -1095,7 +1096,7 @@
                                         </connections>
                                     </view>
                                     <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHL-8g-BN2" userLabel="RecordView">
-                                        <rect key="frame" x="0.0" y="64" width="600" height="269"/>
+                                        <rect key="frame" x="0.0" y="64" width="600" height="282"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCM-xt-VMr" userLabel="MicView">
@@ -1305,7 +1306,7 @@
                                 <constraints>
                                     <constraint firstItem="EIO-mD-Wga" firstAttribute="top" secondItem="wat-Yz-tSR" secondAttribute="bottom" id="74Q-5L-RUj"/>
                                     <constraint firstAttribute="trailing" secondItem="nbu-eo-yz4" secondAttribute="trailing" id="EZg-8Z-LSM"/>
-                                    <constraint firstItem="fHL-8g-BN2" firstAttribute="bottom" secondItem="JYH-H9-oUW" secondAttribute="bottom" multiplier="0.59652" constant="-25" id="GA8-ND-Kt4"/>
+                                    <constraint firstItem="fHL-8g-BN2" firstAttribute="bottom" secondItem="JYH-H9-oUW" secondAttribute="bottom" multiplier="0.59652" constant="-12" id="GA8-ND-Kt4"/>
                                     <constraint firstItem="pt7-0j-8Uj" firstAttribute="leading" secondItem="JYH-H9-oUW" secondAttribute="leading" id="Kzz-HU-ZQv"/>
                                     <constraint firstAttribute="bottom" secondItem="nbu-eo-yz4" secondAttribute="bottom" id="LOO-TU-PAy"/>
                                     <constraint firstItem="wat-Yz-tSR" firstAttribute="top" secondItem="JYH-H9-oUW" secondAttribute="top" constant="20" id="Meo-VW-GUI"/>
@@ -1692,7 +1693,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="6EE759FC-A7D7-46A5-BD80-F2B94D92E2BF" width="320" height="74">
+        <image name="9964B717-5F29-41A3-860F-50ACD07499C8" width="320" height="74">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

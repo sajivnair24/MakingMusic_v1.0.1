@@ -32,22 +32,13 @@
 
 @implementation MainNavigationViewController
 
-//@synthesize viewControllerArray;
-//@synthesize selectionBar;
-//@synthesize panGestureRecognizer;
 @synthesize pageController;
-//@synthesize navigationView;
-//@synthesize buttonText;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     flagVolume = 0;
     _musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
     NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
-    //    [notificationCenter addObserver:self
-    //                           selector:@selector(handleVolumeChanged:)
-    //                               name:MPMusicPlayerControllerVolumeDidChangeNotification
-    //                             object:_musicPlayer];
     
     [notificationCenter addObserver:self
                            selector:@selector(handleVolumeChanged:)
@@ -75,7 +66,16 @@
     secondVC= [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
     thirdVC = [self.storyboard instantiateViewControllerWithIdentifier:@"thirdVCold"];
     
-    savedDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Expander"];
+    if (IS_IPHONE_4s) {
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"4sStoryboard" bundle:[NSBundle mainBundle]];
+        
+        savedDetailVC = [sb instantiateViewControllerWithIdentifier:@"Expander4s"];
+    }
+    else{
+        savedDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Expander"];
+    }
+    
     
     //    firstVC.myNavigationController = self;
     secondVC.myNavigationController = self;
@@ -86,21 +86,16 @@
     savedDetailVC.savedDetailDelegate = self;
     secondVC.recordDelegate = self;
     
-    //    viewControllerArray = @[firstVC,secondVC,thirdVC];
     viewControllerArray = @[thirdVC,secondVC,savedDetailVC];
     
-    //    ProductDetailViewController *startingViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[thirdVC];
-    //NSArray *viewControllers = @[secondVC];
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
     // Change the size of page view controller
     self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 50);
     
-  //  [self.view addSubview:pageController.view];
-   // [self addChildViewController:pageController];
-   // [self.pageController didMoveToParentViewController:self];
     [self addNavigationController];
+    [self addFooterSeprator];
     [self setUpVolumeSlide];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -109,11 +104,29 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(isRecordingDone:)
                                                  name:@"recordingDone" object:nil];
-    // volume view to control device volume
-    volumeView = [[MPVolumeView alloc] init];
+    [self setUpMPVolumeView];
     self.pageController.dataSource = nil;
     [self addFooterBackGround];
 }
+
+-(void)setUpMPVolumeView {
+    volumeView = [[MPVolumeView alloc] initWithFrame: CGRectMake(-100,-100,16,16)];
+    volumeView.showsRouteButton = NO;
+    volumeView.userInteractionEnabled = NO;
+    [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:volumeView];
+}
+
+-(void)addFooterSeprator{
+    UIView *seprator = [[UIView alloc]init];
+    [_footerImageView addSubview:seprator];
+    seprator.backgroundColor = UIColorFromRGB(GRAY_COLOR);
+    [seprator autoPinEdgeToSuperviewEdge:ALEdgeLeading];
+    [seprator autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
+    [seprator autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0.5];
+    [seprator autoSetDimension:ALDimensionHeight toSize:0.5];
+    
+}
+
 -(void)addNavigationController{
     navigationController = [[UINavigationController alloc]initWithRootViewController:thirdVC];
     [self.view addSubview:navigationController.view];
@@ -122,29 +135,36 @@
     navigationController.navigationBarHidden = YES;
     [navigationController.interactivePopGestureRecognizer setDelegate:self];
 }
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     if ([navigationController.viewControllers count]>1) {
         return YES;
     }
     return NO;
 }
+
 -(void)addFooterBackGround{
-    [_tunerBlackImage setImage:[UIImage imageNamed:@"magnet"]];
+    [_tunerBlackImage setImage:[UIImage imageNamed:@"tuner_blue"]];
+    [_tunerBlackImage setHidden:NO];
     
-    _footerFadedBackground = [[UIView alloc]initWithFrame:CGRectMake(0,457, self.view.frame.size.width,  150)];
+    int posY = 457;
+    if (IS_IPHONE_4s) {
+        posY = 430;
+    }
+    _footerFadedBackground = [[UIView alloc]initWithFrame:CGRectMake(0,posY, self.view.frame.size.width,  150)];
     _footerFadedBackground.backgroundColor = [UIColor blackColor];
     _footerFadedBackground.alpha = 0.0;
     [self.view addSubview:_footerFadedBackground];
-
 }
+
 - (void)isRecordingStart:(NSNotification *)note {
     [self tappedRecordButton];
-    //NSLog(@"Received Notification - Someone seems to have logged in");
 }
+
 - (void)isRecordingDone:(NSNotification *)note {
     [self recordingDone];
-    //NSLog(@"Received Notification - Someone seems to have logged in");
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
@@ -153,28 +173,6 @@
     AVAudioPlayer *testPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@", [[NSBundle mainBundle] pathForResource:@"Sync 1" ofType:@"m4a"]]] error:nil];
     [testPlayer play];
 }
-
-/*-(UIStatusBarStyle)preferredStatusBarStyle{
-    //NSLog(@"cur %ld",(long)currentPageIndex);
-    if (currentPageIndex == 0) {
-        return UIStatusBarStyleDefault;
-    }else
-        return UIStatusBarStyleLightContent;
-}*/
-
-//This stuff here is customizeable: buttons, views, etc
-////////////////////////////////////////////////////////////
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%//
-//%%%%%%%%%%%%%%%%%    CUSTOMIZEABLE    %%%%%%%%%%%%%%%%%%//
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%//
-//
-
-//%%% color of the status bar
-//- (UIStatusBarStyle)preferredStatusBarStyle{
-//    return UIStatusBarStyleLightContent;
-//
-//     //   return UIStatusBarStyleDefault;
-//}
 
 -(void)viewToPresent:(int)_index withDictionary:(NSDictionary*)_dict{
     
@@ -188,64 +186,53 @@
 }
 
 -(void)goBackToSoundListing{
-    // NSArray *viewControllers = @[[viewControllerArray objectAtIndex:0]];
-   // [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
     [navigationController popViewControllerAnimated:YES];
 }
+
 -(void)openRecordingView{
     secondVC= [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
     secondVC.myNavigationController = self;
     [navigationController pushViewController:secondVC animated:YES];
-   // NSArray *viewControllers = @[[viewControllerArray objectAtIndex:1]];
-   // [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
--(void)openDetailRecordingView:(RecordingListData *)recordingData{
+
+-(void)openDetailRecordingView:(RecordingListData *)recordingData {
     savedDetailVC.recordingData = recordingData ;
     [navigationController pushViewController:savedDetailVC animated:YES];
-   // [savedDetailVC setDataForUIElements:0 RecordingData:recordingData];
-    //NSArray *viewControllers = @[[viewControllerArray objectAtIndex:2]];
-    //[self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-   // [self viewToPresent:2 withDictionary:nil];
-    
 }
--(void)updateCurrentPageIndex:(int)newIndex
-{
+
+-(void)updateCurrentPageIndex:(int)newIndex {
     currentPageIndex = newIndex;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Record View delegate methods
 
--(void)tappedRecordButton{
+-(void)tappedRecordButton {
     [self.tunerBtn setUserInteractionEnabled:NO];
-    [self.tunerBlackImage setHidden:NO];
+    [_tunerBlackImage setImage:[UIImage imageNamed:@"tuner_grey"]];
 }
 
-- (void) recordingDone{
+- (void) recordingDone {
     [self.tunerBtn setUserInteractionEnabled:YES];
-    [self.tunerBlackImage setHidden:YES];
+    [_tunerBlackImage setImage:[UIImage imageNamed:@"tuner_blue"]];
 }
+
 #pragma mark - slider Setup & Action
 - (void)setUpVolumeSlide {
-//    _volumeSlider.value = 5;
     float vol = [[AVAudioSession sharedInstance] outputVolume];
     [_volumeSlider setValue:vol*10];
 
     [_volumeSlider setMinimumTrackTintColor:[UIColor grayColor]];
     [_volumeSlider setMaximumTrackTintColor:[UIColor lightGrayColor]];
     
-    //[_volumeSlider setMaximumTrackTintColor:[UIColor blackColor]];
-   // [_volumeSlider setMaximumTrackImage:[UIImage imageNamed:@"slidertrackLatestBlack.png"] forState:UIControlStateNormal];
-    //[_volumeSlider setMinimumTrackImage:[UIImage imageNamed:@"sliderprogressLatest.png"] forState:UIControlStateNormal];
     [_volumeSlider setThumbImage:[UIImage imageNamed:@"sliderThumb.png"] forState:UIControlStateNormal];
 }
+
 - (IBAction)OnChangeVolumeSlider:(id)sender{
     
-    //find the volumeSlider
     UISlider* volumeViewSlider = nil;
     for (UIView *view in [volumeView subviews]){
         if ([view.class.description isEqualToString:@"MPVolumeSlider"]){
@@ -256,9 +243,7 @@
     [volumeViewSlider setValue:[_volumeSlider value]/10.0 animated:NO];
     [volumeViewSlider sendActionsForControlEvents:UIControlEventTouchUpInside];
     
-    //    [_volumeSlider setValue:_musicPlayer.volume * 10];
     [self.delegate volumeChanged:[_volumeSlider value]/10.0];
-    //    _musicPlayer.volume = _volumeSlider.value/10.0f;
 }
 
 - (void)handleVolumeChanged:(id)notification {
@@ -266,22 +251,16 @@
     if(flagVolume != 0){
     float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"]
                     floatValue];
-    //    //NSLog(@"the volume change action: %f",volume);
           [self.delegate volumeChanged:volume];
     [_volumeSlider setValue:volume*10];
   
-    //    [_volumeSlider setValue:_musicPlayer.volume * 10];
         if(flagVolume == 1){
             flagVolume = 2;
         }
-
-
     }
     else if(flagVolume == 0){
         flagVolume = 1;
     }
-    
-    
 }
 
 - (IBAction)onTapChromaticTuner:(id)sender {

@@ -107,11 +107,16 @@
 -(void)stopSound:(NSTimer *) timer{
     NSLog(@" timer stoped ");
     [timer invalidate];
-    [self stopAllSound];
+        [self stopAllSound];
+    [self.delegate soundStopped];
+
 }
 -(void)stopAllSound{
-    [stopSoundTimer invalidate];
-    stopSoundTimer = nil;
+    if([stopSoundTimer isValid]) {
+        [stopSoundTimer invalidate];
+        stopSoundTimer = nil;
+    }
+    
     [mixerController stopAUGraph:YES];
 }
 

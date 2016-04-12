@@ -18,7 +18,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperator_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="ot9-X9-mYS">
-                                <rect key="frame" x="17" y="74" width="610" height="1"/>
+                                <rect key="frame" x="30" y="67" width="610" height="1"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.5"/>
                             </imageView>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hy5-87-o0l" userLabel="Clap1">
                                 <rect key="frame" x="20" y="117" width="60" height="60"/>
@@ -134,7 +135,7 @@
                                 <rect key="frame" x="252" y="116" width="62" height="62"/>
                             </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uyq-Tk-NVg" userLabel="CellView">
-                                <rect key="frame" x="0.0" y="23" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="21" width="320" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEe-iL-dOu" userLabel="Exit Button">
                                         <rect key="frame" x="283" y="0.0" width="30" height="30"/>
@@ -145,29 +146,26 @@
                                             <action selector="closeButtonClicked:" destination="omo-bj-H68" eventType="touchUpInside" id="6vd-NY-E1y"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="close-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="js0-BD-ijp">
-                                        <rect key="frame" x="288" y="6" width="20" height="20"/>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tangos 120 bpm A#" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lea-z9-Xrm">
-                                        <rect key="frame" x="123" y="32" width="181" height="12"/>
+                                        <rect key="frame" x="130" y="28" width="181" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                         <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="01/11/2014" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUA-k3-T5h">
-                                        <rect key="frame" x="16" y="31" width="61" height="12"/>
+                                        <rect key="frame" x="30" y="29" width="61" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                         <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="15:46" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyb-8z-a8v">
-                                        <rect key="frame" x="93" y="31" width="27" height="12"/>
+                                        <rect key="frame" x="103" y="29" width="30" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                         <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4o-Fk-7y3" userLabel="MenuBtn">
-                                        <rect key="frame" x="249" y="0.0" width="30" height="30"/>
+                                        <rect key="frame" x="280" y="0.0" width="30" height="30"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -176,7 +174,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tangos (100 BPM A#)" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HaJ-zy-glF" userLabel="songNameTxtFld">
-                                        <rect key="frame" x="15" y="1" width="170" height="30"/>
+                                        <rect key="frame" x="30" y="1" width="170" height="30"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -184,8 +182,15 @@
                                         </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="menu.png" translatesAutoresizingMaskIntoConstraints="NO" id="jRk-dS-f1v">
-                                        <rect key="frame" x="251" y="14" width="25" height="5"/>
+                                        <rect key="frame" x="280" y="14" width="25" height="5"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Syn-nC-Nqk" userLabel="BackButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="backToRecordingList:" destination="omo-bj-H68" eventType="touchUpInside" id="CGe-6k-wgX"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -312,7 +317,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="TotalTimeLbl" destination="Oyb-8z-a8v" id="YNQ-bQ-RTr"/>
+                        <outlet property="backButton" destination="Syn-nC-Nqk" id="CQ4-cS-y9s"/>
                         <outlet property="cell" destination="Uyq-Tk-NVg" id="zFm-sD-paK"/>
+                        <outlet property="cellTopSeprator" destination="ot9-X9-mYS" id="0EA-ZI-X8g"/>
                         <outlet property="collapseButton" destination="dEe-iL-dOu" id="fFb-Il-IGN"/>
                         <outlet property="dateLbl" destination="cUA-k3-T5h" id="rVe-h9-kb4"/>
                         <outlet property="deleteBGView" destination="nS0-JA-m6f" id="u5J-8M-Idf"/>
@@ -374,7 +381,6 @@
         <image name="Claps4_Gray.png" width="120" height="120"/>
         <image name="Claps_disabled.png" width="60" height="60"/>
         <image name="circle_volume_white.png" width="60" height="60"/>
-        <image name="close-icon.png" width="41" height="41"/>
         <image name="closebutton.png" width="122" height="122"/>
         <image name="four_blue.png" width="60" height="60"/>
         <image name="four_darkgrey.png" width="60" height="60"/>

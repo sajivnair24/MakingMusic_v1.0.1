@@ -249,6 +249,7 @@
 
 @property (nonatomic, retain)     NSString *shareCheckString;
 
+@property (weak, nonatomic) IBOutlet UIImageView *cellTopSeprator;
 @property(nonatomic ,strong)RecordingListData *recordingData;
 - (void)setDataForUIElements:(int)_index RecordingData :(RecordingListData *)data;
 

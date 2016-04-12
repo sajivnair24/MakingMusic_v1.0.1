@@ -180,6 +180,9 @@ int inputMic;
     }
     _droneType = [droneArray objectAtIndex:0];
     [_dronePickerView reloadAllComponents];
+    _dronePickerView.backgroundColor = [UIColor clearColor];
+    _dronePickerView.showsSelectionIndicator = NO;
+    _dronePickerView.tintColor = [UIColor clearColor];
    // [_dronePickerView selectRow:300 inComponent:0 animated:NO];
     int startIndex = (DRONE_PICKERVIEW_NUMBER_OF_ROWS/2)- ((DRONE_PICKERVIEW_NUMBER_OF_ROWS/2)%[dronePickerArray count]);
     [_dronePickerView selectRow:startIndex inComponent:0 animated:NO];
@@ -210,6 +213,7 @@ int inputMic;
                                              selector:@selector(hideMicSwitch:)
                                                  name:@"HIDEMICSWITCH"
                                                object:nil];
+    
    
   //  [self addBackGroundViewToInstriments];
     
@@ -535,9 +539,11 @@ int inputMic;
     DLog(@"%@ =",[NSString stringWithFormat:@"%f", slider.value]);
     [self updateBpmText];
 }
+
 -(void)updateBpmText{
     [_recordTimerText setText:[NSString stringWithFormat:@"%d bpm", (int)mCurrentScore]];
 }
+
 - (void)sliderDidEndSliding:(NSNotification *)notification {
     DLog(@"sliderDidEndSliding");
     [self restartAUGraph];
@@ -548,6 +554,11 @@ int inputMic;
         if ([beatTimer isValid]) {
             [beatTimer invalidate];
             // beatTimer = nil;
+        }
+        
+        for (int i = 0; i < 12; i++) {
+            UIImageView *grayBeatImg = (UIImageView*)[self.beatsView viewWithTag:i];
+            [grayBeatImg setImage:[UIImage imageNamed:@"beat_ball_grey"]];
         }
         
         [self stopAudioFiles];
@@ -1016,6 +1027,8 @@ int inputMic;
     if ([[_dronePickerView viewForRow:pickerRow forComponent:0] isKindOfClass:[UILabel class]]) {
         UILabel *selectedRow = (UILabel *)[_dronePickerView viewForRow:pickerRow forComponent:0];
         selectedRow.textColor = (clapFlag4 == 1) ? [UIColor whiteColor] : [UIColor blackColor];
+        //selectedRow.shadowColor = [UIColor whiteColor];
+        //selectedRow.shadowOffset = CGSizeMake(0, 1);
     }
 
     // [btn setImage:[UIImage imageNamed:@"Claps4_Blue.png"] forState:UIControlStateSelected];
@@ -1403,7 +1416,8 @@ int inputMic;
         [self stopAudioFiles];
         [self resetAllTimers];
         
-        _recordTimerText.text = @"00:00";
+        //_recordTimerText.text = @"00:00";
+        
         //[self.recordDelegate recordingDone];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"recordingDone"
                                                             object:nil];

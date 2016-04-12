@@ -20,7 +20,7 @@
 
 #define NUM_TOP_ITEMS 20
 #define NUM_SUBITEMS 6
-#define IS_IPHONE_4s ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )480 ) < DBL_EPSILON )
+
 
 @interface SavedListViewController () <MainNavigationViewControllerDelegate>
 {
@@ -97,6 +97,7 @@ static NSString *cellIdentifier = @"CELL";
 }
 -(void)addRecordingTableView{
     soundPlayer = [[SoundPlayManger alloc]init];
+    soundPlayer.delegate = self;
     recordingTableView = [[UITableView alloc]init];
     UIView *headerView = [self getHeaderView];
     
@@ -129,6 +130,14 @@ static NSString *cellIdentifier = @"CELL";
    // [recordingTableView setEditing:YES];
     
 }
+-(void)soundStopped{
+    for (int i = 0; i<[songList count]; i++) {
+        RecordingListData *cellData = [songList objectAtIndex:i];
+        cellData.isSoundPlaying = NO;
+    }
+    [self refreshTableView];
+    
+}
 -(UIView*)getHeaderView{
     UIView *backgroundView = [[UIView alloc]init];
     UIButton *btn = [[UIButton alloc]init];
@@ -155,7 +164,7 @@ static NSString *cellIdentifier = @"CELL";
     //iAdBannerView.backgroundColor = [UIColor blackColor];
 }
 -(void)openNewSession:(id)sender{
-       DLog(@"open new Session");
+    [soundPlayer stopAllSound];
     [self.myNavigationController openRecordingView];
     //[self.myNavigationController viewToPresent:1 withDictionary:@[]];
 }
@@ -303,7 +312,6 @@ static NSString *cellIdentifier = @"CELL";
     NSString *imageName = @"play.png";
     if (cellData.isSoundPlaying) {
         imageName = @"pause.png";
-      
     }
     [playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
@@ -352,12 +360,21 @@ static NSString *cellIdentifier = @"CELL";
 -(void)deleteSoundTrackAtIndex:(NSIndexPath *)indexPath{
     RecordingListData *cellData = [songList objectAtIndex:indexPath.row];
     [soundPlayer stopAllSound];
-    [sqlManager updateDeleteRecordOfRecordID:cellData.recordID];
+    
     [songList removeObjectAtIndex:indexPath.row];
     [self.recordingTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self setTableBackGroundView];
+
+    [self performSelector:@selector(stopAudio) withObject:self afterDelay:0.5];
+    
+    [sqlManager updateDeleteRecordOfRecordID:cellData.recordID];
 }
--(void)setTableBackGroundView{
+
+-(void)stopAudio {
+    [self soundStopped];
+}
+
+-(void)setTableBackGroundView {
     if ([songList count]>0) {
         self.recordingTableView.backgroundView = nil;
     }
@@ -365,9 +382,10 @@ static NSString *cellIdentifier = @"CELL";
         self.recordingTableView.backgroundView = tableBackGroundView;
     }
 }
+
 -(void)shareSoundTrackAtIndexPath:(int)index{
     [soundPlayer stopAllSound];
-    
+    [self soundStopped];
     RecordingListData *cellData = [songList objectAtIndex:index];
      NSString *mergeOutputPath = [soundPlayer loadFilesForMixingAndSharing:cellData];
     

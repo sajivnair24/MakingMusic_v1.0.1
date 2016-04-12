@@ -19,9 +19,10 @@
 #import "GADBannerView.h"
 #import "SavedListDetailViewController.h"
 #import "SoundPlayManger.h"
+#define IS_IPHONE_4s ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )480 ) < DBL_EPSILON )
 @class MainNavigationViewController;
 
-@interface SavedListViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,AVAudioPlayerDelegate,ADBannerViewDelegate,GADBannerViewDelegate,ExpandedCellDelegate>
+@interface SavedListViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,AVAudioPlayerDelegate,ADBannerViewDelegate,GADBannerViewDelegate,ExpandedCellDelegate,SoundManagerDelegate>
 {
      // array of arrays
     NSMutableArray *songList;

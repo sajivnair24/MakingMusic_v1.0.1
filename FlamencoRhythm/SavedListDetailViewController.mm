@@ -531,11 +531,20 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     [_backButton setTitle:@"" forState:UIControlStateNormal];
-    //_backButton.backgroundColor = [UIColor redColor];
     [self setFontsForAllLabels];
+    [self addNavigationTopSeprator];
     
 }
-
+-(void)addNavigationTopSeprator{
+    UIView *seprator = [[UIView alloc]init];
+    [self.view addSubview:seprator];
+    seprator.backgroundColor = UIColorFromRGB(GRAY_COLOR);
+    [seprator autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:30];
+    [seprator autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
+    [seprator autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:67];
+    [seprator autoSetDimension:ALDimensionHeight toSize:0.5];
+    [_cellTopSeprator removeFromSuperview];
+}
 -(void)backButtonClicked:(id)sender
 {
     [self updateRecordingTable];
