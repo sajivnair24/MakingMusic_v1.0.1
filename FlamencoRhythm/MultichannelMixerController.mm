@@ -241,7 +241,6 @@ static OSStatus renderInput(void *inRefCon,
 // load up audio data from the demo files into mSoundBuffer.data used in the render proc
 - (void)loadFiles{
     
-
     for (int i = 0; i < NUMFILES && i < MAXBUFS; i++)  {
         if(kNumOfRecordStartBus != 0){
             bpmMultiplier =(i < kNumOfRecordStartBus - 2) ? kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
@@ -416,6 +415,7 @@ static OSStatus renderInput(void *inRefCon,
         isPlaying = false;
         setMutex(0);
     }
+    
     if(release)
         [self releaseSoundBuffer];
 }

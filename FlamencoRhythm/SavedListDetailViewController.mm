@@ -24,11 +24,6 @@
 
 #define MAX_VOL 100.0f
 
-
-ExtAudioFileRef             mAudioFileRef;
-AudioComponentInstance      mAudioUnit;
-AudioStreamBasicDescription mAudioFormat;
-
 enum MixerInputParams { kMixerParam_Vol, kMixerParam_Pan };
 enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
@@ -44,6 +39,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     BOOL isPurchaseRestored;
     NSArray *rotataryViewsArray;
 }
+
 @property (strong, nonatomic) RAAlertController *alertController;
 @property (nonatomic, strong) UIPopoverController *activityPopoverController;
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryClap1;
@@ -55,41 +51,24 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryT3;
 @property (strong, nonatomic) IBOutlet MHRotaryKnob *rotatryT4;
 
-
-
 @end
 
 @implementation SavedListDetailViewController
 
 #pragma mark - View management
 
--(void)viewDidDisappear:(BOOL)animated
-{
+-(void)viewDidDisappear:(BOOL)animated {
+    
     if (!_closeButtonClicked) {
         [self.delegate expandedCellWillCollapse];
-        
     }
-    
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle{
-    
+-(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
-    
 }
 
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    [sqlManager updateFlagValueOfRecordID:recordID instr1:[NSNumber numberWithBool:clapFlag1] instr2:[NSNumber numberWithBool:clapFlag2] instr3:[NSNumber numberWithBool:clapFlag3] instr4:[NSNumber numberWithBool:clapFlag4] t1:[NSNumber numberWithBool:recFlag1 ] t2:[NSNumber numberWithBool:recFlag2 ] t3:[NSNumber numberWithBool:recFlag3 ] t4:[NSNumber numberWithBool:recFlag4]];
-//    
-//    [sqlManager updateVolumesofRecordID:recordID instr1Vol:[NSNumber numberWithInt:instrV1] instr2Vol:[NSNumber numberWithInt:instrV2] instr3Vol:[NSNumber numberWithInt:instrV3] instr4Vol:[NSNumber numberWithInt:instrV4] track1Vol:[NSNumber numberWithInt:tV1] trackVol2:[NSNumber numberWithInt:tV2] track3Vol:[NSNumber numberWithInt:tV3] track4Vol:[NSNumber numberWithInt:tV4]];
-//    
-//    [sqlManager updatePanofRecordID:recordID instr1Pan:[NSNumber numberWithInt:instrP1] instr2Pan:[NSNumber numberWithInt:instrP2] instr3Pan:[NSNumber numberWithInt:instrP3] instr4Pan:[NSNumber numberWithInt:instrP4] track1Pan:[NSNumber numberWithInt:tP1] trackPan2:[NSNumber numberWithInt:tP2] track3Pan:[NSNumber numberWithInt:tP3] track4Pan:[NSNumber numberWithInt:tP4]];
-//    
-//    [self resetVolImages];
-//    [self resetPlayButtonWithCell];
-//}
-
+//This was in viewWillDisappear.
 - (void)updateRecordingTable {
     [sqlManager updateFlagValueOfRecordID:recordID instr1:[NSNumber numberWithBool:clapFlag1] instr2:[NSNumber numberWithBool:clapFlag2] instr3:[NSNumber numberWithBool:clapFlag3] instr4:[NSNumber numberWithBool:clapFlag4] t1:[NSNumber numberWithBool:recFlag1 ] t2:[NSNumber numberWithBool:recFlag2 ] t3:[NSNumber numberWithBool:recFlag3 ] t4:[NSNumber numberWithBool:recFlag4]];
     
@@ -100,7 +79,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [self resetVolImages];
     [self resetPlayButtonWithCell];
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -121,23 +99,16 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     for (MHRotaryKnob *rotaryKnob in rotataryViewsArray)
         [self initializeRotatryViews:rotaryKnob];
     
-    //[self initializeRotatryViews:rotataryViewsArray];
-    
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self trimRequiredAudioFiles];
     });
     
     _closeButtonClicked = NO;
-    //NSLog(@"view will disappear in detail list");
-    if ([self.shareCheckString isEqualToString:@"opened"]) {
+    
+    if ([self.shareCheckString isEqualToString:@"opened"])
         self.shareCheckString = @"comeback";
-    }
-    else {
+    else
         self.shareCheckString = @"sameclass";
-    }
-   // [self trimAudioFilesOnBackThread];
-    //    self.recordingBtn.userInteractionEnabled = (![_recTrackFour isEqualToString:@"-1"]) ? NO : YES;
-    //    self.recordingBtn.alpha = (![_recTrackFour isEqualToString:@"-1"]) ? 0.3 : 1.0;
 }
 
 -(void)trimAudioFilesOnBackThread{
@@ -152,11 +123,13 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [super viewDidLayoutSubviews];
     
     int img1 = 1, img2 = 1;
+    
     // Set Image
     if (![rhythmRecord.rhythmInstOneImage isEqualToString:@"-1"]) {
+        
         [_instrument1 setHidden:NO];
-        //[_volImageInstru1 setHidden:NO];
         [_rotatryClap1 setHidden:NO];
+        
         NSArray *listItems = [rhythmRecord.rhythmInstOneImage componentsSeparatedByString:@"."];
         NSString *lastWordString = [NSString stringWithFormat:@"%@", listItems.firstObject];
         
@@ -164,29 +137,28 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         [_instrument1 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_disabled.png",lastWordString]] forState:UIControlStateNormal];
         
         img1 = 1;
-    }else{
+        
+    } else {
         [_instrument1 setHidden:YES];
-        //        [_volImageInstru1 setHidden:YES];
         [_rotatryClap1 setHidden:YES];
         clapFlag1 = 0;
         img1 = 0;
     }
+    
     if (![rhythmRecord.rhythmInstTwoImage isEqualToString:@"-1"]) {
         [_instrument2 setHidden:NO];
-        //[_volImageInstru2 setHidden:NO];
         [_rotatryClap2 setHidden:NO];
-        //
+        
         NSArray *listItems = [rhythmRecord.rhythmInstTwoImage componentsSeparatedByString:@"."];
         NSString *lastWordString = [NSString stringWithFormat:@"%@", listItems.firstObject];
         
         [_instrument2 setImage:[UIImage imageNamed:rhythmRecord.rhythmInstTwoImage] forState:UIControlStateSelected];
         [_instrument2 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_disabled.png",lastWordString]] forState:UIControlStateNormal];
         
-        
         img2 = 1;
-    }else{
+        
+    } else {
         [_instrument2 setHidden:YES];
-        //[_volImageInstru2 setHidden:YES];
         [_rotatryClap2 setHidden:YES];
         clapFlag2 = 0;
         img2 = 0;
@@ -194,35 +166,26 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     CGRect visibleSize = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = visibleSize.size.width;
-    //    CGFloat screenHeight = visibleSize.size.height;
     int xDist = 0;  // for 320
+    
     // If only 2 buttons are there
     if ((img1 == 0) && (img2 == 0)) {
         xDist = ((screenWidth - 120) / 3);
         _audioPlayerClap1 = nil;
         _audioPlayerClap2 = nil;
         _instrument3.frame = CGRectMake(xDist, _instrument3.frame.origin.y, 60, 60);
-        //_bpmPickderBackView.frame = CGRectMake(xDist, _bpmPickderBackView.frame.origin.y, 60, 60);
         _instrument4.frame = CGRectMake((xDist*2)+60, _instrument4.frame.origin.y, 60, 60);
         _volImageInstru3.center = _instrument3.center;
         _volImageInstru4.center = _instrument4.center;
         _rotatryClap3.center = _instrument3.center;
         _rotataryClap4.center = _instrument4.center;
-        //_dronePickerBackView.frame = CGRectMake((xDist*2)+60, _dronePickerBackView.frame.origin.y, 60, 60);
         
-        //            _Instrument3_Layout.constant = xDist;
-        //            _Bpm_Layout.constant =  xDist;
-        //            _Intrument4_Layout.constant = xDist*2 +60;
-        //            _drone_Layout.constant =  xDist*2 +60;
+    } else if (img1 == 0) {
         
-        //[self.view setNeedsUpdateConstraints];
-        
-    }else if (img1 == 0){
         xDist = ((screenWidth - 180) / 4);
         _audioPlayerClap1 = nil;
         _instrument2.frame = CGRectMake(xDist, _instrument2.frame.origin.y, 60, 60);
         _instrument3.frame = CGRectMake((xDist*2)+60, _instrument3.frame.origin.y, 60, 60);
-        //_bpmPickderBackView.frame = CGRectMake((xDist*2)+60, _bpmPickderBackView.frame.origin.y, 60, 60);
         _instrument4.frame = CGRectMake((xDist*3)+120, _instrument4.frame.origin.y, 60, 60);
         _volImageInstru2.center = _instrument2.center;
         _volImageInstru3.center = _instrument3.center;
@@ -230,19 +193,13 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _rotatryClap2.center = _instrument2.center;
         _rotatryClap3.center = _instrument3.center;
         _rotataryClap4.center = _instrument4.center;
-        //_dronePickerBackView.frame = CGRectMake((xDist*3)+120, _dronePickerBackView.frame.origin.y, 60, 60);
         
-        //            _Instrument2_Layout.constant = xDist;
-        //            _Instrument3_Layout.constant = xDist*2 +60;
-        //            _Bpm_Layout.constant =  xDist*2 +60;
-        //            _Intrument4_Layout.constant = xDist*3 +120;
-        //            _drone_Layout.constant =  xDist*3 +120;
-    }else if (img2 == 0){
+    } else if (img2 == 0) {
+        
         xDist = ((screenWidth - 180) / 4);
         _audioPlayerClap2 = nil;
         _instrument1.frame = CGRectMake(xDist, _instrument1.frame.origin.y, 60, 60);
         _instrument3.frame = CGRectMake((xDist*2)+60, _instrument3.frame.origin.y, 60, 60);
-        //_bpmPickderBackView.frame = CGRectMake((xDist*2)+60, _bpmPickderBackView.frame.origin.y, 60, 60);
         _instrument4.frame = CGRectMake((xDist*3)+120, _instrument4.frame.origin.y, 60, 60);
         _volImageInstru1.center = _instrument1.center;
         _volImageInstru3.center = _instrument3.center;
@@ -251,20 +208,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _rotatryClap1.center = _instrument1.center;
         _rotatryClap3.center = _instrument3.center;
         _rotataryClap4.center = _instrument4.center;
-        //_dronePickerBackView.frame = CGRectMake((xDist*3)+120, _dronePickerBackView.frame.origin.y, 60, 60);
-        
-        //            _Instrument1_Layout.constant = xDist;
-        //            _Instrument3_Layout.constant = xDist*2 +60;
-        //            _Bpm_Layout.constant =  xDist*2 +60;
-        //            _Intrument4_Layout.constant = xDist*3 +120;
-        //            _drone_Layout.constant =  xDist*3 +120;
-        
-    }else{
+
+    } else {
         xDist = ((screenWidth - 240) / 5);
         _instrument1.frame = CGRectMake(xDist, _instrument1.frame.origin.y, 60, 60);
         _instrument2.frame = CGRectMake((xDist*2)+60, _instrument2.frame.origin.y, 60, 60);
         _instrument3.frame = CGRectMake((xDist*3)+120, _instrument3.frame.origin.y, 60, 60);
-        //_bpmPickderBackView.frame = CGRectMake((xDist*3)+120, _bpmPickderBackView.frame.origin.y, 60, 60);
         _instrument4.frame = CGRectMake((xDist*4)+182, _instrument4.frame.origin.y, 60, 60);
         _volImageInstru1.center = _instrument1.center;
         _volImageInstru2.center = _instrument2.center;
@@ -275,18 +224,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _rotatryClap2.center = _instrument2.center;
         _rotatryClap3.center = _instrument3.center;
         _rotataryClap4.center = _instrument4.center;
-        //_dronePickerBackView.frame = CGRectMake((xDist*4)+180, _dronePickerBackView.frame.origin.y, 60, 60);
-        
-        //            _Instrument1_Layout.constant = xDist;
-        //            _Instrument2_Layout.constant = xDist*2 +60;
-        //            _Instrument3_Layout.constant = xDist*3 +120;
-        //            _Bpm_Layout.constant =  xDist*3 +120;
-        //            _Intrument4_Layout.constant = xDist*4 +180;
-        //            _drone_Layout.constant =  xDist*4 +180;
     }
     
-    if ([_recTrackOne isEqualToString:@"-1"])
-    {
+    if ([_recTrackOne isEqualToString:@"-1"]) {
+        
         [_firstVolumeKnob setBackgroundImage:[UIImage imageNamed:@"one_redoutline.png"] forState:UIControlStateNormal];
         [_secondVolumeKnob setBackgroundImage:[UIImage imageNamed:@"two_greyoutline.png"] forState:UIControlStateNormal];
         [_thirdVolumeKnob setBackgroundImage:[UIImage imageNamed:@"three_greyoutline.png"] forState:UIControlStateNormal];
@@ -296,8 +237,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         [_rotatryT3 setHidden:YES];
         [_rotatryT4 setHidden:YES];
     }
-    else if ([_recTrackTwo isEqualToString:@"-1"])
-    {
+    else if ([_recTrackTwo isEqualToString:@"-1"]) {
+        
         [_secondVolumeKnob setBackgroundImage:[UIImage imageNamed:@"two_redoutline.png"] forState:UIControlStateNormal];
         [_thirdVolumeKnob setBackgroundImage:[UIImage imageNamed:@"three_greyoutline.png"] forState:UIControlStateNormal];
         [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_greyoutline.png"] forState:UIControlStateNormal];
@@ -306,130 +247,72 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         [_rotatryT3 setHidden:YES];
         [_rotatryT4 setHidden:YES];
     }
-    else if ([_recTrackThree isEqualToString:@"-1"])
-    {
+    else if ([_recTrackThree isEqualToString:@"-1"]) {
+        
         [_thirdVolumeKnob setBackgroundImage:[UIImage imageNamed:@"three_redoutline.png"] forState:UIControlStateNormal];
         [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_greyoutline.png"] forState:UIControlStateNormal];
         [_rotatryT3 setHidden:YES];
         [_rotatryT4 setHidden:YES];
     }
-    else if ([_recTrackFour isEqualToString:@"-1"])
-    {
+    else if ([_recTrackFour isEqualToString:@"-1"]) {
+        
         [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_redoutline.png"] forState:UIControlStateNormal];
         [_rotatryT4 setHidden:YES];
     }
     
-    if (![_recTrackOne isEqualToString:@"-1"])
-    {
+    if (![_recTrackOne isEqualToString:@"-1"]) {
+        
         [_firstVolumeKnob setBackgroundImage:[UIImage imageNamed:@"one_blue.png"] forState:UIControlStateSelected];
         [_rotatryT1 setHidden:NO];
     }
-    if (![_recTrackTwo isEqualToString:@"-1"])
-    {
+    if (![_recTrackTwo isEqualToString:@"-1"]) {
+        
         [_secondVolumeKnob setBackgroundImage:[UIImage imageNamed:@"two_blue.png"] forState:UIControlStateSelected];
         [_rotatryT2 setHidden:NO];
         
     }
-    if (![_recTrackThree isEqualToString:@"-1"])
-    {
+    if (![_recTrackThree isEqualToString:@"-1"]) {
+        
         [_thirdVolumeKnob setBackgroundImage:[UIImage imageNamed:@"three_blue.png"] forState:UIControlStateSelected];
         [_rotatryT3 setHidden:NO];
     }
-    if (![_recTrackFour isEqualToString:@"-1"])
-    {
+    if (![_recTrackFour isEqualToString:@"-1"]) {
+        
         [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_blue.png"] forState:UIControlStateSelected];
         [_rotatryT4 setHidden:NO];
     }
     
-    if (![droneName isEqualToString:@"-1"])
-    {
+    if (![droneName isEqualToString:@"-1"]) {
+        
         [_instrument4 setTitle:droneName forState:UIControlStateNormal];
         [_instrument4 setTitle:droneName forState:UIControlStateSelected];
     }
-   
-    //[self setInstuemntsAndKnobs];
     
-    if(clapFlag1 == 1)
-    {
-        _instrument1.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap1 withImage:@"volume_circle_white"];
-    }
-    else {
-        _instrument1.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap1 withImage:@"volume_circle_black"];
-    }
+    _instrument1.selected = clapFlag1;
+    [self setRotaryKnobImage:_rotatryClap1 isSelected:_instrument1.isSelected];
     
-    if(clapFlag2 == 1)
-    {
-        _instrument2.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap2 withImage:@"volume_circle_white"];
-    }
-    else {
-        _instrument2.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap2 withImage:@"volume_circle_black"];
-    }
+    _instrument2.selected = clapFlag2;
+    [self setRotaryKnobImage:_rotatryClap2 isSelected:_instrument2.isSelected];
     
-    if(clapFlag3 == 1)
-    {
-        _instrument3.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap3 withImage:@"volume_circle_white"];
-    }
-    else {
-        _instrument3.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap3 withImage:@"volume_circle_black"];
-    }
+    _instrument3.selected = clapFlag3;
+    [self setRotaryKnobImage:_rotatryClap3 isSelected:_instrument3.isSelected];
+
+    _instrument4.selected = clapFlag4;
+    [self setRotaryKnobImage:_rotataryClap4 isSelected:_instrument4.isSelected];
+    [self setDroneTitleColor:(_instrument4.selected) ? [UIColor whiteColor]   : [UIColor blackColor]
+                    forState:(_instrument4.selected) ? UIControlStateSelected : UIControlStateNormal];
+
+    _firstVolumeKnob.selected = recFlag1;
+    [self setRotaryKnobImage:_rotatryT1 isSelected:_firstVolumeKnob.isSelected];
+
+    _secondVolumeKnob.selected = recFlag2;
+    [self setRotaryKnobImage:_rotatryT2 isSelected:_secondVolumeKnob.isSelected];
     
-    if(clapFlag4 == 1)
-    {
-        _instrument4.selected = YES;
-        [self setRotaryKnobImage:_rotataryClap4 withImage:@"volume_circle_white"];
-        [self setDroneTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    }
-    else {
-        _instrument4.selected = NO;
-        [self setRotaryKnobImage:_rotataryClap4 withImage:@"volume_circle_black"];
-        [self setDroneTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
-    
-    if(recFlag1 == 1)
-    {
-        _firstVolumeKnob.selected = YES;
-        [self setRotaryKnobImage:_rotatryT1 withImage:@"volume_circle_white"];
-    }
-    else {
-        _firstVolumeKnob.selected = NO;
-        [self setRotaryKnobImage:_rotatryT1 withImage:@"volume_circle_black"];
-    }
-    
-    if(recFlag2 == 1)
-    {
-        _secondVolumeKnob.selected = YES;
-        [self setRotaryKnobImage:_rotatryT2 withImage:@"volume_circle_white"];
-    }
-    else {
-        _secondVolumeKnob.selected = NO;
-        [self setRotaryKnobImage:_rotatryT2 withImage:@"volume_circle_black"];
-    }
-    
-    if(recFlag3 == 1)
-    {
-        _thirdVolumeKnob.selected = YES;
-        [self setRotaryKnobImage:_rotatryT3 withImage:@"volume_circle_white"];
-    }
-    else {
-        _thirdVolumeKnob.selected = NO;
-        [self setRotaryKnobImage:_rotatryT3 withImage:@"volume_circle_black"];
-    }
-    
-    if(recFlag4 == 1)
-    {
-        _fourthVolumeKnob.selected = YES;
-        [self setRotaryKnobImage:_rotatryT4 withImage:@"volume_circle_white"];
-    }
-    else {
-        _fourthVolumeKnob.selected = NO;
-        [self setRotaryKnobImage:_rotatryT4 withImage:@"volume_circle_black"];
-    }
+    _thirdVolumeKnob.selected = recFlag3;
+    [self setRotaryKnobImage:_rotatryT3 isSelected:_thirdVolumeKnob.isSelected];
+
+    _fourthVolumeKnob.selected = recFlag4;
+    [self setRotaryKnobImage:_rotatryT4 isSelected:_fourthVolumeKnob.isSelected];
 }
 
 -(void)setInstuemntsAndKnobs{
@@ -443,10 +326,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     _thirdVolumeKnob.selected = recFlag3;
     _fourthVolumeKnob.selected = recFlag4;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
     sqlManager = [[DBManager alloc] init];
     mixerController = [[MultichannelMixerController alloc]init];
     
@@ -466,7 +349,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     // Setup MPVolumeView not to show on main screen
     [self setUpMPVolumeView];
-    
     
     NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
     
@@ -535,6 +417,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [self addNavigationTopSeprator];
     
 }
+
 -(void)addNavigationTopSeprator{
     UIView *seprator = [[UIView alloc]init];
     [self.view addSubview:seprator];
@@ -545,8 +428,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [seprator autoSetDimension:ALDimensionHeight toSize:0.5];
     [_cellTopSeprator removeFromSuperview];
 }
--(void)backButtonClicked:(id)sender
-{
+
+-(void)backButtonClicked:(id)sender {
     [self updateRecordingTable];
 }
 
@@ -554,7 +437,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
      [self.myNavigationController goBackToSoundListing];
 }
 
--(void)setFontsForAllLabels{
+-(void)setFontsForAllLabels {
     _songDetailLbl.font = [UIFont fontWithName:FONT_REGULAR size:15];
     _dateLbl.font = [UIFont fontWithName:FONT_LIGHT size:10];
     _TotalTimeLbl.font = [UIFont fontWithName:FONT_LIGHT size:10];
@@ -565,6 +448,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_maxRecDurationLbl setFont:[UIFont fontWithName:FONT_LIGHT size:10]];
     [_minRecDurationLbl setFont:[UIFont fontWithName:FONT_LIGHT size:10]];
 }
+
 - (void)sliderTapped:(UIGestureRecognizer *)gestureRecognizer {
     if(playFlag == 0) {
         return;
@@ -581,7 +465,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [self updateSliderOnDragAndTouch];
 }
 
-- (void)sliderDragged:(id)sender  //sn
+- (void)sliderDragged:(id)sender
 {
     if(playFlag == 0) {
         return;
@@ -639,14 +523,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 }
 
 -(void)audioRouteChanged:(id)sender{
-    NSLog(@"SavedListDetailViewController");
     [self setVolumeInputOutput];
 }
 
 -(void)audioFilePlayedOnce:(NSNotification *)sender{
     NSDictionary *dict = (NSDictionary *)sender.object;
-    //[mixerController setInputVolume:(UInt32)[dict[@"BUSNUMBER"] intValue] value:0.0];
-    [mixerController enableInput:(UInt32)[dict[@"BUSNUMBER"] intValue] isOn:0.0];   //sn
+    [mixerController enableInput:(UInt32)[dict[@"BUSNUMBER"] intValue] isOn:0.0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -654,26 +536,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     // Dispose of any resources that can be recreated.
 }
 
-
-
 #pragma mark - UIGesture
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer  {
     return YES;
 }
 
-//-(void)tapOut:(UIGestureRecognizer *)gestureRecognizer {
-//    CGPoint p = [gestureRecognizer locationInView:menuActionSheet];
-//    if (p.y < 0) { // They tapped outside
-//        [menuActionSheet dismissWithClickedButtonIndex:0 animated:YES];
-//    }
-//}
 -(void)handleSingleTap:(UITapGestureRecognizer *)sender
 {
-    //[menuActionSheet dismissWithClickedButtonIndex:0 animated:YES];
-    //[view removeFromSuperView];
-    //NSLog(@"rotatary knob");
     UIControl *control = sender.view;
-    
     
     if (control.tag == 1 )
     {
@@ -749,14 +619,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                       withActionType:kUserInput_Tap
                                            withValue:instrV3/MAX_VOL
                                             withName:@"clap3"];
-                
-                //[self setInputVolumeForAudioArray:audioPlayerArray withVoulme:instrV3 withName:@"clap3"];
-//                if (instrV3 == 0) {
-//                    [mixerController setMetronomeVolume:1/MAX_VOL];
-//                }
-//                else
-//                    [mixerController setMetronomeVolume:instrV3/MAX_VOL];
-                
             }
         } else {
             [_instrument3 setSelected:NO];
@@ -765,7 +627,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                               withActionType:kUserInput_Tap
                                    withValue:0
                                     withName:@"clap3"];
-            //[mixerController setMetronomeVolume:0.0];
         }
         
         [self setRotaryKnobImageForButton:_instrument3 withRotaryKnob:_rotatryClap3];
@@ -931,9 +792,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 }
 
 -(void)setRotaryKnobImageForButton:(UIButton *)button withRotaryKnob:(MHRotaryKnob *)rotaryKnob {
-    NSString *knobImage;
-    ([button isSelected]) ? knobImage = @"volume_circle_white" : knobImage = @"volume_circle_black";
-    [self setRotaryKnobImage:rotaryKnob withImage:knobImage];
+    [self setRotaryKnobImage:rotaryKnob isSelected:[button isSelected]];
 }
 
 #pragma mark - notifications
@@ -946,6 +805,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                            selector:@selector(updateMicGain:)
                                name:@"updateMicGain"
                              object:nil];
+    
     [notificationCenter addObserver:self
                            selector:@selector (handle_NowPlayingItemChanged:)
                                name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification
@@ -956,23 +816,11 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                name:MPMusicPlayerControllerPlaybackStateDidChangeNotification
                              object:_musicPlayer];
     
-    /*
-     // This sample doesn't use libray change notifications; this code is here to show how
-     //		it's done if you need it.
-     [notificationCenter addObserver: self
-     selector: @selector (handle_iPodLibraryChanged:)
-     name: MPMediaLibraryDidChangeNotification
-     object: musicPlayer];
-     
-     [[MPMediaLibrary defaultMediaLibrary] beginGeneratingLibraryChangeNotifications];
-     */
-    
     [_musicPlayer beginGeneratingPlaybackNotifications];
 }
 
 #pragma mark -  Music notification handlers
 
-// SetupMPVolumeView
 -(void)setUpMPVolumeView {
     _volumeView = [[MPVolumeView alloc] initWithFrame: CGRectMake(-100,-100,16,16)];
     _volumeView.showsRouteButton = NO;
@@ -980,14 +828,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:_volumeView];
 }
 
-
-
--(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
-{
-    //NSLog(@"Finished player");
-    
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     if (![_recorder isRecording]) {
-        
         [self resetPlayButtonWithCell];
     }
 }
@@ -1065,8 +907,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     }
 }
 
-
-
 #pragma mark - UIButtonActions------
 
 - (IBAction)menuBtnClicked:(id)sender
@@ -1074,13 +914,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     menuActionSheet = [[CustomActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Share" otherButtonTitles:@"Delete",nil];
     menuActionSheet.destructiveButtonIndex = 1;
     
-    
     [menuActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-    
 }
 
 - (IBAction)shareBtnAction:(id)sender {
-    //NSLog(@"this is share action");
 }
 
 - (void)itemWasTouchedUpAndDidHold:(id)sender
@@ -1112,8 +949,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                              [self.view sendSubviewToBack:_firstVolumeKnob];
                          }
                          completion:^(BOOL finished){
-                             //NSLog(@"Done!");
-                             //sleep(1);
                              forthKnob.hidden = NO;
                              forthKnob.center = forthKnobCentre;
                              
@@ -1250,7 +1085,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                  [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_redoutline.png"] forState:UIControlStateNormal];
                              }
                              
-                             
                              [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue] trackSequence:1 track:_recTrackTwo maxTrackDuration:durationStringUnFormatted trackDuration:t1Duration];
                              _recTrackOne = _recTrackTwo;
                              
@@ -1262,8 +1096,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                              
                              [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue] trackSequence:4 track:@"-1" maxTrackDuration:durationStringUnFormatted trackDuration:t4Duration];
                              _recTrackFour = @"-1";
-                             
-                             
                          }
          ];
     }
@@ -1272,10 +1104,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     {
         control.hidden = YES;
         control.center = thirdKnobCentre;
-        //secondKnob.center = thirdKnobCentre;
         thirdKnob.center = forthKnobCentre;
         forthKnob.center = forthKnobCentre;
-        
         
         [UIView animateWithDuration:0.5
                               delay:0
@@ -1284,7 +1114,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                              // set the new frame
                              control.hidden = NO;
                              control.center = secondKnobCentre;
-                             //secondKnob.center = secondKnobCentre;
                              thirdKnob.center = thirdKnobCentre;
                              forthKnob.hidden = YES;
                              [_deleteImageT2 setHidden:YES];
@@ -1292,8 +1121,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                              [self.view sendSubviewToBack:_secondVolumeKnob];
                          }
                          completion:^(BOOL finished){
-                             //NSLog(@"Done!");
-                             //sleep(1);
                              forthKnob.hidden = NO;
                              forthKnob.center = forthKnobCentre;
                              
@@ -1402,10 +1229,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     {
         control.hidden = YES;
         control.center = forthKnobCentre;
-        //secondKnob.center = thirdKnobCentre;
-        //thirdKnob.center = forthKnobCentre;
         forthKnob.center = forthKnobCentre;
-        
         
         [UIView animateWithDuration:0.5
                               delay:0
@@ -1414,19 +1238,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                              // set the new frame
                              control.hidden = NO;
                              control.center = thirdKnobCentre;
-                             //secondKnob.center = secondKnobCentre;
-                             //thirdKnob.center = thirdKnobCentre;
                              forthKnob.hidden = YES;
                              [_deleteImageT3 setHidden:YES];
                              [_deleteBGView setHidden:YES];
                              [self.view sendSubviewToBack:_thirdVolumeKnob];
                          }
                          completion:^(BOOL finished){
-                             //NSLog(@"Done!");
-                             //sleep(1);
                              forthKnob.hidden = NO;
                              forthKnob.center = forthKnobCentre;
-                             
                              
                              if ([_recTrackFour isEqualToString:@"-1"]) {
                                  recFlag3 = 0;
@@ -1498,13 +1317,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     if(tag == 44)
     {
         control.hidden = YES;
-        //control.center = forthKnobCentre;
-        //secondKnob.center = thirdKnobCentre;
-        //thirdKnob.center = forthKnobCentre;
-        //forthKnob.center = forthKnobCentre;
-        //control.center = CGPointMake(forthKnobCentre.x +100, forthKnobCentre.y);
-        
-        
         [UIView animateWithDuration:0.5
                               delay:0
                             options:UIViewAnimationOptionCurveEaseOut
@@ -1517,7 +1329,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                              [self.view sendSubviewToBack:_fourthVolumeKnob];
                          }
                          completion:^(BOOL finished){
-                             //NSLog(@"Done!");
                              recFlag4 = 0;
                              [_rotatryT4 setHidden:YES];
                              t4Duration = @"-1";
@@ -1547,8 +1358,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                          }
          ];
     }
-    
-    
 }
 
 - (void)itemWasTouchedUp:(id)sender
@@ -1650,12 +1459,9 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     }
 }
 
--(IBAction)closeButtonClicked:(UIButton*)sender
-{
+-(IBAction)closeButtonClicked:(UIButton*)sender {
     [self.delegate expandedCellWillCollapse];
-    
 }
-
 
 -(IBAction)playButtonClicked:(UIButton*)sender
 {
@@ -1663,12 +1469,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         [audioRecorder stopAudioRecording];
     }
     
-    
     if (playFlag == 0) {
         _playRecBtn.userInteractionEnabled = NO;
         [_playRecBtn setBackgroundImage:[UIImage imageNamed:@"stopicon.png"] forState:UIControlStateNormal];
         [_recordingBtn setEnabled:NO];
-        
         
         playFlag = 1;
         
@@ -1679,7 +1483,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     }
     else if (playFlag == 1){
         [self resetPlayButtonWithCell];
-        
     }
 }
 
@@ -1701,8 +1504,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 //    } else {
     
         if (![_recTrackFour isEqualToString:@"-1"]) {
-            
-            //self.alertController = [RAAlertController alertControllerWithTitle:@"Recording Full" message:@"Please delete any one recording to record new one"
             
             self.alertController = [RAAlertController alertControllerWithTitle:@"Recording Full" message:@"Long press any recording to delete it and record a new one"
                                                                 preferredStyle:RAAlertControllerStyleAlert];
@@ -1774,17 +1575,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             _recSlider.maximumValue = [durationStringUnFormatted floatValue];
             
             [self playSelectedRecording];
-            // [self startRecord];
-            //[audioRecorder startAudioRecording:@"MyAudioMemo.m4a"];
-            
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"tappedRecordButton" object:nil];
-            
-            //         _playTimer = [NSTimer scheduledTimerWithTimeInterval: 0.01f
-            //                                                      target: self
-            //                                                    selector:@selector(updateMicGain:)
-            //                                                    userInfo: nil repeats:YES];
-            //        [_playTimer fire];
             
         }
         else if (stopFlag == 1) {
@@ -1806,9 +1598,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     for (MHRotaryKnob *rotaryKnob in rotataryViewsArray)
         [self initializeRotatryViews:rotaryKnob];
-    
-    //[self initializeRotatryViews:rotataryViewsArray];
-    
 }
 
 - (IBAction)onPanBtnClicked:(id)sender {
@@ -1820,8 +1609,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     for (MHRotaryKnob *rotaryKnob in rotataryViewsArray)
         [self initializeRotatryViews:rotaryKnob];
-    
-    //[self initializeRotatryViews:rotataryViewsArray];
 }
 
 - (IBAction)onTapClap1Btn:(id)sender {
@@ -1840,7 +1627,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         clapFlag1 = 0;
         [mixerController setInputVolume:0 value:0];
     }
-    
 }
 
 - (IBAction)onTapClap2Btn:(id)sender {
@@ -1864,7 +1650,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                withValue:0
                                 withName:@"clap2"];
     }
-    // [btn setImage:[UIImage imageNamed:@"Claps2_Selected.png"] forState:UIControlStateSelected];
 }
 
 - (IBAction)onTapClap3Btn:(id)sender {
@@ -1955,7 +1740,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             //                                            p1]];
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
                                             p1]];
-            
         }
         
         
@@ -2028,15 +1812,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         
         self.shareCheckString = @"opened";
         
-        //        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"TTOpenInAppActivity" ofType:@"png"];
-        //        NSURL *URL = [NSURL fileURLWithPath:filePath];
         TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.menuButton.frame];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
         
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
             // Store reference to superview (UIActionSheet) to allow dismissal
             openInAppActivity.superViewController = activityViewController;
-            // Show UIActivityViewController
             [self presentViewController:activityViewController animated:YES completion:NULL];
         } else {
             // Create pop up
@@ -2045,19 +1826,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             openInAppActivity.superViewController = self.activityPopoverController;
             // Show UIActivityViewController in popup
             [self.activityPopoverController presentPopoverFromRect:self.menuButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            //            [self.activityPopoverController presentPopoverFromRect:((UIButton *)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
-        
     }
-    
 }
-
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     //NSLog(@"btn = %ld", (long)actionSheet.cancelButtonIndex);
     //NSLog(@"btn = %ld", (long)buttonIndex);
-    
 }
 
 
@@ -2345,14 +2121,11 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 //}
 
 - (void)initializeRotatryViews:(MHRotaryKnob *)rotaryKnob {
-    //for (MHRotaryKnob *rotaryKnob in rotatryViewArray) {
     rotaryKnob.interactionStyle = MHRotaryKnobInteractionStyleSliderVertical;
     rotaryKnob.scalingFactor = 1.5;
     rotaryKnob.resetsToDefault = YES;
     rotaryKnob.backgroundColor = [UIColor clearColor];
     rotaryKnob.backgroundImage = [UIImage imageNamed:@""];
-    
-    //[self setRotaryKnobImage:rotaryKnob withImage:@"volume_circle_black"];
     
     rotaryKnob.knobImageCenter = CGPointMake(30.0, 30.0);
     [rotaryKnob addTarget:self action:@selector(rotaryKnobDidChange:) forControlEvents:UIControlEventValueChanged];
@@ -2410,13 +2183,15 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         default:
             break;
     }
-    // }
 }
 
-- (void)setRotaryKnobImage:(MHRotaryKnob *)rotaryKnob withImage:(NSString *)imageName {
-    [rotaryKnob setKnobImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    [rotaryKnob setKnobImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
-    [rotaryKnob setKnobImage:[UIImage imageNamed:imageName] forState:UIControlStateDisabled];
+- (void)setRotaryKnobImage:(MHRotaryKnob *)rotaryKnob isSelected:(BOOL)selected {
+    NSString *knobImage;
+    (selected) ? knobImage = @"volume_circle_white" : knobImage = @"volume_circle_black";
+    
+    [rotaryKnob setKnobImage:[UIImage imageNamed:knobImage] forState:UIControlStateNormal];
+    [rotaryKnob setKnobImage:[UIImage imageNamed:knobImage] forState:UIControlStateHighlighted];
+    [rotaryKnob setKnobImage:[UIImage imageNamed:knobImage] forState:UIControlStateDisabled];
 }
 
 -(void)setDroneTitleColor:(UIColor *)color forState:(UIControlState)state {
@@ -2475,8 +2250,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
 - (IBAction)rotaryKnobDidChange :(MHRotaryKnob *)knob
 {
-    //NSLog(@"rotatry value = %f",knob.value);
-    //NSLog(@"rotatry tag = %ld",(long)knob.tag);
     int tag = (int)knob.tag;
     switch (tag) {
         case 1:
@@ -2514,14 +2287,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                       withActionType:kUserInput_Swipe
                                            withValue:1/MAX_VOL
                                             withName:@"clap3"];
-                    //[mixerController setMetronomeVolume:1/MAX_VOL ];
                 }
                 else {
                     [self setInputParamForAudioArray:audioPlayerArray
                                       withActionType:kUserInput_Swipe
                                            withValue:knob.value/MAX_VOL
                                             withName:@"clap3"];
-                    //[mixerController setMetronomeVolume:knob.value/MAX_VOL ];
                 }
             }
             break;
@@ -2834,29 +2605,29 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     // Set Image
     if (![rhythmRecord.rhythmInstOneImage isEqualToString:@"-1"]) {
         [_instrument1 setHidden:NO];
-        //[_volImageInstru1 setHidden:NO];
         [_rotatryClap1 setHidden:NO];
         [_instrument1 setImage:[UIImage imageNamed:rhythmRecord.rhythmInstOneImage] forState:UIControlStateNormal];
         [_instrument1 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_disabled",rhythmRecord.rhythmInstOneImage]] forState:UIControlStateSelected];
-        //clapFlag1 = 1;
         img1 = 1;
-        //NSLog(@"instrument image = %@",_instrument1);
-    }else{
+        
+    } else {
+        
         [_instrument1 setHidden:YES];
         [_volImageInstru1 setHidden:YES];
         [_rotatryClap1 setHidden:YES];
         clapFlag1 = 0;
         img1 = 0;
     }
+    
     if (![rhythmRecord.rhythmInstTwoImage isEqualToString:@"-1"]) {
         [_instrument2 setHidden:NO];
-        //[_volImageInstru2 setHidden:NO];
         [_rotatryClap2 setHidden:NO];
         [_instrument2 setImage:[UIImage imageNamed:rhythmRecord.rhythmInstTwoImage] forState:UIControlStateNormal];
         [_instrument2 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_disabled",rhythmRecord.rhythmInstTwoImage]] forState:UIControlStateSelected];
-        //clapFlag2 = 1;
         img2 = 1;
-    }else{
+        
+    } else {
+        
         [_instrument2 setHidden:YES];
         [_volImageInstru2 setHidden:YES];
         [_rotatryClap2 setHidden:YES];
@@ -2866,35 +2637,27 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     CGRect visibleSize = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = visibleSize.size.width;
-    //    CGFloat screenHeight = visibleSize.size.height;
     int xDist = 0;  // for 320
+    
     // If only 2 buttons are there
     if ((img1 == 0) && (img2 == 0)) {
+        
         xDist = ((screenWidth - 120) / 3);
         _audioPlayerClap1 = nil;
         _audioPlayerClap2 = nil;
         _instrument3.frame = CGRectMake(xDist, _instrument3.frame.origin.y, 60, 60);
-        //_bpmPickderBackView.frame = CGRectMake(xDist, _bpmPickderBackView.frame.origin.y, 60, 60);
         _instrument4.frame = CGRectMake((xDist*2)+60, _instrument4.frame.origin.y, 60, 60);
         _volImageInstru3.center = _instrument3.center;
         _volImageInstru4.center = _instrument4.center;
         _rotatryClap3.center = _instrument3.center;
         _rotataryClap4.center = _instrument4.center;
-        //_dronePickerBackView.frame = CGRectMake((xDist*2)+60, _dronePickerBackView.frame.origin.y, 60, 60);
         
-        //            _Instrument3_Layout.constant = xDist;
-        //            _Bpm_Layout.constant =  xDist;
-        //            _Intrument4_Layout.constant = xDist*2 +60;
-        //            _drone_Layout.constant =  xDist*2 +60;
+    } else if (img1 == 0) {
         
-        //[self.view setNeedsUpdateConstraints];
-        
-    }else if (img1 == 0){
         xDist = ((screenWidth - 180) / 4);
         _audioPlayerClap1 = nil;
         _instrument2.frame = CGRectMake(xDist, _instrument2.frame.origin.y, 60, 60);
         _instrument3.frame = CGRectMake((xDist*2)+60, _instrument3.frame.origin.y, 60, 60);
-        //_bpmPickderBackView.frame = CGRectMake((xDist*2)+60, _bpmPickderBackView.frame.origin.y, 60, 60);
         _instrument4.frame = CGRectMake((xDist*3)+120, _instrument4.frame.origin.y, 60, 60);
         _volImageInstru2.center = _instrument2.center;
         _volImageInstru3.center = _instrument3.center;
@@ -2902,19 +2665,13 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _rotatryClap2.center = _instrument2.center;
         _rotatryClap3.center = _instrument3.center;
         _rotataryClap4.center = _instrument4.center;
-        //_dronePickerBackView.frame = CGRectMake((xDist*3)+120, _dronePickerBackView.frame.origin.y, 60, 60);
         
-        //            _Instrument2_Layout.constant = xDist;
-        //            _Instrument3_Layout.constant = xDist*2 +60;
-        //            _Bpm_Layout.constant =  xDist*2 +60;
-        //            _Intrument4_Layout.constant = xDist*3 +120;
-        //            _drone_Layout.constant =  xDist*3 +120;
-    }else if (img2 == 0){
+    } else if (img2 == 0) {
+        
         xDist = ((screenWidth - 180) / 4);
         _audioPlayerClap2 = nil;
         _instrument1.frame = CGRectMake(xDist, _instrument1.frame.origin.y, 60, 60);
         _instrument3.frame = CGRectMake((xDist*2)+60, _instrument3.frame.origin.y, 60, 60);
-        //_bpmPickderBackView.frame = CGRectMake((xDist*2)+60, _bpmPickderBackView.frame.origin.y, 60, 60);
         _instrument4.frame = CGRectMake((xDist*3)+120, _instrument4.frame.origin.y, 60, 60);
         _volImageInstru1.center = _instrument1.center;
         _volImageInstru3.center = _instrument3.center;
@@ -2923,20 +2680,13 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _rotatryClap1.center = _instrument1.center;
         _rotatryClap3.center = _instrument3.center;
         _rotataryClap4.center = _instrument4.center;
-        //_dronePickerBackView.frame = CGRectMake((xDist*3)+120, _dronePickerBackView.frame.origin.y, 60, 60);
         
-        //            _Instrument1_Layout.constant = xDist;
-        //            _Instrument3_Layout.constant = xDist*2 +60;
-        //            _Bpm_Layout.constant =  xDist*2 +60;
-        //            _Intrument4_Layout.constant = xDist*3 +120;
-        //            _drone_Layout.constant =  xDist*3 +120;
+    } else {
         
-    }else{
         xDist = ((screenWidth - 240) / 5);
         _instrument1.frame = CGRectMake(xDist, _instrument1.frame.origin.y, 60, 60);
         _instrument2.frame = CGRectMake((xDist*2)+60, _instrument2.frame.origin.y, 60, 60);
         _instrument3.frame = CGRectMake((xDist*3)+120, _instrument3.frame.origin.y, 60, 60);
-        //_bpmPickderBackView.frame = CGRectMake((xDist*3)+120, _bpmPickderBackView.frame.origin.y, 60, 60);
         _instrument4.frame = CGRectMake((xDist*4)+182, _instrument4.frame.origin.y, 60, 60);
         _volImageInstru1.center = _instrument1.center;
         _volImageInstru2.center = _instrument2.center;
@@ -2947,16 +2697,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         _rotatryClap2.center = _instrument2.center;
         _rotatryClap3.center = _instrument3.center;
         _rotataryClap4.center = _instrument4.center;
-        //_dronePickerBackView.frame = CGRectMake((xDist*4)+180, _dronePickerBackView.frame.origin.y, 60, 60);
-        
-        //            _Instrument1_Layout.constant = xDist;
-        //            _Instrument2_Layout.constant = xDist*2 +60;
-        //            _Instrument3_Layout.constant = xDist*3 +120;
-        //            _Bpm_Layout.constant =  xDist*3 +120;
-        //            _Intrument4_Layout.constant = xDist*4 +180;
-        //            _drone_Layout.constant =  xDist*4 +180;
     }
-    
     
     if ([_recTrackOne isEqualToString:@"-1"])
     {
@@ -3039,87 +2780,30 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
     }
     
-    if(clapFlag1 == 1)
-    {
-        _instrument1.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap1 withImage:@"volume_circle_white"];
-    }
-    else {
-        _instrument1.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap1 withImage:@"volume_circle_black"];
-    }
+    _instrument1.selected = clapFlag1;
+    [self setRotaryKnobImage:_rotatryClap1 isSelected:_instrument1.isSelected];
     
-    if(clapFlag2 == 1)
-    {
-        _instrument2.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap2 withImage:@"volume_circle_white"];
-    }
-    else {
-        _instrument2.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap2 withImage:@"volume_circle_black"];
-    }
+    _instrument2.selected = clapFlag2;
+    [self setRotaryKnobImage:_rotatryClap2 isSelected:_instrument2.isSelected];
     
-    if(clapFlag3 == 1)
-    {
-        _instrument3.selected = YES;
-        [self setRotaryKnobImage:_rotatryClap3 withImage:@"volume_circle_white"];
-    }
-    else {
-        _instrument3.selected = NO;
-        [self setRotaryKnobImage:_rotatryClap3 withImage:@"volume_circle_black"];
-    }
+    _instrument3.selected = clapFlag3;
+    [self setRotaryKnobImage:_rotatryClap3 isSelected:_instrument3.isSelected];
     
-    if(clapFlag4 == 1)
-    {
-        _instrument4.selected = YES;
-        [self setRotaryKnobImage:_rotataryClap4 withImage:@"volume_circle_white"];
-    }
-    else {
-        _instrument4.selected = NO;
-        [self setRotaryKnobImage:_rotataryClap4 withImage:@"volume_circle_black"];
-    }
+    _instrument4.selected = clapFlag4;
+    [self setRotaryKnobImage:_rotataryClap4 isSelected:_instrument4.isSelected];
     
-    if(recFlag1 == 1)
-    {
-        _firstVolumeKnob.selected = YES;
-        [self setRotaryKnobImage:_rotatryT1 withImage:@"volume_circle_white"];
-    }
-    else {
-        _firstVolumeKnob.selected = NO;
-        [self setRotaryKnobImage:_rotatryT1 withImage:@"volume_circle_black"];
-    }
+    _firstVolumeKnob.selected = recFlag1;
+    [self setRotaryKnobImage:_rotatryT1 isSelected:_firstVolumeKnob.isSelected];
     
-    if(recFlag2 == 1)
-    {
-        _secondVolumeKnob.selected = YES;
-        [self setRotaryKnobImage:_rotatryT2 withImage:@"volume_circle_white"];
-    }
-    else {
-        _secondVolumeKnob.selected = NO;
-        [self setRotaryKnobImage:_rotatryT2 withImage:@"volume_circle_black"];
-    }
+    _secondVolumeKnob.selected = recFlag2;
+    [self setRotaryKnobImage:_rotatryT2 isSelected:_secondVolumeKnob.isSelected];
     
-    if(recFlag3 == 1)
-    {
-        _thirdVolumeKnob.selected = YES;
-        [self setRotaryKnobImage:_rotatryT3 withImage:@"volume_circle_white"];
-    }
-    else {
-        _thirdVolumeKnob.selected = NO;
-        [self setRotaryKnobImage:_rotatryT3 withImage:@"volume_circle_black"];
-    }
+    _thirdVolumeKnob.selected = recFlag3;
+    [self setRotaryKnobImage:_rotatryT3 isSelected:_thirdVolumeKnob.isSelected];
     
-    if(recFlag4 == 1)
-    {
-        _fourthVolumeKnob.selected = YES;
-        [self setRotaryKnobImage:_rotatryT4 withImage:@"volume_circle_white"];
-    }
-    else {
-        _fourthVolumeKnob.selected = NO;
-        [self setRotaryKnobImage:_rotatryT4 withImage:@"volume_circle_black"];
-    }
+    _fourthVolumeKnob.selected = recFlag4;
+    [self setRotaryKnobImage:_rotatryT4 isSelected:_fourthVolumeKnob.isSelected];
 }
-
 
 - (void)spinVolumeKnobToVolumeLevel :(int)level knob :(UIImageView *)rotateImage{
     int roundupLevel = level;
@@ -3128,9 +2812,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     }
     
     [rotateImage setTransform:CGAffineTransformRotate(rotateImage.transform, (360/ 11)*roundupLevel)];
-    
 }
-
 
 -(void)setDataForUIElements:(int)_index RecordingData :(RecordingListData *)data{
     RecordingListData *cellData = [[RecordingListData alloc] init];
@@ -3142,8 +2824,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         dataArray = [sqlManager fetchRhythmRecordsByID:[NSNumber numberWithInt:[cellData.rhythmID intValue]]];
         cellData.rhythmRecord = [dataArray objectAtIndex:0];
     }
-    //NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-   // dataArray = [sqlManager fetchRhythmRecordsByID:[NSNumber numberWithInt:[cellData.rhythmID intValue]]];
     rhythmRecord = cellData.rhythmRecord;//[dataArray objectAtIndex:0];
     
     // set instrument ON/OFF
@@ -3194,7 +2874,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     tP2 = [cellData.panTrackTwo floatValue];
     tP3 = [cellData.panTrackThree floatValue];
     tP4 = [cellData.panTrackFour floatValue];
-
     
     recordID = cellData.recordID;
     currentRythmName = cellData.recordingName;
@@ -3218,8 +2897,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     } else {
         [songDetail appendAttributedString:drone];
     }
-
-    //songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
     
     NSArray *listItems = [beatOneMusicFile componentsSeparatedByString:@"/"];
     NSString *lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
@@ -3229,19 +2906,13 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     listItems = [beatTwoMusicFile componentsSeparatedByString:@"/"];
     lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
     
-    //lastWordString = [lastWordString stringByReplacingOccurrencesOfString:@"m4a"
-    // withString:@"wav"];
-    
     clap2Path = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], lastWordString ];
-    // clap2Path = [NSString stringWithFormat:@"%@/Recording 1.wav", [[NSBundle mainBundle] resourcePath]];
     
-    //clap3Path = [NSString stringWithFormat:@"%@/Click Accented.wav", [[NSBundle mainBundle] resourcePath]];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     clap3Path = [documentsDirectory stringByAppendingPathComponent:@"/Click.m4a"];
     
     clap4Path = [NSString stringWithFormat:@"%@/C.wav", [[NSBundle mainBundle] resourcePath]];
-    
     
     firstKnob = _firstVolumeKnob;
     secondKnob = _secondVolumeKnob;
@@ -3253,23 +2924,20 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     thirdKnobCentre = thirdKnob.center;
     forthKnobCentre = forthKnob.center;
     
-    
     recFlag1 = [cellData.t1Flag intValue];
     recFlag2 = [cellData.t2Flag intValue];
     recFlag3 = [cellData.t3Flag intValue];
     recFlag4 = [cellData.t4Flag intValue];
 }
 
-
 - (void) swipedScreen:(UISwipeGestureRecognizer*)swipeGestureEffect {
-    // do stuff
     UIButton *button = (UIButton *)swipeGestureEffect.view;
     if(swipeGestureEffect.direction == UISwipeGestureRecognizerDirectionUp) {
-        //NSLog(@"Swipe Up");
+        // Swipe Up
         [self rotateImageViewClockWiseWithButtonTag:(int)button.tag];
         
     } else if (swipeGestureEffect.direction == UISwipeGestureRecognizerDirectionDown) {
-        //NSLog(@"Swipe Down");
+        // Swipe Down
         [self rotateImageViewAnticlockWiseWithButtonTag:(int)button.tag];
     }
     
@@ -3435,11 +3103,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             
         }completion:^(BOOL finished){
             if (finished) {
-                //NSLog(@"instrV1 = %d",instrV1);
                 VolumeKnobLevelCount ++;
                 *volume = VolumeKnobLevelCount;
-                //NSLog(@"VolumeCount = %d",VolumeKnobLevelCount);
-                
             }
         }];
     }
@@ -3448,7 +3113,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     }
 }
 
-- (void)spinKnobAntiClockWiseAndModifiedValueOfPassedReferences:(int *)volume imageView :(UIImageView *)rotateImage{
+- (void)spinKnobAntiClockWiseAndModifiedValueOfPassedReferences:(int *)volume
+                                                     imageView :(UIImageView *)rotateImage{
     if (VolumeKnobLevelCount > 0) {
         
         if (VolumeKnobLevelCount == 10 || VolumeKnobLevelCount == 9) {
@@ -3459,15 +3125,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             [rotateImage setTransform:CGAffineTransformRotate(rotateImage.transform, -(M_PI/4))];
         }completion:^(BOOL finished){
             if (finished) {
-                //[self rotateImageView];
                 VolumeKnobLevelCount --;
                 *volume = VolumeKnobLevelCount;
-                //NSLog(@"VolumeCount = %d",VolumeKnobLevelCount);
             }
         }];
     }
     else{
-        //*volume = 0;
         VolumeKnobLevelCount = 0;
     }
 }
@@ -3534,33 +3197,11 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [[NSNotificationCenter defaultCenter] postNotificationName:@"recordingDone" object:nil];
     
 }
-//
-//- (void) updateMicGain:(NSTimer *)timer {
-//
-//    [_recorder updateMeters];
-//    peakPowerForChannel = pow(10, (0.05 * ([_recorder peakPowerForChannel:0] + [_recorder averagePowerForChannel:0])/2));
-//    endresult = (peakPowerForChannel*100.0f);
-//
-//    if(endresult > 0 && endresult <= 9)
-//    {
-//        [self calculateMicGain:0];
-//    }
-//    else if(endresult > 9 && endresult <= 10)
-//    {
-//        [self calculateMicGain:1];
-//    }
-//    else if(endresult > 10 && endresult <= 100)
-//    {
-//        [self calculateMicGain:endresult/10 + 1];
-//    }
-//
-//
-//}
+
 - (void) updateMicGain:(NSNotification *) notification {
     NSDictionary *micGainDct = notification.object;
     endresult = [micGainDct[@"micGainValue"] intValue];
-    //NSLog(@"updateing mic gain: %d",endresult);
-    //    endresult = int(peakPowerForChannel*100.0f);
+    
     if(endresult > 0 && endresult <= 9){
         [self calculateMicGain:0];
     }
@@ -3572,41 +3213,32 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     }
 }
 
-- (void) calculateMicGain:(int) gain
-{
+- (void) calculateMicGain:(int) gain {
     
     if(gain == 0){
         for(micCounter = 0;micCounter < 10;micCounter++){
             UIImageView *img = (UIImageView*)[micArray objectAtIndex:micCounter];
             [img setImage:[UIImage imageNamed:@"grey_strips.png"]];
-            //micarray[micCounter]->setColor(Color3B(51, 51, 51));
         }
     }
     else if(gain > 0){
         for(micCounter = 1;micCounter <= gain;micCounter++){
             if(micCounter <= 7){
                 UIImageView *img = (UIImageView*)[micArray objectAtIndex:(micCounter - 1)];
-                //    //NSLog(@"tag 1-7= %d",img.tag);
                 [img setImage:[UIImage imageNamed:@"green-strip.png"]];
-                //micarray[micCounter - 1]->setColor(Color3B::GREEN);
             }
             else if(micCounter == 8 || micCounter == 9){
                 UIImageView *img = (UIImageView*)[micArray objectAtIndex:(micCounter - 1)];
-                //   //NSLog(@"tag 8-9= %d",img.tag);
                 [img setImage:[UIImage imageNamed:@"orange-strip.png"]];
-                //micarray[micCounter - 1]->setColor(Color3B::ORANGE);
             }
             else if(micCounter == 10){
                 UIImageView *img = (UIImageView*)[micArray objectAtIndex:(micCounter - 1)];
-                //   //NSLog(@"tag 10= %d",img.tag);
                 [img setImage:[UIImage imageNamed:@"red-strip.png"]];
-                //micarray[micCounter - 1]->setColor(Color3B::RED);
             }
         }
         for(micCounter = gain+1;micCounter < 11;micCounter++){
             UIImageView *img = (UIImageView*)[micArray objectAtIndex:(micCounter - 1)];
             [img setImage:[UIImage imageNamed:@"grey_strips.png"]];
-            //micarray[micCounter-1]->setColor(Color3B(51, 51, 51));
         }
     }
 }
@@ -3690,7 +3322,6 @@ float roundUp (float value, int digits) {
     NSInteger totalData = [Wave1 length] / sizeof(uint8_t);
     int endRange = 0;
     for (int i = 0 ; i < totalData; i ++){
-        //   NSLog(@"%x", bytePtr[i]);
         if (bytePtr[i] == 0) {
             endRange = i;
         }else
@@ -3849,9 +3480,6 @@ float roundUp (float value, int digits) {
 
 
 -(void)recordingFinished{
-    // Get the input text
-    //[self enableDropDownLbl:YES];
-    //    currentMusicFileName = [alertView textFieldAtIndex:0].text;
     int value = [[userDefaults objectForKey:@"recodingid"] intValue];
     
     currentMusicFileName = [NSString stringWithFormat:@"music %d",++value];
@@ -3859,7 +3487,6 @@ float roundUp (float value, int digits) {
     [userDefaults setObject:[NSString stringWithFormat:@"%d",value] forKey:@"recodingid"];
     [userDefaults synchronize];
     
-    //tempoCounter = NSString(audioPlayer.rate;
     time_t     now = time(0);
     struct tm  tstruct;
     char       date[80];
@@ -3868,15 +3495,10 @@ float roundUp (float value, int digits) {
     strftime(date, sizeof(date), "%d/%m/%Y", &tstruct);
     strftime(time, sizeof(time), "%X", &tstruct);
     
-    //currentMusicFileName=[currentMusicFileName stringByAppendingString:@".m4a"];
     currentMusicFileName=[currentMusicFileName stringByAppendingString:@".wav"];
     
-    //NSString *str = [NSString stringWithFormat:@"Recording_%d_%@.m4a",value,[self timeStamp]];
-    //NSString *str = [NSString stringWithFormat:@"Recording_%@_%@.m4a",recordID,[self timeStamp]];
     NSString *str = [NSString stringWithFormat:@"Recording_%@_%@.wav",recordID,[self timeStamp]];
     [self renameFileName:@"MyAudioMemo.wav" withNewName:str];
-    //    [self renameFileWithName:@"MyAudioMemo.m4a" toName:str];
-    
     
     NSString *songDurationToSave;
     
@@ -3886,18 +3508,12 @@ float roundUp (float value, int digits) {
         durationStringUnFormatted = songDurationToSave;
         _maxRecDurationLbl.text = [NSString stringWithFormat:@"-%@",[self timeFormatted:[songDurationToSave floatValue]] ];
     }
-    else{
+    else {
         songDurationToSave = durationStringUnFormatted;
     }
     
-    //NSDictionary *musicDict = [[NSDictionary alloc]init];
-    
-    //NSLog(@"dict = %@",musicDict);
-    
-    
-    
-    if ([_recTrackOne isEqualToString:@"-1"]){
-        //NSLog(@"duration 1 = %@",songDurationToSave);
+    if ([_recTrackOne isEqualToString:@"-1"]) {
+        
         [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue] trackSequence:1 track:newPath maxTrackDuration:songDurationToSave trackDuration:[NSString stringWithFormat:@"%f",recordingDuration]];
         
         _recTrackOne = newPath;
@@ -3914,8 +3530,8 @@ float roundUp (float value, int digits) {
         [_thirdVolumeKnob setBackgroundImage:[UIImage imageNamed:@"three_greyoutline.png"] forState:UIControlStateNormal];
         [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_greyoutline.png"] forState:UIControlStateNormal];
     }
-    else if ([_recTrackTwo isEqualToString:@"-1"]){
-        //NSLog(@"duration 2 = %@",songDurationToSave);
+    else if ([_recTrackTwo isEqualToString:@"-1"]) {
+        
         [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue]  trackSequence:2 track:newPath maxTrackDuration:songDurationToSave trackDuration:[NSString stringWithFormat:@"%f",recordingDuration]];
         _recTrackTwo = newPath;
         recFlag2 = 1;
@@ -3924,15 +3540,14 @@ float roundUp (float value, int digits) {
         [_rotatryT2 setValue:100 animated:NO];
         t2Duration = [NSString stringWithFormat:@"%f",recordingDuration];
         
-        //[_secondVolumeKnob setHighlighted:NO];
         [_secondVolumeKnob setSelected:YES];
         [_rotatryT2 setHidden:NO];
         [_secondVolumeKnob setBackgroundImage:[UIImage imageNamed:@"two_darkgrey.png"] forState:UIControlStateNormal];
         [_thirdVolumeKnob setBackgroundImage:[UIImage imageNamed:@"three_redoutline.png"] forState:UIControlStateNormal];
         [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_greyoutline.png"] forState:UIControlStateNormal];
     }
-    else if ([_recTrackThree isEqualToString:@"-1"]){
-        //NSLog(@"duration 3 = %@",songDurationToSave);
+    else if ([_recTrackThree isEqualToString:@"-1"]) {
+        
         t3Duration = [NSString stringWithFormat:@"%f",recordingDuration];
         
         [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue]  trackSequence:3 track:newPath maxTrackDuration:songDurationToSave trackDuration:[NSString stringWithFormat:@"%f",recordingDuration]];
@@ -3948,10 +3563,7 @@ float roundUp (float value, int digits) {
         [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_redoutline.png"] forState:UIControlStateNormal];
         
     }
-    else if ([_recTrackFour isEqualToString:@"-1"]){
-        //NSLog(@"duration 4 = %@",songDurationToSave);
-        //        self.recordingBtn.userInteractionEnabled = NO;
-        //        self.recordingBtn.alpha = 0.3;
+    else if ([_recTrackFour isEqualToString:@"-1"]) {
         
         [sqlManager updateSingleRecordingDataWithRecordingId:[recordID intValue]  trackSequence:4 track:newPath maxTrackDuration:songDurationToSave trackDuration:[NSString stringWithFormat:@"%f",recordingDuration]];
         _recTrackFour = newPath;
@@ -4062,7 +3674,8 @@ float roundUp (float value, int digits) {
     }
 }
 
-- (void) stopSelectedRhythms{
+- (void)stopSelectedRhythms {
+    
     if (_clap3Timer != nil) {
         [_clap3Timer invalidate];
         _clap3Timer = nil;
@@ -4083,8 +3696,6 @@ float roundUp (float value, int digits) {
     
     [audioPlayerArray removeAllObjects];
     [self stopAudioFiles];
-    // [audioRecorder stopAudioRecording];
-    
 }
 
 -(void)updateSlider:(NSTimer *)timer {
@@ -4097,30 +3708,26 @@ float roundUp (float value, int digits) {
         _recordingTimeLabel.text = maxDuration;
         [_recSlider setValue:seconds animated:YES];
     }
-    else{
+    else {
         if ([_recTrackOne isEqualToString:@"-1"]) {
             _maxRecDurationLbl.text =  @"00:00";
             _recordingTimeLabel.text = @"00:00";
             return ;
         }
+        
         NSString *maxDuration = [self timeFormatted:[durationStringUnFormatted floatValue] - seconds];
         [self configureSliderValues:@{@"MINDURATION":[self timeFormatted:seconds],@"MAXDURATION":maxDuration}];
         _recSlider.value = seconds;
         
         if ([maxDuration isEqualToString:@"00:00"]) {
-            //  NSLog(@"match");
             _maxRecDurationLbl.text =  @"-00:01";
-            
         }
         
         if ([durationStringUnFormatted floatValue] - seconds < 0.0) {
             [self resetPlayButtonWithCell];
         }
-        //NSLog(@"MAX = %@",maxDuration);
     }
     seconds += 0.1f;
-    // [self setVolumeInputOutput];
-    
 }
 
 -(void)configureSliderValues:(NSDictionary *)options{
@@ -4132,7 +3739,6 @@ float roundUp (float value, int digits) {
 - (NSString *)timeFormatted:(int)totalSeconds{
     int second = totalSeconds % 60;
     int minute = (totalSeconds / 60) % 60;
-    //int hours = totalSeconds / 3600;
     
     return [NSString stringWithFormat:@"%02d:%02d",minute, second];
 }
@@ -4141,7 +3747,6 @@ float roundUp (float value, int digits) {
     _audioPlayerClap4 = nil;
     
     _audioPlayerClap4 = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.m4a", [[NSBundle mainBundle] resourcePath], memo]] error:nil];
-    //_audioPlayerClap4.volume = 1.0f;
     _audioPlayerClap4.numberOfLoops = -1;
     _audioPlayerClap4.enableRate = true;
     _audioPlayerClap4.rate = [_startBPM floatValue]/[originalBPM floatValue];
@@ -4165,8 +3770,6 @@ float roundUp (float value, int digits) {
 }
 
 -(void)startAUGraphVC {
-    //[mixerController setCurrentBpm:[_startBPM floatValue]];
-    //[mixerController changePlaybackRate:[_startBPM floatValue]/[originalBPM floatValue]];
     _updateSliderTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
                                                           target:self selector:@selector(updateSlider:) userInfo:nil repeats:YES];
     [_updateSliderTimer fire];
@@ -4179,20 +3782,11 @@ float roundUp (float value, int digits) {
     else
         [self startMixer];
     
-//    if(clapFlag3 == 1) {
-//        if (instrV3 == 0)
-//            [mixerController setMetronomeVolume:1/MAX_VOL];
-//        else
-//            [mixerController setMetronomeVolume:instrV3/MAX_VOL];
-//    } else
-//        [mixerController setMetronomeVolume:0];
-    
     _playRecBtn.userInteractionEnabled = YES;
     if(stopFlag == 1)
         [self performSelector:@selector(enableRecordingButton) withObject:self afterDelay:1.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChanged:) name:@"AUDIOROUTECHANGE" object:nil];
-
 }
 
 - (void) enableRecordingButton {
@@ -4218,12 +3812,11 @@ float roundUp (float value, int digits) {
 }
 
 - (void)stopAudioFiles {
-    // recordingFilePresent = YES;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
                                                         object:@"YES"];
     
-    [UIApplication sharedApplication].idleTimerDisabled = NO;   //sn
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 
     [mixerController stopAUGraph:YES];
 }
@@ -4476,9 +4069,8 @@ float roundUp (float value, int digits) {
 }
 
 - (void) LongPress:(UILongPressGestureRecognizer *)gesture{
-    if (playFlag != 1){
-        //NSLog(@"gsture = %@",gesture);
-        //NSLog(@"viewtag = %ld",(long)gesture.view.tag);
+    if (playFlag != 1) {
+        
         UIButton *button = (UIButton *)gesture.view;
         
         if ((button.tag == 5 && [_recTrackOne isEqualToString:@"-1"]) || (button.tag == 6 && [_recTrackTwo isEqualToString:@"-1"]) || (button.tag == 7 && [_recTrackThree isEqualToString:@"-1"]) || (button.tag == 8 && [_recTrackFour isEqualToString:@"-1"])) {
@@ -4516,7 +4108,7 @@ float roundUp (float value, int digits) {
 - (IBAction) imageMoved:(id) sender withEvent:(UIEvent *) event{
     UIControl *control = sender ;
     int tag = (int)control.tag;
-    //NSLog(@"tag = %d",tag);
+    
     UITouch *t = [[event allTouches] anyObject];
     CGPoint pPrev = [t previousLocationInView:control];
     CGPoint p = [t locationInView:control];
@@ -4526,7 +4118,6 @@ float roundUp (float value, int digits) {
     center.y += p.y - pPrev.y;
     control.center = center;
     
-    
     if(CGRectContainsPoint(control.frame, trashButton.center)){
         if(t.phase == UITouchPhaseEnded){
             if(tag == 1){
@@ -4535,7 +4126,6 @@ float roundUp (float value, int digits) {
                 secondKnob.center = thirdKnobCentre;
                 thirdKnob.center = forthKnobCentre;
                 forthKnob.center = forthKnobCentre;
-                
                 
                 [UIView animateWithDuration:0.5
                                       delay:0
@@ -4551,8 +4141,6 @@ float roundUp (float value, int digits) {
                                      
                                  }
                                  completion:^(BOOL finished){
-                                     //NSLog(@"Done!");
-                                     //sleep(1);
                                      forthKnob.hidden = NO;
                                      forthKnob.center = forthKnobCentre;
                                  }
@@ -4579,8 +4167,6 @@ float roundUp (float value, int digits) {
                                      
                                  }
                                  completion:^(BOOL finished){
-                                     //NSLog(@"Done!");
-                                     //sleep(1);
                                      forthKnob.hidden = NO;
                                      forthKnob.center = forthKnobCentre;
                                  }
@@ -4592,7 +4178,6 @@ float roundUp (float value, int digits) {
                 control.center = forthKnobCentre;
                 forthKnob.center = forthKnobCentre;
                 
-                
                 [UIView animateWithDuration:0.5
                                       delay:0
                                     options:UIViewAnimationOptionCurveEaseOut
@@ -4601,21 +4186,19 @@ float roundUp (float value, int digits) {
                                      control.hidden = NO;
                                      control.center = thirdKnobCentre;
                                      forthKnob.hidden = YES;
-                                     
-                                     
                                  }
                                  completion:^(BOOL finished){
-                                     //NSLog(@"Done!");
+                                     
                                      forthKnob.hidden = NO;
                                      forthKnob.center = forthKnobCentre;
                                  }
                  ];
             }
+            
             if(tag == 4){
                 control.hidden = YES;
                 control.center = forthKnobCentre;
                 forthKnob.center = forthKnobCentre;
-                
                 
                 [UIView animateWithDuration:0.5
                                       delay:0
@@ -4655,7 +4238,6 @@ float roundUp (float value, int digits) {
             
         }
     }
-    
 }
 
 #pragma mark - In App Purchase.
