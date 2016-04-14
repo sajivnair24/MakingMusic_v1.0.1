@@ -431,24 +431,11 @@ static OSStatus renderInput(void *inRefCon,
     }
 }
 
-- (BOOL)isMixerOutputPlaying {
-    Boolean isRunning = false;
-    OSStatus result = AUGraphIsRunning(mGraph, &isRunning);
-    if (result) {
-        return NO;
-    } else {
-        if(isRunning)
-            return YES;
-        else
-            return NO;
-    }
-}
-
 - (void)initializeAudioForMetronome {
     [metronomePlayer initializeAudioOutputForMetronome];
 }
 
-- (void)setCurrentBpm:(float)currBpm {  //sn
+- (void)setCurrentBpm:(float)currBpm { 
     currentBpm = currBpm;
 }
 

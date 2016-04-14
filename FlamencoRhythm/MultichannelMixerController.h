@@ -153,7 +153,6 @@ typedef struct {
 - (void)initializeAudioForMetronome;
 - (void)setCurrentBpm:(float)currBpm;
 - (void)setMetronomeVolume:(float)volume;
-- (BOOL)isMixerOutputPlaying;
 
 @end
 
