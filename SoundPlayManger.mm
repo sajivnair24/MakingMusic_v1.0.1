@@ -104,6 +104,7 @@
                                                      repeats:NO];
     //[stopSoundTimer fire];
 }
+
 -(void)stopSound:(NSTimer *) timer{
     NSLog(@" timer stoped ");
     [timer invalidate];
@@ -111,7 +112,7 @@
     [self.delegate soundStopped];
 
 }
--(void)stopAllSound{
+-(void)stopAllSound {
     if([stopSoundTimer isValid]) {
         [stopSoundTimer invalidate];
         stopSoundTimer = nil;

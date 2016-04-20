@@ -64,8 +64,6 @@
 		044EFCDB1AC28B5800941E3A /* Bhangra 2 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 044EFBDF1AC28B5800941E3A /* Bhangra 2 2.m4a */; };
 		044EFCDC1AC28B5800941E3A /* Bhangra 3 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 044EFBE01AC28B5800941E3A /* Bhangra 3 1.m4a */; };
 		044EFCDD1AC28B5800941E3A /* Bhangra 3 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 044EFBE11AC28B5800941E3A /* Bhangra 3 2.m4a */; };
-		044EFCDE1AC28B5800941E3A /* Bhangra 4 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 044EFBE21AC28B5800941E3A /* Bhangra 4 1.m4a */; };
-		044EFCDF1AC28B5800941E3A /* Bhangra 4 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 044EFBE31AC28B5800941E3A /* Bhangra 4 2.m4a */; };
 		044EFCE01AC28B5800941E3A /* Bolly 1 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 044EFBE41AC28B5800941E3A /* Bolly 1 1.m4a */; };
 		044EFCE11AC28B5800941E3A /* Bolly 1 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 044EFBE51AC28B5800941E3A /* Bolly 1 2.m4a */; };
 		044EFCE21AC28B5800941E3A /* Bolly 2 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 044EFBE61AC28B5800941E3A /* Bolly 2 1.m4a */; };
@@ -292,6 +290,8 @@
 		630E23FD1CBBCEF9008D95D8 /* volume_circle_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 630E23FC1CBBCEF9008D95D8 /* volume_circle_black@2x.png */; };
 		631EF3741BE2719000FA6792 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 631EF3731BE2719000FA6792 /* libGoogleAdMobAds.a */; };
 		631EF3761BE271B900FA6792 /* libdywapitchtrack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 631EF3751BE271B900FA6792 /* libdywapitchtrack.a */; };
+		6361B1B01CC4B43900F7A200 /* Bhangra 4 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 6361B1AE1CC4B43900F7A200 /* Bhangra 4 1.m4a */; };
+		6361B1B11CC4B43900F7A200 /* Bhangra 4 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 6361B1AF1CC4B43900F7A200 /* Bhangra 4 2.m4a */; };
 		63C6FE331B4BA99C00394A0A /* AudioUnitRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */; };
 		63C6FE361B4BA9B300394A0A /* InMemoryAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */; };
 		63CABCB71CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */; };
@@ -411,8 +411,6 @@
 		044EFBDF1AC28B5800941E3A /* Bhangra 2 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bhangra 2 2.m4a"; sourceTree = "<group>"; };
 		044EFBE01AC28B5800941E3A /* Bhangra 3 1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bhangra 3 1.m4a"; sourceTree = "<group>"; };
 		044EFBE11AC28B5800941E3A /* Bhangra 3 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bhangra 3 2.m4a"; sourceTree = "<group>"; };
-		044EFBE21AC28B5800941E3A /* Bhangra 4 1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bhangra 4 1.m4a"; sourceTree = "<group>"; };
-		044EFBE31AC28B5800941E3A /* Bhangra 4 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bhangra 4 2.m4a"; sourceTree = "<group>"; };
 		044EFBE41AC28B5800941E3A /* Bolly 1 1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bolly 1 1.m4a"; sourceTree = "<group>"; };
 		044EFBE51AC28B5800941E3A /* Bolly 1 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bolly 1 2.m4a"; sourceTree = "<group>"; };
 		044EFBE61AC28B5800941E3A /* Bolly 2 1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bolly 2 1.m4a"; sourceTree = "<group>"; };
@@ -712,6 +710,8 @@
 		630E23FC1CBBCEF9008D95D8 /* volume_circle_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume_circle_black@2x.png"; sourceTree = "<group>"; };
 		631EF3731BE2719000FA6792 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		631EF3751BE271B900FA6792 /* libdywapitchtrack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libdywapitchtrack.a; sourceTree = "<group>"; };
+		6361B1AE1CC4B43900F7A200 /* Bhangra 4 1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bhangra 4 1.m4a"; sourceTree = "<group>"; };
+		6361B1AF1CC4B43900F7A200 /* Bhangra 4 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bhangra 4 2.m4a"; sourceTree = "<group>"; };
 		63C6FE311B4BA99C00394A0A /* AudioUnitRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioUnitRecorder.h; sourceTree = "<group>"; };
 		63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioUnitRecorder.m; sourceTree = "<group>"; };
 		63C6FE341B4BA9B300394A0A /* InMemoryAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMemoryAudioFile.h; sourceTree = "<group>"; };
@@ -980,8 +980,8 @@
 				044EFBDF1AC28B5800941E3A /* Bhangra 2 2.m4a */,
 				044EFBE01AC28B5800941E3A /* Bhangra 3 1.m4a */,
 				044EFBE11AC28B5800941E3A /* Bhangra 3 2.m4a */,
-				044EFBE21AC28B5800941E3A /* Bhangra 4 1.m4a */,
-				044EFBE31AC28B5800941E3A /* Bhangra 4 2.m4a */,
+				6361B1AE1CC4B43900F7A200 /* Bhangra 4 1.m4a */,
+				6361B1AF1CC4B43900F7A200 /* Bhangra 4 2.m4a */,
 				044EFBE41AC28B5800941E3A /* Bolly 1 1.m4a */,
 				044EFBE51AC28B5800941E3A /* Bolly 1 2.m4a */,
 				044EFBE61AC28B5800941E3A /* Bolly 2 1.m4a */,
@@ -1686,6 +1686,7 @@
 				6305D1831CBF8168002550CA /* Blues 2.m4a in Resources */,
 				6305D1D01CBF9F71002550CA /* c.m4a in Resources */,
 				59B7BAF71AD7E68300D9F86A /* close-icon.png in Resources */,
+				6361B1B01CC4B43900F7A200 /* Bhangra 4 1.m4a in Resources */,
 				044EFC951AC28B5800941E3A /* Dubstep 1.m4a in Resources */,
 				6305D15E1CBF7F3C002550CA /* Bulerias 1.m4a in Resources */,
 				044EFDC61AC2949F00941E3A /* slidertrackLatestBlack.png in Resources */,
@@ -1745,7 +1746,6 @@
 				044EFC7E1AC28B5800941E3A /* Calypso 2.m4a in Resources */,
 				6305D1961CBF82FA002550CA /* Dadra 1.m4a in Resources */,
 				C00B0A1D1B1766E9004FFE92 /* volumesqaure_pointer_blue@2x.png in Resources */,
-				044EFCDE1AC28B5800941E3A /* Bhangra 4 1.m4a in Resources */,
 				044EFD021AC28B5800941E3A /* Blues Shuffle.m4a in Resources */,
 				044EFD101AC28B5800941E3A /* Samba 1.m4a in Resources */,
 				044EFD0B1AC28B5800941E3A /* Cuba Ride 2.m4a in Resources */,
@@ -1799,7 +1799,6 @@
 				044EFD211AC28B5800941E3A /* Ballad 2.m4a in Resources */,
 				044EFD1D1AC28B5800941E3A /* Spunk.m4a in Resources */,
 				044EFCCC1AC28B5800941E3A /* Cruising.m4a in Resources */,
-				044EFCDF1AC28B5800941E3A /* Bhangra 4 2.m4a in Resources */,
 				044EFD051AC28B5800941E3A /* Bomba 2.m4a in Resources */,
 				6305D1A01CBF82FA002550CA /* Rupak 1.m4a in Resources */,
 				044EFC911AC28B5800941E3A /* Drum & Bass 1.m4a in Resources */,
@@ -1821,6 +1820,7 @@
 				044EFD1F1AC28B5800941E3A /* Vinnie Ride.m4a in Resources */,
 				044EFD3B1AC28B5800941E3A /* divider.png in Resources */,
 				044EFC871AC28B5800941E3A /* Reggae CYBL 1.m4a in Resources */,
+				6361B1B11CC4B43900F7A200 /* Bhangra 4 2.m4a in Resources */,
 				6305D1711CBF7F3C002550CA /* Solea por Bulerias 2.m4a in Resources */,
 				6305D1A41CBF82FA002550CA /* South 2 1.m4a in Resources */,
 				044EFCD41AC28B5800941E3A /* Old Skool.m4a in Resources */,
@@ -2059,7 +2059,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "a88267b1-8d6e-44b4-a055-8215d32e7bb1";
+				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -2099,7 +2099,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "5ca5c148-ac9b-4ce8-9783-e87a452fe766";
+				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2129,9 +2129,9 @@
 					"$(PROJECT_DIR)/TestFairy",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.febe.musicmemos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a88267b1-8d6e-44b4-a055-8215d32e7bb1";
+				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2159,9 +2159,9 @@
 					"$(PROJECT_DIR)/TestFairy",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.febe.musicmemos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ca5c148-ac9b-4ce8-9783-e87a452fe766";
+				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2184,7 +2184,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a88267b1-8d6e-44b4-a055-8215d32e7bb1";
+				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlamencoRhythm.app/FlamencoRhythm";
 			};
 			name = Debug;
@@ -2202,7 +2202,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ca5c148-ac9b-4ce8-9783-e87a452fe766";
+				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlamencoRhythm.app/FlamencoRhythm";
 			};
 			name = Release;

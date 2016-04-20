@@ -65,7 +65,7 @@ int inputMic;
     MultichannelMixerController *mixerController;
     AudioRecorderManager *audioRecorder;
     UInt32 audioUnitCount;
-    bool isMetronome, isBpmPickerChanged;  //sn14Sept
+    bool isMetronome, isBpmPickerChanged;
 }
 @end
 
@@ -118,7 +118,8 @@ int inputMic;
     self.dronePickerBackView.layer.cornerRadius = 30;
     
     dronePickerArray = [[NSMutableArray alloc]init];
-    bpmPickerArray = [[ NSMutableArray alloc]init];
+    bpmPickerArray = [[NSMutableArray alloc]init];
+    
     for (int i = 60; i <= 240 ; i++) {
         //[bpmPickerArray addObject:[NSString stringWithFormat:@"%d",i]];
     }
@@ -850,7 +851,6 @@ int inputMic;
             [_recordView setHidden:YES];
             [_bpmView setHidden:NO];
             [_micView setHidden:NO];
-
         }
         
         [_session setPreferredInput:_myPort error:nil];
@@ -1022,16 +1022,14 @@ int inputMic;
         [mixerController setInputVolume:(audioUnitCount - 1) value:clapFlag4];
     }
     
-    [_dronePickerView selectRow:pickerRow inComponent:0 animated:NO];
     
     if ([[_dronePickerView viewForRow:pickerRow forComponent:0] isKindOfClass:[UILabel class]]) {
         UILabel *selectedRow = (UILabel *)[_dronePickerView viewForRow:pickerRow forComponent:0];
         selectedRow.textColor = (clapFlag4 == 1) ? [UIColor whiteColor] : [UIColor blackColor];
-        //selectedRow.shadowColor = [UIColor whiteColor];
-        //selectedRow.shadowOffset = CGSizeMake(0, 1);
     }
-
-    // [btn setImage:[UIImage imageNamed:@"Claps4_Blue.png"] forState:UIControlStateSelected];
+    
+    [_dronePickerView reloadAllComponents];
+    [_dronePickerView selectRow:pickerRow inComponent:0 animated:NO];
 }
 
 #pragma mark - paly 4 players
