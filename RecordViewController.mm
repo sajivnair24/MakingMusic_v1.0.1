@@ -66,6 +66,7 @@ int inputMic;
     AudioRecorderManager *audioRecorder;
     UInt32 audioUnitCount;
     bool isMetronome, isBpmPickerChanged;
+    bool isDronePickerScrolling;
 }
 @end
 
@@ -184,12 +185,14 @@ int inputMic;
     _dronePickerView.backgroundColor = [UIColor clearColor];
     _dronePickerView.showsSelectionIndicator = NO;
     _dronePickerView.tintColor = [UIColor clearColor];
+    
    // [_dronePickerView selectRow:300 inComponent:0 animated:NO];
     int startIndex = (DRONE_PICKERVIEW_NUMBER_OF_ROWS/2)- ((DRONE_PICKERVIEW_NUMBER_OF_ROWS/2)%[dronePickerArray count]);
     [_dronePickerView selectRow:startIndex inComponent:0 animated:NO];
     pickerRow = startIndex;
     audioUnitCount = 0;
     isBpmPickerChanged = false;
+    isDronePickerScrolling = false;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChanged:) name:@"AUDIOROUTECHANGE" object:nil];
     [self addBackButton];
@@ -215,7 +218,8 @@ int inputMic;
                                                  name:@"HIDEMICSWITCH"
                                                object:nil];
     
-   
+   [MainNavigationViewController trimClickFile:mCurrentScore];
+    
   //  [self addBackGroundViewToInstriments];
     
 }
@@ -591,6 +595,12 @@ int inputMic;
     dismissPicker.delegate = self;
     [self.dronePickerView addGestureRecognizer:dismissPicker];
     
+    UISwipeGestureRecognizer *dronePickerGestureRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(dronePickerBeganScrolling:)];
+    dronePickerGestureRecognizer.delegate = self;
+    [self.dronePickerView addGestureRecognizer:dronePickerGestureRecognizer];
+    
+    [dronePickerGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionDown | UISwipeGestureRecognizerDirectionUp)];
+    
     UITapGestureRecognizer *clap3Tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clap3TapAction:)];
     clap3Tap.delegate = self;
     [self.bpmPickerView addGestureRecognizer:clap3Tap];
@@ -684,7 +694,7 @@ int inputMic;
             [emptyArray addObject:str];
         }
     }
-    carouselFirtValue = 49*(int)rhythmArray.count;
+    carouselFirtValue = 49 * (int)rhythmArray.count;
     
     countArray = emptyArray;
     RhythmClass *cls = [rhythmArray objectAtIndex:0];
@@ -696,7 +706,7 @@ int inputMic;
     [self updateBpmText];
     
     currentRythmName = [countArray objectAtIndex:0];
-    lag1 = [cls.lag1  intValue];
+    lag1 = [cls.lag1 intValue];
     
     // Fetch Drone Type
     droneNames = [rhythmQuery getDroneName];
@@ -948,13 +958,17 @@ int inputMic;
     [self onTapClap4Btn:btn];
 }
 
+- (void)dronePickerBeganScrolling:(UISwipeGestureRecognizer*)gestureRecognizer {
+    isDronePickerScrolling = true;
+}
+
 - (IBAction)onTapClap1Btn:(id)sender {
     UIButton *btn = (UIButton*)sender;
     
     if (clapFlag1 == 0) {
         [btn setSelected:YES];
         clapFlag1 = 1;
-        if(playFlag == 1){
+        if(playFlag == 1) {
             [mixerController setInputVolume:0 value:clapFlag1];
         }
     } else {
@@ -1008,6 +1022,8 @@ int inputMic;
 
 - (IBAction)onTapClap4Btn:(id)sender {
     
+    if(isDronePickerScrolling) return;
+    
     UIButton *btn = (UIButton*)sender;
     if (clapFlag4 == 0) {
         [btn setSelected:YES];
@@ -1022,14 +1038,19 @@ int inputMic;
         [mixerController setInputVolume:(audioUnitCount - 1) value:clapFlag4];
     }
     
-    
     if ([[_dronePickerView viewForRow:pickerRow forComponent:0] isKindOfClass:[UILabel class]]) {
+        
+        UIColor *droneTxtColor = (clapFlag4 == 1) ? [UIColor whiteColor] : [UIColor blackColor];
+        
         UILabel *selectedRow = (UILabel *)[_dronePickerView viewForRow:pickerRow forComponent:0];
-        selectedRow.textColor = (clapFlag4 == 1) ? [UIColor whiteColor] : [UIColor blackColor];
+        selectedRow.textColor = droneTxtColor;
+        
+        selectedRow = (UILabel *)[_dronePickerView viewForRow:(pickerRow + 1) forComponent:0];
+        selectedRow.textColor = droneTxtColor;
+        
+        selectedRow = (UILabel *)[_dronePickerView viewForRow:(pickerRow - 1) forComponent:0];
+        selectedRow.textColor = droneTxtColor;
     }
-    
-    [_dronePickerView reloadAllComponents];
-    [_dronePickerView selectRow:pickerRow inComponent:0 animated:NO];
 }
 
 #pragma mark - paly 4 players
@@ -1545,6 +1566,7 @@ int inputMic;
         mCurrentScore = currentBpm = updatedBpm;
     }
     else {
+        isDronePickerScrolling = false;
         pickerRow = [pickerView selectedRowInComponent:component];
         _droneType = [dronePickerArray objectAtIndex:pickerRow%[dronePickerArray count]];
         updatedBpm = bpmSlider.value;//[[bpmPickerArray objectAtIndex:[_bpmPickerView selectedRowInComponent:component]] intValue];

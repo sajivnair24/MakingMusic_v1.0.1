@@ -171,8 +171,6 @@
 		04700A731AA7247D0081BD6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04700A721AA7247D0081BD6E /* Foundation.framework */; };
 		04700A751AA724830081BD6E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04700A741AA724830081BD6E /* UIKit.framework */; };
 		047251DA1AF0C14B003420E1 /* DroneName.m in Sources */ = {isa = PBXBuildFile; fileRef = 047251D91AF0C14B003420E1 /* DroneName.m */; };
-		047251E31AF120B6003420E1 /* Sync 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 047251E11AF0F061003420E1 /* Sync 1.m4a */; };
-		047251E41AF120B6003420E1 /* Sync 22.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 047251E21AF0F061003420E1 /* Sync 22.m4a */; };
 		047CFA0B1ADBBE2A00E95BDB /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 047CF9FF1ADBBE2A00E95BDB /* CADebugMacros.cpp */; };
 		047CFA0C1ADBBE2A00E95BDB /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 047CFA011ADBBE2A00E95BDB /* CADebugPrintf.cpp */; };
 		047CFA0D1ADBBE2A00E95BDB /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 047CFA041ADBBE2A00E95BDB /* CAStreamBasicDescription.cpp */; };
@@ -295,7 +293,6 @@
 		63C6FE331B4BA99C00394A0A /* AudioUnitRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */; };
 		63C6FE361B4BA9B300394A0A /* InMemoryAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */; };
 		63CABCB71CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */; };
-		63D02E631BAC0D4200A82951 /* Sync 2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 63D02E621BAC0D4200A82951 /* Sync 2.m4a */; };
 		63DD40941C914E79005469CB /* Flamenco.db in Resources */ = {isa = PBXBuildFile; fileRef = 63DD40931C914E79005469CB /* Flamenco.db */; };
 		63DD40A21C91882B005469CB /* System San Francisco Display Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63DD40A11C91882B005469CB /* System San Francisco Display Bold.ttf */; };
 		63DD40A41C918957005469CB /* SystemSanDisplayBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63DD40A31C918957005469CB /* SystemSanDisplayBold.ttf */; };
@@ -529,8 +526,6 @@
 		0470E1BA1AE7D24C00971411 /* Moombahton 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Moombahton 2.m4a"; sourceTree = "<group>"; };
 		047251D81AF0C14B003420E1 /* DroneName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DroneName.h; sourceTree = "<group>"; };
 		047251D91AF0C14B003420E1 /* DroneName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DroneName.m; sourceTree = "<group>"; };
-		047251E11AF0F061003420E1 /* Sync 1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sync 1.m4a"; sourceTree = "<group>"; };
-		047251E21AF0F061003420E1 /* Sync 22.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sync 22.m4a"; sourceTree = "<group>"; };
 		047CF9FF1ADBBE2A00E95BDB /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
 		047CFA001ADBBE2A00E95BDB /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
 		047CFA011ADBBE2A00E95BDB /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
@@ -717,7 +712,6 @@
 		63C6FE341B4BA9B300394A0A /* InMemoryAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMemoryAudioFile.h; sourceTree = "<group>"; };
 		63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InMemoryAudioFile.m; sourceTree = "<group>"; };
 		63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Ultralight.ttf"; sourceTree = "<group>"; };
-		63D02E621BAC0D4200A82951 /* Sync 2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sync 2.m4a"; sourceTree = "<group>"; };
 		63DD40931C914E79005469CB /* Flamenco.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flamenco.db; sourceTree = "<group>"; };
 		63DD40A11C91882B005469CB /* System San Francisco Display Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Bold.ttf"; sourceTree = "<group>"; };
 		63DD40A31C918957005469CB /* SystemSanDisplayBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SystemSanDisplayBold.ttf; sourceTree = "<group>"; };
@@ -973,7 +967,6 @@
 			isa = PBXGroup;
 			children = (
 				59D2156F1AD677A800292D13 /* Click AccentedNew.wav */,
-				63D02E621BAC0D4200A82951 /* Sync 2.m4a */,
 				044EFBDC1AC28B5800941E3A /* Bhangra 1 1.m4a */,
 				044EFBDD1AC28B5800941E3A /* Bhangra 1 2.m4a */,
 				044EFBDE1AC28B5800941E3A /* Bhangra 2 1.m4a */,
@@ -1010,8 +1003,6 @@
 				6305D1951CBF82FA002550CA /* Teentaal 2.m4a */,
 				044EFBFC1AC28B5800941E3A /* South 3 1.m4a */,
 				044EFBFD1AC28B5800941E3A /* South 3 2.m4a */,
-				047251E11AF0F061003420E1 /* Sync 1.m4a */,
-				047251E21AF0F061003420E1 /* Sync 22.m4a */,
 			);
 			path = Indian;
 			sourceTree = "<group>";
@@ -1642,9 +1633,7 @@
 				C0FA30BC1BBD6C140064C0A6 /* icon-57@2x.png in Resources */,
 				C0FA30BD1BBD6C140064C0A6 /* icon-60@2x.png in Resources */,
 				C0FA30BE1BBD6C140064C0A6 /* icon-60@3x.png in Resources */,
-				047251E31AF120B6003420E1 /* Sync 1.m4a in Resources */,
 				4EBCA4DE1CA933900068BB94 /* upload-dsym.sh in Resources */,
-				047251E41AF120B6003420E1 /* Sync 22.m4a in Resources */,
 				044EFD1E1AC28B5800941E3A /* Triplet Kicks.m4a in Resources */,
 				6305D1A71CBF82FA002550CA /* Teentaal 2.m4a in Resources */,
 				C0F9F83C1B26AFDE0008D78C /* TTOpenInAppActivity8@2x.png in Resources */,
@@ -1897,7 +1886,6 @@
 				044EFC9F1AC28B5800941E3A /* Moombahton 1.m4a in Resources */,
 				044EFCCE1AC28B5800941E3A /* Double Time.m4a in Resources */,
 				6305D1671CBF7F3C002550CA /* Jaleos 2.m4a in Resources */,
-				63D02E631BAC0D4200A82951 /* Sync 2.m4a in Resources */,
 				044EFD3D1AC28B5800941E3A /* green-strip@2x.png in Resources */,
 				044EFC971AC28B5800941E3A /* Funky House 1.m4a in Resources */,
 				6305D1A61CBF82FA002550CA /* Teentaal 1.m4a in Resources */,

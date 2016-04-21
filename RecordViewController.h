@@ -73,7 +73,6 @@
     UIView *footerFadedBackground;
     NSLayoutConstraint *headPhoneDropdownViewWidthConstraint;
     UILabel *headPhoneLabel;
-    BOOL isDronePickerViewScrolling;
     /***Nirma***/
 }
 
