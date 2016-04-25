@@ -62,6 +62,17 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     if (!_closeButtonClicked) {
         [self.delegate expandedCellWillCollapse];
     }
+    
+    if (playFlag == 1) {
+        NSLog(@"playyyyy\n");
+        [self.playRecBtn sendActionsForControlEvents: UIControlEventTouchUpInside];
+    }
+    
+//    if(stopFlag == 1) {
+//        NSLog(@"stopppp\n");
+//        [audioRecorder stopAudioRecording];
+//        [self stopAudioFiles];
+//    }
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
@@ -109,6 +120,17 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         self.shareCheckString = @"comeback";
     else
         self.shareCheckString = @"sameclass";
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    //[self textFieldShouldReturn:_songNameTxtFld];
+    
+//    [super viewWillDisappear: animated];
+//    
+//    if([_songNameTxtFld isEditing]) {
+//        [_songNameTxtFld endEditing:YES];
+//        [_songNameTxtFld resignFirstResponder];
+//    }
 }
 
 -(void)trimAudioFilesOnBackThread{
@@ -388,6 +410,11 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChanged:) name:@"AUDIOROUTECHANGE" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopAudioPlayer:)
+                                                 name:@"stopAudioPlayerNotification"
+                                               object:nil];
+    
     timeStretcher = [[TimeStretcher alloc] init];
     
     
@@ -415,7 +442,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_backButton setTitle:@"" forState:UIControlStateNormal];
     [self setFontsForAllLabels];
     [self addNavigationTopSeprator];
-    
 }
 
 -(void)addNavigationTopSeprator{
@@ -447,6 +473,13 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_volumeBtn.titleLabel setFont:[UIFont fontWithName:FONT_MEDIUM size:15]];
     [_maxRecDurationLbl setFont:[UIFont fontWithName:FONT_LIGHT size:10]];
     [_minRecDurationLbl setFont:[UIFont fontWithName:FONT_LIGHT size:10]];
+}
+
+- (void)stopAudioPlayer:(NSNotification *)notification {
+    if(playFlag == 1) {
+        [self stopAudioFiles];
+        [self resetPlayButtonWithCell];
+    }
 }
 
 - (void)sliderTapped:(UIGestureRecognizer *)gestureRecognizer {
@@ -1801,14 +1834,21 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
         }
         
+        // If mixed file not created
+        if([recordingMergeArray count] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Failed !!"
+                                                            message:@"All channels are muted !"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+
+        
         NSString *mergeOutputPath = [self mixAudioFiles:recordingMergeArray
                                       withTotalDuration:[durationStringUnFormatted intValue]
                                     withRecordingString:currentRythmName];
-        // If mixed file not created
-        if([mergeOutputPath length] == 0) {
-            // Show message
-            return;
-        }
         
         self.shareCheckString = @"opened";
         
@@ -2196,14 +2236,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
 -(void)setDroneTitleColor:(UIColor *)color forState:(UIControlState)state {
 
-    UIFont *font = [UIFont fontWithName:HELVETICA_REGULAR size:25];
+    UIFont *font = [UIFont fontWithName:HELVETICA_REGULAR size:35];
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneName
                                                                                          attributes:@{NSFontAttributeName: font}];
     if([droneName length] > 1) {
         
-        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:HELVETICA_REGULAR size:18]
-                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:HELVETICA_REGULAR size:22]
+                                          , NSBaselineOffsetAttributeName:@15} range:NSMakeRange(1, 1)];
     }
     
     [attributedString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0,attributedString.length)];
@@ -2766,14 +2806,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     if (![droneName isEqualToString:@"-1"])
     {
-        UIFont *font = [UIFont fontWithName:HELVETICA_REGULAR size:25];
+        UIFont *font = [UIFont fontWithName:HELVETICA_REGULAR size:35];
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneName
                                                                                              attributes:@{NSFontAttributeName: font}];
         if([droneName length] > 1) {
         
-            [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:HELVETICA_REGULAR size:18]
-                                              , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+            [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:HELVETICA_REGULAR size:22]
+                                              , NSBaselineOffsetAttributeName:@15} range:NSMakeRange(1, 1)];
         }
         
         [_instrument4 setAttributedTitle:attributedString forState:UIControlStateNormal];

@@ -194,7 +194,16 @@ int inputMic;
     isBpmPickerChanged = false;
     isDronePickerScrolling = false;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChanged:) name:@"AUDIOROUTECHANGE" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(audioRouteChanged:) name:@"AUDIOROUTECHANGE"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopAudioPlayer:)
+                                                 name:@"stopAudioPlayerNotification"
+                                               object:nil];
+    
+    
     [self addBackButton];
     [self changeBackGroundColors];
     [self addSlider];
@@ -222,6 +231,31 @@ int inputMic;
     
   //  [self addBackGroundViewToInstriments];
     
+}
+
+- (void)stopAudioPlayer:(NSNotification *)notification {
+    
+    if(playFlag == 1) {
+        [self stopAudioFiles];
+        [beatTimer invalidate];
+        beatTimer = nil;
+        
+        [self resetBeatMeterImages];
+        
+        [_playTimer invalidate];
+        _playTimer = nil;
+        
+        // to reset record timer text
+        [_recordTimer invalidate];
+        _recordTimer = nil;
+        
+        [self updateBpmText];
+        
+        [_playBtn setBackgroundImage:[UIImage imageNamed:@"play-button"] forState:UIControlStateNormal];
+        
+        //seconds = 0;
+        //minutes = 0;
+    }
 }
 
 -(void)hideMicSwitch:(NSNotification *)notification{
@@ -932,6 +966,12 @@ int inputMic;
     
     if (playFlag == 1)
         [self.playBtn sendActionsForControlEvents: UIControlEventTouchUpInside];
+    
+//    if(stopFlag == 1) {
+//        [audioRecorder stopAudioRecording];
+//        [self stopAudioFiles];
+//    }
+    
     //     reset all timers
     [self resetAllTimers];
 }
@@ -1528,11 +1568,11 @@ int inputMic;
         return lbl;
     }
     
-    UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(7, 0, 50, 27)];
+    UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(7, 0, 50, 35)];
     [lbl setBackgroundColor:[UIColor clearColor]];
     
     UIColor *textColor;
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:25.0];
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:35.0];
     [lbl setFont:font];
 
     (clapFlag4 == 1) ? textColor = [UIColor whiteColor] : textColor = [UIColor blackColor];
@@ -1542,8 +1582,8 @@ int inputMic;
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:droneTxt
                                                                                          attributes:@{NSFontAttributeName: font}];
     if([droneTxt length] > 1) {
-        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:18]
-                                          , NSBaselineOffsetAttributeName:@10} range:NSMakeRange(1, 1)];
+        [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:22]
+                                          , NSBaselineOffsetAttributeName:@15} range:NSMakeRange(1, 1)];
     }
     [attributedString addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0,attributedString.length)];
     
@@ -2017,7 +2057,7 @@ int inputMic;
 // Set Genre lable text
 
 - (void)setDropDownLblWithString:(NSString*)string {
-     NSString *title = [NSString stringWithFormat:@"Genre:%@",string];
+    // NSString *title = [NSString stringWithFormat:@"Genre:%@",string];
     NSMutableAttributedString* genere = [[NSMutableAttributedString alloc]initWithString:@"Genre: " attributes:@{NSFontAttributeName:[UIFont fontWithName:FONT_MEDIUM size:15.5],NSForegroundColorAttributeName:[UIColor blackColor]}];
      NSMutableAttributedString* generType = [[NSMutableAttributedString alloc]initWithString:string attributes:@{NSFontAttributeName:[UIFont fontWithName:FONT_MEDIUM size:15.5],NSForegroundColorAttributeName:UIColorFromRGB(FONT_BLUE_COLOR)}];
     [genere appendAttributedString:generType];

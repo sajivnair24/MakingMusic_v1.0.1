@@ -132,19 +132,11 @@
 		044EFD3F1AC28B5800941E3A /* grey_strips@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC481AC28B5800941E3A /* grey_strips@2x.png */; };
 		044EFD411AC28B5800941E3A /* micGain_new.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC4A1AC28B5800941E3A /* micGain_new.png */; };
 		044EFD421AC28B5800941E3A /* micGain_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC4B1AC28B5800941E3A /* micGain_new@2x.png */; };
-		044EFD431AC28B5800941E3A /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC4C1AC28B5800941E3A /* minus.png */; };
-		044EFD441AC28B5800941E3A /* minus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC4D1AC28B5800941E3A /* minus@2x.png */; };
 		044EFD451AC28B5800941E3A /* orange-strip.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC4E1AC28B5800941E3A /* orange-strip.png */; };
 		044EFD461AC28B5800941E3A /* orange-strip@@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC4F1AC28B5800941E3A /* orange-strip@@2x.png */; };
 		044EFD471AC28B5800941E3A /* play-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC501AC28B5800941E3A /* play-bar.png */; };
-		044EFD491AC28B5800941E3A /* play-filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC521AC28B5800941E3A /* play-filled.png */; };
-		044EFD4A1AC28B5800941E3A /* play-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC531AC28B5800941E3A /* play-outline.png */; };
-		044EFD4B1AC28B5800941E3A /* play-pointer.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC541AC28B5800941E3A /* play-pointer.png */; };
 		044EFD4F1AC28B5800941E3A /* red-strip.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC581AC28B5800941E3A /* red-strip.png */; };
 		044EFD501AC28B5800941E3A /* red-strip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC591AC28B5800941E3A /* red-strip@2x.png */; };
-		044EFD521AC28B5800941E3A /* SlideBar_new.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC5B1AC28B5800941E3A /* SlideBar_new.png */; };
-		044EFD531AC28B5800941E3A /* SlideBar_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC5C1AC28B5800941E3A /* SlideBar_new@2x.png */; };
-		044EFD581AC28B5800941E3A /* upload-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFC611AC28B5800941E3A /* upload-icon.png */; };
 		044EFDC01AC2945200941E3A /* sliderprogressLatest.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFDBC1AC2945200941E3A /* sliderprogressLatest.png */; };
 		044EFDC11AC2945200941E3A /* sliderprogressLatest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFDBD1AC2945200941E3A /* sliderprogressLatest@2x.png */; };
 		044EFDC21AC2945200941E3A /* slidertrackLatest.png in Resources */ = {isa = PBXBuildFile; fileRef = 044EFDBE1AC2945200941E3A /* slidertrackLatest.png */; };
@@ -476,19 +468,11 @@
 		044EFC481AC28B5800941E3A /* grey_strips@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grey_strips@2x.png"; sourceTree = "<group>"; };
 		044EFC4A1AC28B5800941E3A /* micGain_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = micGain_new.png; sourceTree = "<group>"; };
 		044EFC4B1AC28B5800941E3A /* micGain_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "micGain_new@2x.png"; sourceTree = "<group>"; };
-		044EFC4C1AC28B5800941E3A /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
-		044EFC4D1AC28B5800941E3A /* minus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minus@2x.png"; sourceTree = "<group>"; };
 		044EFC4E1AC28B5800941E3A /* orange-strip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange-strip.png"; sourceTree = "<group>"; };
 		044EFC4F1AC28B5800941E3A /* orange-strip@@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange-strip@@2x.png"; sourceTree = "<group>"; };
 		044EFC501AC28B5800941E3A /* play-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-bar.png"; sourceTree = "<group>"; };
-		044EFC521AC28B5800941E3A /* play-filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-filled.png"; sourceTree = "<group>"; };
-		044EFC531AC28B5800941E3A /* play-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-outline.png"; sourceTree = "<group>"; };
-		044EFC541AC28B5800941E3A /* play-pointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-pointer.png"; sourceTree = "<group>"; };
 		044EFC581AC28B5800941E3A /* red-strip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-strip.png"; sourceTree = "<group>"; };
 		044EFC591AC28B5800941E3A /* red-strip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-strip@2x.png"; sourceTree = "<group>"; };
-		044EFC5B1AC28B5800941E3A /* SlideBar_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SlideBar_new.png; sourceTree = "<group>"; };
-		044EFC5C1AC28B5800941E3A /* SlideBar_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SlideBar_new@2x.png"; sourceTree = "<group>"; };
-		044EFC611AC28B5800941E3A /* upload-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-icon.png"; sourceTree = "<group>"; };
 		044EFDBC1AC2945200941E3A /* sliderprogressLatest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sliderprogressLatest.png; sourceTree = "<group>"; };
 		044EFDBD1AC2945200941E3A /* sliderprogressLatest@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderprogressLatest@2x.png"; sourceTree = "<group>"; };
 		044EFDBE1AC2945200941E3A /* slidertrackLatest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slidertrackLatest.png; sourceTree = "<group>"; };
@@ -1121,19 +1105,11 @@
 				04B04CC91AFCBD1100AF3666 /* bar_lightgrey@3x.png */,
 				044EFC4A1AC28B5800941E3A /* micGain_new.png */,
 				044EFC4B1AC28B5800941E3A /* micGain_new@2x.png */,
-				044EFC4C1AC28B5800941E3A /* minus.png */,
-				044EFC4D1AC28B5800941E3A /* minus@2x.png */,
 				044EFC4E1AC28B5800941E3A /* orange-strip.png */,
 				044EFC4F1AC28B5800941E3A /* orange-strip@@2x.png */,
 				044EFC501AC28B5800941E3A /* play-bar.png */,
-				044EFC521AC28B5800941E3A /* play-filled.png */,
-				044EFC531AC28B5800941E3A /* play-outline.png */,
-				044EFC541AC28B5800941E3A /* play-pointer.png */,
 				044EFC581AC28B5800941E3A /* red-strip.png */,
 				044EFC591AC28B5800941E3A /* red-strip@2x.png */,
-				044EFC5B1AC28B5800941E3A /* SlideBar_new.png */,
-				044EFC5C1AC28B5800941E3A /* SlideBar_new@2x.png */,
-				044EFC611AC28B5800941E3A /* upload-icon.png */,
 				044EFDBC1AC2945200941E3A /* sliderprogressLatest.png */,
 				044EFDBD1AC2945200941E3A /* sliderprogressLatest@2x.png */,
 				044EFDBE1AC2945200941E3A /* slidertrackLatest.png */,
@@ -1647,7 +1623,6 @@
 				04F20A7B1AE53E5E007E5880 /* sharp.png in Resources */,
 				C00B0A1A1B1761F1004FFE92 /* volumeslider_sqaure_red@2x.png in Resources */,
 				044EFC991AC28B5800941E3A /* Garage 1.m4a in Resources */,
-				044EFD441AC28B5800941E3A /* minus@2x.png in Resources */,
 				044EFC921AC28B5800941E3A /* Drum & Bass 2.m4a in Resources */,
 				044EFC961AC28B5800941E3A /* Dubstep 2.m4a in Resources */,
 				6305D17D1CBF80A2002550CA /* Plena 1.m4a in Resources */,
@@ -1669,7 +1644,6 @@
 				04F20A771AE53D6B007E5880 /* sharp@2x.png in Resources */,
 				044EFCDA1AC28B5800941E3A /* Bhangra 2 1.m4a in Resources */,
 				044EFC8E1AC28B5800941E3A /* Breakbeat 2.m4a in Resources */,
-				044EFD521AC28B5800941E3A /* SlideBar_new.png in Resources */,
 				0470096F1AA6C3680081BD6E /* Main.storyboard in Resources */,
 				044EFD411AC28B5800941E3A /* micGain_new.png in Resources */,
 				6305D1831CBF8168002550CA /* Blues 2.m4a in Resources */,
@@ -1686,7 +1660,6 @@
 				044EFD131AC28B5800941E3A /* Tango Argentina 2.m4a in Resources */,
 				044EFCDB1AC28B5800941E3A /* Bhangra 2 2.m4a in Resources */,
 				59D033B41AD528AA00F199DF /* arrow@2x.png in Resources */,
-				044EFD431AC28B5800941E3A /* minus.png in Resources */,
 				044EFD301AC28B5800941E3A /* Triplets 1.m4a in Resources */,
 				6305D19F1CBF82FA002550CA /* Keherwa 2.m4a in Resources */,
 				044EFD151AC28B5800941E3A /* Four Down.m4a in Resources */,
@@ -1743,7 +1716,6 @@
 				044EFDC21AC2945200941E3A /* slidertrackLatest.png in Resources */,
 				044EFC901AC28B5800941E3A /* Disco 2.m4a in Resources */,
 				6305D1D71CBF9F71002550CA /* gb.m4a in Resources */,
-				044EFD491AC28B5800941E3A /* play-filled.png in Resources */,
 				6305D1631CBF7F3C002550CA /* Fandangos 2.m4a in Resources */,
 				046A6AED1AF8989300597225 /* splashscreen-640x960.png in Resources */,
 				044EFCD61AC28B5800941E3A /* Timbo Style R'n'B.m4a in Resources */,
@@ -1767,7 +1739,6 @@
 				C0F9F8391B26AFDE0008D78C /* TTOpenInAppActivity7.png in Resources */,
 				6305D16D1CBF7F3C002550CA /* Sevillanas 2.m4a in Resources */,
 				044EFD1C1AC28B5800941E3A /* Slow Bash.m4a in Resources */,
-				044EFD531AC28B5800941E3A /* SlideBar_new@2x.png in Resources */,
 				C00B0A1F1B176FB3004FFE92 /* volumeslider_sqaure_blue@2x.png in Resources */,
 				044EFD501AC28B5800941E3A /* red-strip@2x.png in Resources */,
 				044EFC9A1AC28B5800941E3A /* Garage 2.m4a in Resources */,
@@ -1855,7 +1826,6 @@
 				044EFC8D1AC28B5800941E3A /* Breakbeat 1.m4a in Resources */,
 				044EFD001AC28B5800941E3A /* Bebop Ride.m4a in Resources */,
 				6305D1661CBF7F3C002550CA /* Jaleos 1.m4a in Resources */,
-				044EFD4A1AC28B5800941E3A /* play-outline.png in Resources */,
 				044EFD271AC28B5800941E3A /* Country Brush 2.m4a in Resources */,
 				044EFCDD1AC28B5800941E3A /* Bhangra 3 2.m4a in Resources */,
 				044EFD141AC28B5800941E3A /* D Beat.m4a in Resources */,
@@ -1878,10 +1848,8 @@
 				6305D1991CBF82FA002550CA /* Deepchandi 2.m4a in Resources */,
 				04B04CCA1AFCBD1100AF3666 /* bar_lightgrey@3x.png in Resources */,
 				63CABCB71CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf in Resources */,
-				044EFD4B1AC28B5800941E3A /* play-pointer.png in Resources */,
 				4EBED0951C9826CA00B4A7B2 /* SF-UI-Text-Light.otf in Resources */,
 				044EFD281AC28B5800941E3A /* Country Shuffle 1.m4a in Resources */,
-				044EFD581AC28B5800941E3A /* upload-icon.png in Resources */,
 				044EFD0F1AC28B5800941E3A /* Plena 2.m4a in Resources */,
 				044EFC9F1AC28B5800941E3A /* Moombahton 1.m4a in Resources */,
 				044EFCCE1AC28B5800941E3A /* Double Time.m4a in Resources */,

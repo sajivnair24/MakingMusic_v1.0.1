@@ -179,6 +179,11 @@ static NSString *cellIdentifier = @"CELL";
     [self printAllFonts];
     [self addTableBackGroundView];
     //[_bannerView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:50];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopAudioPlayer:)
+                                                 name:@"stopAudioPlayerNotification"
+                                               object:nil];
 }
 -(void)addTableBackGroundView{
     tableBackGroundView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,40)];
@@ -374,6 +379,11 @@ static NSString *cellIdentifier = @"CELL";
     [self soundStopped];
 }
 
+- (void)stopAudioPlayer:(NSNotification *)notification {
+    [soundPlayer stopAllSound];
+    [self soundStopped];
+}
+
 -(void)setTableBackGroundView {
     if ([songList count]>0) {
         self.recordingTableView.backgroundView = nil;
@@ -388,6 +398,8 @@ static NSString *cellIdentifier = @"CELL";
     [self soundStopped];
     RecordingListData *cellData = [songList objectAtIndex:index];
      NSString *mergeOutputPath = [soundPlayer loadFilesForMixingAndSharing:cellData];
+    if([mergeOutputPath isEqualToString:@""])
+        return;
     
     TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.view.frame];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];

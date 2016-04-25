@@ -119,9 +119,14 @@
     }
     
     [mixerController stopAUGraph:YES];
+    
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 - (void) playSelectedRecording:(RecordingListData *)data {
+    
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
     [self setDataFromRecord:data forSharing:NO];
     NSString *fileLocation;
     NSString *volume;
@@ -358,54 +363,80 @@
     NSString *lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
     
     if (![beatOneMusicFile isEqualToString:@"-1"]) {
-        fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
-        fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
-        
-        [mixArray addObject:[self getFilePathWithFormat:fileLocation
-                                                withKey:@"loopTrack"]];
+        if(clapFlag1 == 1) {
+            fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
+            fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
+            
+            [mixArray addObject:[self getFilePathWithFormat:fileLocation
+                                                    withKey:@"loopTrack"]];
+        }
     }
     
     if (![beatTwoMusicFile isEqualToString:@"-1"]) {
-        listItems = [beatTwoMusicFile componentsSeparatedByString:@"/"];
-        lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
-        
-        fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
-        fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
-        
-        [mixArray addObject:[self getFilePathWithFormat:fileLocation
-                                                withKey:@"loopTrack"]];
+        if(clapFlag2 == 1) {
+            listItems = [beatTwoMusicFile componentsSeparatedByString:@"/"];
+            lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
+            
+            fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
+            fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
+            
+            [mixArray addObject:[self getFilePathWithFormat:fileLocation
+                                                    withKey:@"loopTrack"]];
+        }
     }
     
-    fileLocation = [self getAbsoluteDocumentsPath:@"Click.m4a"];
-    [mixArray addObject:[self getFilePathWithFormat:fileLocation
+    if(clapFlag3 == 1) {
+        fileLocation = [self getAbsoluteDocumentsPath:@"Click.m4a"];
+        [mixArray addObject:[self getFilePathWithFormat:fileLocation
                                             withKey:@"loopTrack"]];
+    }
     
-    fileLocation = [self locationOfFileWithName:[NSString stringWithFormat:@"%@.m4a", _droneType]];
-    [mixArray addObject:[self getFilePathWithFormat:fileLocation
+    if(clapFlag4 == 1) {
+        fileLocation = [self locationOfFileWithName:[NSString stringWithFormat:@"%@.m4a", _droneType]];
+        [mixArray addObject:[self getFilePathWithFormat:fileLocation
                                             withKey:@"loopTrack"]];
+    }
     
     if (![_recTrackOne isEqualToString:@"-1"]) {
-        fileLocation = [documentsDirectory stringByAppendingPathComponent:[_recTrackOne lastPathComponent]];
-        [mixArray addObject:[self getFilePathWithFormat:fileLocation
-                                                withKey:@"recording"]];
+        if(recFlag1 == 1) {
+            fileLocation = [documentsDirectory stringByAppendingPathComponent:[_recTrackOne lastPathComponent]];
+            [mixArray addObject:[self getFilePathWithFormat:fileLocation
+                                                    withKey:@"recording"]];
+        }
     }
     
     if (![_recTrackTwo isEqualToString:@"-1"]) {
-        fileLocation = [documentsDirectory stringByAppendingPathComponent:[_recTrackTwo lastPathComponent]];
-        [mixArray addObject:[self getFilePathWithFormat:fileLocation
-                                                withKey:@"recording"]];
+        if(recFlag2 == 1) {
+            fileLocation = [documentsDirectory stringByAppendingPathComponent:[_recTrackTwo lastPathComponent]];
+            [mixArray addObject:[self getFilePathWithFormat:fileLocation
+                                                    withKey:@"recording"]];
+        }
     }
     
     if (![_recTrackThree isEqualToString:@"-1"]) {
-        fileLocation = [documentsDirectory stringByAppendingPathComponent:[_recTrackThree lastPathComponent]];
-        [mixArray addObject:[self getFilePathWithFormat:fileLocation
-                                                withKey:@"recording"]];
+        if(recFlag3 == 1) {
+            fileLocation = [documentsDirectory stringByAppendingPathComponent:[_recTrackThree lastPathComponent]];
+            [mixArray addObject:[self getFilePathWithFormat:fileLocation
+                                                    withKey:@"recording"]];
+        }
     }
     
     if (![_recTrackFour isEqualToString:@"-1"]) {
-        fileLocation = [documentsDirectory stringByAppendingPathComponent:[_recTrackFour lastPathComponent]];
-        [mixArray addObject:[self getFilePathWithFormat:fileLocation
-                                                withKey:@"recording"]];
+        if(recFlag4 == 1) {
+            fileLocation = [documentsDirectory stringByAppendingPathComponent:[_recTrackFour lastPathComponent]];
+            [mixArray addObject:[self getFilePathWithFormat:fileLocation
+                                                    withKey:@"recording"]];
+        }
+    }
+    
+    if([mixArray count] == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Failed !!"
+                                                        message:@"All channels are muted !"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return @"";
     }
     
     NSString *mergeOutputPath = [listController mixAudioFiles:mixArray

@@ -778,8 +778,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JYH-H9-oUW">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Metronome" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZx-xU-djp">
-                                        <rect key="frame" x="259" y="34" width="65" height="16"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Metronome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZx-xU-djp">
+                                        <rect key="frame" x="265" y="34" width="65" height="16"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1081,7 +1081,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Fc-jh-J26" secondAttribute="trailing" id="eeJ-23-v1Y"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="9964B717-5F29-41A3-860F-50ACD07499C8" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="9F58C053-3D25-4FC4-BDDD-00DD76FBBE58" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
                                         <rect key="frame" x="0.0" y="64" width="600" height="72"/>
                                     </imageView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwJ-Ky-7ck" userLabel="iCarousel" customClass="iCarousel">
@@ -1328,7 +1328,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Krg-9r-bVg" secondAttribute="trailing" constant="15" id="ayn-lc-iUo"/>
                                     <constraint firstAttribute="trailing" secondItem="WCM-xt-VMr" secondAttribute="trailing" id="dqs-uB-Q2d"/>
                                     <constraint firstAttribute="trailing" secondItem="Krg-9r-bVg" secondAttribute="trailing" constant="10" id="gsg-WK-MUk"/>
-                                    <constraint firstAttribute="centerX" secondItem="zZx-xU-djp" secondAttribute="centerX" constant="9" id="iPx-vl-HIG"/>
+                                    <constraint firstAttribute="centerX" secondItem="zZx-xU-djp" secondAttribute="centerX" constant="2" id="iPx-vl-HIG"/>
                                     <constraint firstItem="EIO-mD-Wga" firstAttribute="bottom" secondItem="JYH-H9-oUW" secondAttribute="bottom" multiplier="0.22587" id="je7-je-tNN"/>
                                     <constraint firstItem="MwJ-Ky-7ck" firstAttribute="top" secondItem="wat-Yz-tSR" secondAttribute="bottom" id="mR9-WI-MWK"/>
                                     <constraint firstAttribute="trailing" secondItem="pt7-0j-8Uj" secondAttribute="trailing" id="nbo-cy-FLp"/>
@@ -1693,7 +1693,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="9964B717-5F29-41A3-860F-50ACD07499C8" width="320" height="74">
+        <image name="9F58C053-3D25-4FC4-BDDD-00DD76FBBE58" width="320" height="74">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

@@ -264,6 +264,10 @@
 }
 
 - (IBAction)onTapChromaticTuner:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopAudioPlayerNotification"
+                                                        object:nil];
+    
     FrequencyViewController *productDetailsView =[self.storyboard instantiateViewControllerWithIdentifier:@"frequencyVC"];
     productDetailsView.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:productDetailsView animated:YES completion:nil];
