@@ -14,6 +14,7 @@
 #import "SavedListDetailViewController.h"
 
 static BOOL headphonePlugged;
+static int  selectedInputMic;
 
 @class AppDelegate;
 
@@ -55,6 +56,8 @@ static BOOL headphonePlugged;
 - (IBAction)OnChangeVolumeSlider:(id)sender;
 - (IBAction)onTapChromaticTuner:(id)sender;
 + (BOOL)isHeadphonePlugged;
++ (void)setSelectedInputMic:(int)inputMic;
++ (int)getSelectedInputMic;
 + (BOOL)isIPhoneOlderThanVersion6;
 + (BOOL)checkNetworkStatus;
 + (void)setPurchaseInfo:(NSString *)status;

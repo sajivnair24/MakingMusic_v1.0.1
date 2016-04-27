@@ -24,8 +24,6 @@
 float tempo = 94.0f;
 int caraouselIndex = 0;
 
-int inputMic;
-
 @interface RecordViewController ()<MainNavigationViewControllerDelegate>{
     NSMutableArray *dronePickerArray, *countArray,*bpmPickerArray;
     BOOL clapFlag1, clapFlag2, clapFlag3, clapFlag4;
@@ -215,11 +213,11 @@ int inputMic;
     
     if(![MainNavigationViewController isHeadphonePlugged]) {
         _headPhoneMic.hidden = YES;
-        inputMic = kUserInput_BuiltIn;
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
     }
     else {
         _headPhoneMic.hidden = NO;
-        inputMic = kUserInput_Headphone;
+        [self setSelectedMicrophone:kUserInput_Headphone];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -228,9 +226,6 @@ int inputMic;
                                                object:nil];
     
    [MainNavigationViewController trimClickFile:mCurrentScore];
-    
-  //  [self addBackGroundViewToInstriments];
-    
 }
 
 - (void)stopAudioPlayer:(NSNotification *)notification {
@@ -261,27 +256,16 @@ int inputMic;
 -(void)hideMicSwitch:(NSNotification *)notification{
     NSString *hideMicSwitch = [notification object];
     if([hideMicSwitch isEqualToString:@"NO"]) {
-        //[_micLabel  setHidden:NO];
-        //[_micSwitch setHidden:NO];
-        //[_micSwitch setOn:NO];
         [_headPhoneMic setHidden:NO];
-        
-        //inputMic = [_micSwitch isOn];
-        inputMic = kUserInput_Headphone;
-        
+        [self setSelectedMicrophone:kUserInput_Headphone];
     } else {
-        //[_micLabel  setHidden:YES];
-        //[_micSwitch setHidden:YES];
-        
         [_headPhoneMic setHidden:YES];
-        
-        inputMic = kUserInput_BuiltIn;
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
     }
 }
 
 -(void)addHeadPhoneMicDropDownButton{
     _headPhoneMic = [[UIView alloc]init];
-    //headPhoneMic.backgroundColor = [UIColor redColor];
     [self.view addSubview:_headPhoneMic];
     
     headPhoneLabel = [[UILabel alloc]init];
@@ -293,26 +277,19 @@ int inputMic;
     [headPhoneLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     
     UIImageView *dropDownImageView = [[UIImageView alloc]init];
-    //dropDownImageView.backgroundColor = [UIColor blueColor];
     dropDownImageView.image = [UIImage imageNamed:@"dropdown"];
     [dropDownImageView autoSetDimensionsToSize:CGSizeMake(6, 4)];
     [_headPhoneMic addSubview:dropDownImageView];
     [dropDownImageView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:5];
     [dropDownImageView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     
-    
     [_headPhoneMic autoAlignAxis:ALAxisVertical toSameAxisOfView:_stopBtn];
     [_headPhoneMic autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_stopBtn withOffset:0];
     [_headPhoneMic autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:6];
-   // [_headPhoneMic autoSetDimension:ALDimensionHeight toSize:20];
-   // _headPhoneMic.backgroundColor = [UIColor redColor];
     headPhoneDropdownViewWidthConstraint =  [_headPhoneMic autoSetDimension:ALDimensionWidth toSize:84];
-    
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headPhoneOptions:)];
     [_headPhoneMic addGestureRecognizer:gestureRecognizer];
-   // [dropDownImageView addGestureRecognizer:gestureRecognizer];
-    //dropDownImageView.userInteractionEnabled = YES;
 }
 
 -(void)headPhoneOptions:(id)sender{
@@ -326,22 +303,27 @@ int inputMic;
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Built In Mic" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         headPhoneDropdownViewWidthConstraint.constant = 64;
         headPhoneLabel.text = @"Built In Mic";
-        inputMic = kUserInput_BuiltIn;
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Headphone Mic" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         headPhoneDropdownViewWidthConstraint.constant = 84;
         headPhoneLabel.text = @"Headphone Mic";
-        inputMic = kUserInput_Headphone;
+        [self setSelectedMicrophone:kUserInput_Headphone];
     }]];
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
+
+- (void)setSelectedMicrophone:(int)inputMic {
+    [MainNavigationViewController setSelectedInputMic:inputMic];
+}
+
+- (int)getSelectedMicrophone {
+    return [MainNavigationViewController getSelectedInputMic];
+}
+
 -(void)addBackGroundViewToInstriments{
     _instBtn1.backgroundColor = UIColorFromRGB(FONT_BLUE_COLOR);
-  // _instBtn1.layer.cornerRadius = _instBtn1.frame.size.width/2;
-  //  _instBtn1.layer.borderColor = UIColorFromRGB(FONT_BLUE_COLOR).CGColor;
-   // _instBtn1.layer.masksToBounds = YES;
-    //UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_instBtn1.bounds byRoundingCorners:(UIRectCornerTopRight | UIRectCornerBottomRight) cornerRadii:CGSizeMake(7.0, 7.0)];
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_instBtn1.bounds cornerRadius:_instBtn1.bounds.size.width/2];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = self.view.bounds;
@@ -355,41 +337,32 @@ int inputMic;
     borderLayer.strokeColor = UIColorFromRGB(FONT_BLUE_COLOR).CGColor;
     borderLayer.fillColor   = UIColorFromRGB(FONT_BLUE_COLOR).CGColor;
     [_instBtn1.layer addSublayer:borderLayer];
-    //_instBtn1.layer.borderWidth = 1;
-   // _instBtn1.clipsToBounds = YES;
     [_instBtn1 setImage:nil forState:UIControlStateNormal];
      [_instBtn1 setImage:nil forState:UIControlStateSelected];
      [_instBtn1 setImage:nil forState:UIControlStateDisabled];
     [_instBtn1 setBackgroundImage:nil forState:UIControlStateNormal];
     [_instBtn1 setBackgroundImage:nil forState:UIControlStateSelected];
     [_instBtn1 setBackgroundImage:nil forState:UIControlStateDisabled];
-   /* UIView *instBtn1BackGround = [[UIView alloc]init];
-    instBtn1BackGround.backgroundColor = UIColorFromRGB(FONT_BLUE_COLOR);
-    [_instBtn1.superview insertSubview:instBtn1BackGround belowSubview:_instBtn1];
-    [instBtn1BackGround autoAlignAxis:ALAxisVertical toSameAxisOfView:_instBtn1];
-    [instBtn1BackGround autoAlignAxis:ALAxisHorizontal toSameAxisOfView:_instBtn1];
-    [instBtn1BackGround autoSetDimensionsToSize:CGSizeMake(60, 60)];
-    instBtn1BackGround.layer.cornerRadius = 30;*/
-    
 }
+
 -(void)refershRhythmsData{
     [self fetchDBData];
     [_carousel reloadData];
     [_carousel scrollToItemAtIndex:carouselFirtValue duration:0.0f];
 }
+
 #pragma -mark addViews
 /******************/
 -(void)addClap3Image{
-    //[_instBtn3 setImage:[UIImage imageNamed:@"Claps3_Gray.png"] forState:UIControlStateNormal];
     clap3ImageView = [[UIButton alloc]initWithFrame: CGRectMake(0, 0, self.bpmPickderBackView.frame.size.width, self.bpmPickderBackView.frame.size.height)];
     [clap3ImageView setImage:[UIImage imageNamed:@"Claps3_Gray.png"] forState:UIControlStateNormal];
-    //clap3ImageView.frame = CGRectMake(0, 0, self.bpmPickderBackView.frame.size.width, self.bpmPickderBackView.frame.size.height);
     clap3ImageView.tag = 33;
     [self.bpmPickderBackView addSubview:clap3ImageView];
     [clap3ImageView addTarget:self action:@selector(clap3Clicked:) forControlEvents:UIControlEventTouchUpInside];
      [clap3ImageView setImage:[UIImage imageNamed:@"Claps3_Blue.png"] forState:UIControlStateSelected];
     [clap3ImageView setSelected:YES];
 }
+
 -(void)clap3Clicked:(id)sender{
     UIButton *btn = (UIButton*)sender;
     if (clapFlag3 == 0) {
@@ -415,7 +388,6 @@ int inputMic;
     
     visualEffectView.frame = dropDownObj.frame;
     [dropDownObj removeFromSuperview];
-    //_dropDownBgView.frame = CGRectMake(_dropDownBgView.frame.origin.x,457, _dropDownBgView.frame.size.width,  100);
     [_dropDownBgView removeFromSuperview];
     
     [visualEffectView.contentView addSubview:dropDownObj];
@@ -431,55 +403,43 @@ int inputMic;
 
 -(void)changeBackGroundColors{
     _recordView.backgroundColor = [UIColor whiteColor];
-    _carousel.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:244.0/255.0 alpha:1];//UIColorFromRGB(SHARE_BUTTON_COLOR);
+    _carousel.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:244.0/255.0 alpha:1];
 }
+
 -(void)addBackButton{
-    //_genreBGView.backgroundColor = [UIColor redColor];
     UIButton *backButton = [[UIButton alloc]init];
     [_genreBGView addSubview:backButton];
     [backButton autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0];
     [backButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [backButton autoSetDimensionsToSize:CGSizeMake(31, 44)];
     [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    //[backButton setBackgroundColor:[UIColor redColor]];
     [backButton addTarget:self action:@selector(backToRecordedSoundListing:) forControlEvents:UIControlEventTouchUpInside];
 }
+
 -(void)addSlider{
     
-    //_micView.backgroundColor = [UIColor yellowColor];
     bpmSliderBackGround = [[UIView alloc]init];
     [self.view insertSubview:bpmSliderBackGround belowSubview:dropDownObj];
-   // [self.view addSubview:bpmSliderBackGround];
     [bpmSliderBackGround autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [bpmSliderBackGround autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [bpmSliderBackGround autoSetDimension:ALDimensionHeight toSize:30];
     [bpmSliderBackGround autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_recordTimerText withOffset:5];
-   // bpmSliderBackGround.backgroundColor = [UIColor blackColor];
-   // bpmSliderBackGround.backgroundColor = [UIColor yellowColor];
-    
-    UIButton *minusButton = [[UIButton alloc]init];
+    minusButton = [[UIButton alloc]init];
     [bpmSliderBackGround addSubview:minusButton];
     [minusButton autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:11];
     [minusButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
    
-    //[minusButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [minusButton addTarget:self action:@selector(bpmMinus:) forControlEvents:UIControlEventTouchUpInside];
     [minusButton setImage:[UIImage imageNamed:@"minusBtn.png"] forState:UIControlStateNormal];
-    //[minusButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:143];
     
-    UIButton *plusButton = [[UIButton alloc]init];
+    plusButton = [[UIButton alloc]init];
     [bpmSliderBackGround addSubview:plusButton];
     [plusButton autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:11];
     [plusButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
-    //[plusButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [plusButton addTarget:self action:@selector(bpmPlus:) forControlEvents:UIControlEventTouchUpInside];
     [plusButton setImage:[UIImage imageNamed:@"plusBtn.png"] forState:UIControlStateNormal];
     [plusButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:bpmSliderBackGround withOffset:0.77];
      [minusButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:bpmSliderBackGround withOffset:0.77];
-    //minusButton.backgroundColor = [UIColor redColor];
-    //plusButton.backgroundColor = [UIColor redColor];
-    //[plusButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:143];
-    //bpmSliderBackGround.backgroundColor = [UIColor redColor];
     bpmSlider = [[UISlider alloc]init];
     [bpmSliderBackGround addSubview:bpmSlider];
     
@@ -490,24 +450,18 @@ int inputMic;
     [bpmSlider setMinimumTrackTintColor:[UIColor grayColor]];
     [bpmSlider setMaximumTrackTintColor:[UIColor lightGrayColor]];
     
-    //[bpmSlider autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:133];
     [bpmSlider autoAlignAxisToSuperviewAxis:ALAxisVertical];
     [bpmSlider autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [bpmSlider autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:minusButton withOffset:10];
     [bpmSlider autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:plusButton withOffset:-10];
     [bpmSlider addTarget:self action:@selector(bpmSliderChanged:) forControlEvents:UIControlEventValueChanged];
-   // bpmSlider.backgroundColor = [UIColor blueColor];
-    //UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sliderTapped:)];
-    //[_recSlider addGestureRecognizer:tapGestureRecognizer];
     
     [bpmSlider addTarget:self action:@selector(sliderDidEndSliding:) forControlEvents:UIControlEventTouchUpInside];
     
     [bpmSlider setThumbImage:[UIImage imageNamed:@"sliderThumb.png"] forState:UIControlStateNormal];
     [self micHides];
-   // [bpmPickerArray addObject:[NSString stringWithFormat:@"%d",120]];
-    //minusButton.backgroundColor = [UIColor redColor];
-   // plusButton.backgroundColor = [UIColor redColor];
 }
+
 -(void)addSepratorOnCaresoule{
     UIColor *sepratorColor = [UIColor colorWithRed:223.0/255.0 green:223.0/255.0 blue:227.0/255.0 alpha:1.0];
    UIView *topSeprator = [[UIView alloc]init];
@@ -515,30 +469,20 @@ int inputMic;
     [_carousel addSubview:topSeprator];
     
     UIView *bottomSeprator = [[UIView alloc]init];
-    bottomSeprator.backgroundColor = sepratorColor;//[UIColor lightGrayColor];
+    bottomSeprator.backgroundColor = sepratorColor;
     [_carousel addSubview:bottomSeprator];
     
     [topSeprator autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [topSeprator autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [topSeprator autoPinEdgeToSuperviewEdge:ALEdgeTop];
     [topSeprator autoSetDimension:ALDimensionHeight toSize:0.5];
-    //[topSeprator autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_carousel withOffset:-0.5];
     
     [bottomSeprator autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [bottomSeprator autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [bottomSeprator autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     [bottomSeprator autoSetDimension:ALDimensionHeight toSize:0.5];
-    //[bottomSeprator autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_carousel];
-    
-    
-   
-  //230.230.232
-    //_carousel.layer.masksToBounds = NO;
-    //_carousel.layer.shadowOffset = CGSizeMake(0, 0);
-   // _carousel.layer.shadowRadius = 0.5;
-   // _carousel.layer.shadowOpacity = 0.6;
-    
 }
+
 -(void)micHides{
     for (int i = 0; i<[micArray count]; i++) {
         UIImageView *mic = [micArray objectAtIndex:i];
@@ -548,6 +492,7 @@ int inputMic;
     _headPhoneMic.userInteractionEnabled = YES;
     _headPhoneMic.alpha = 1.0f;
 }
+
 -(void)micShow{
     for (int i = 0; i<[micArray count]; i++) {
         UIImageView *mic = [micArray objectAtIndex:i];
@@ -609,11 +554,9 @@ int inputMic;
 -(void)backToRecordedSoundListing:(id)sender{
     [self.myNavigationController goBackToSoundListing];
 }
--(void)audioRouteChanged:(id)sender{
 
-    //NSLog(@"RecordViewController");
+-(void)audioRouteChanged:(id)sender{
     [self setVolumeInputOutput];
-    
 }
 
 // SetupMPVolumeView
@@ -662,8 +605,7 @@ int inputMic;
     }
     
     _session = [AVAudioSession sharedInstance];
-    //[_session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    
+
     for (_input in [_session availableInputs]) {
         // set as an input the build-in microphone
         
@@ -674,12 +616,8 @@ int inputMic;
     }
     [_session setPreferredInput:_myPort error:nil];
     [self calculateMicGain:0];
-    //    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord
-    //                                     withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker
-    //                                           error:nil];
     
     [_micView setHidden:NO];
-    //  //NSLog(@"RhythmArray = %@",[rhythmArray objectAtIndex:0]);
     if (_bpmDefaultFlag == 1) {
         [self setDataToUIElements:(int)[_carousel currentItemIndex]];
     }
@@ -695,16 +633,15 @@ int inputMic;
     
     if(![MainNavigationViewController isHeadphonePlugged]) {
         _headPhoneMic.hidden = YES;
-        inputMic = kUserInput_BuiltIn;
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
     }
     else {
         _headPhoneMic.hidden = NO;
-        inputMic = kUserInput_Headphone;
+        headPhoneLabel.text = @"Headphone Mic";
+        [self setSelectedMicrophone:kUserInput_Headphone];
     }
     
     [_playBtn setBackgroundImage:[UIImage imageNamed:@"play-button"] forState:UIControlStateNormal];
-    //[self setDropDownLblWithString:@"Metronome"];
-    //[self refershRhythmsData];
 }
 
 // Fetching data from Database for the First time
@@ -745,8 +682,6 @@ int inputMic;
     // Fetch Drone Type
     droneNames = [rhythmQuery getDroneName];
     for (DroneName *drone in droneNames) {
-        //NSLog(@"the drone location: %@",drone.droneLocation);
-        //NSLog(@"the drone location: %@",drone.droneName);
         [droneArray addObject:drone.droneName];
     }
 }
@@ -759,7 +694,6 @@ int inputMic;
     t1Vol = t2Vol = t3Vol = t4Vol = -1;
     t1Pan = t2Pan = t3Pan = t4Pan = -1;
     
-    //bpm = 60;
     timeStamp = 007;
     
     musicDuration = @"-1";
@@ -807,15 +741,12 @@ int inputMic;
     duration = [NSString stringWithFormat:@"%.2d:%.2d", minutes, seconds];
     // timer value change
     [_recordTimerText setText:duration];
-    
-    //[self setVolumeInputOutput];
 }
 
 - (void) updateMicGain:(NSNotification *) notification {
     NSDictionary *micGainDct = notification.object;
     endresult = [micGainDct[@"micGainValue"] intValue];
-    //NSLog(@"updateing mic gain: %d",endresult);
-    //    endresult = int(peakPowerForChannel*100.0f);
+    
     if(endresult > 0 && endresult <= 9)
     {
         [self calculateMicGain:0];
@@ -837,7 +768,6 @@ int inputMic;
                                                         name:@"AUDIOROUTECHANGE"
                                                       object:nil];
         
-        //[_session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
         if(playFlag == 1) {
             [self stopAudioFiles];
             [beatTimer invalidate];
@@ -1249,7 +1179,6 @@ int inputMic;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    //NSLog(@"button Index =  %ld",(long)buttonIndex);
     if (buttonIndex == 1) {
         currentMusicFileName = [alertView textFieldAtIndex:0].text;
         [self saveRhythmRecording];
@@ -1270,7 +1199,6 @@ int inputMic;
     NSError *error = nil;
     //NSLog(@"file exist :%d", [fileMan fileExistsAtPath:oldname]);
     if (![fileMan moveItemAtPath:oldPath toPath:newPath error:&error]){
-        //NSLog(@"Failed to move '%@' to '%@': %@", oldPath, newPath, [error localizedDescription]);
         return false;
     }
     [self trimAudioFileWithInputFilePath:newPath toOutputFilePath:newPath];
@@ -1363,14 +1291,12 @@ int inputMic;
 - (void)saveRhythmRecording {
     // Get the input text
     [self enableDropDownLbl:YES];
-    //    currentMusicFileName = [alertView textFieldAtIndex:0].text;
     int value = [[userDefaults objectForKey:@"recodingid"] intValue];
     
     currentMusicFileName = [NSString stringWithFormat:@"Session %d",++value];
     [userDefaults setObject:[NSString stringWithFormat:@"%d",value] forKey:@"recodingid"];
     [userDefaults synchronize];
     
-    //tempoCounter = NSString(audioPlayer.rate;
     time_t     now = time(0);
     struct tm  tstruct;
     char       date[80];
@@ -1379,9 +1305,6 @@ int inputMic;
     strftime(date, sizeof(date), "%d/%m/%Y", &tstruct);
     strftime(time, sizeof(time), "%X", &tstruct);
     
-    // currentMusicFileName=[currentMusicFileName stringByAppendingString:@".m4a"];
-    //NSString *str = [NSString stringWithFormat:@"Recording %d",value];
-    //newPath = [audioRecorder renameFileName:@"MyAudioMemo.wav" withNewName:str];
     NSString *str = [NSString stringWithFormat:@"Recording_%d_%@.wav",value,[self timeStamp]];
     [self renameFileName:@"MyAudioMemo.wav" withNewName:str];
     
@@ -1439,14 +1362,11 @@ int inputMic;
                                @"0",@"t4Flag",
                                nil];
     
-    //NSLog(@"dict = %@",musicDict);
     sound = nil;
     DBManager *saveRhythm = [[DBManager alloc]init];
     [saveRhythm insertDataToRecordingInDictionary:musicDict];
-   // NSMutableArray *songList = [saveRhythm getAllRecordingData];
     RecordingListData *recordingData = [saveRhythm getFirstRecordingData];
     [_myNavigationController openDetailRecordingView:recordingData];
-    //[_myNavigationController viewToPresent:2 withDictionary:];
 }
 
 - (IBAction)onChangeBPM:(id)sender {
@@ -1457,8 +1377,6 @@ int inputMic;
     } else {
         tempoVal = mCurrentScore/[rhytmObj.rhythmBPM floatValue];
     }
-    
-    
     
     [self enableDropDownLbl:YES];
     
@@ -1601,7 +1519,7 @@ int inputMic;
     int updatedBpm;
     if (pickerView.tag) {
         isBpmPickerChanged = true;
-        updatedBpm = bpmSlider.value;//[[bpmPickerArray objectAtIndex:[pickerView selectedRowInComponent:component]] intValue];
+        updatedBpm = bpmSlider.value;
         _droneType = [dronePickerArray objectAtIndex:pickerRow%[dronePickerArray count]];
         mCurrentScore = currentBpm = updatedBpm;
     }
@@ -1609,7 +1527,7 @@ int inputMic;
         isDronePickerScrolling = false;
         pickerRow = [pickerView selectedRowInComponent:component];
         _droneType = [dronePickerArray objectAtIndex:pickerRow%[dronePickerArray count]];
-        updatedBpm = bpmSlider.value;//[[bpmPickerArray objectAtIndex:[_bpmPickerView selectedRowInComponent:component]] intValue];
+        updatedBpm = bpmSlider.value;
         mCurrentScore = currentBpm = updatedBpm;
     }
     
@@ -1942,12 +1860,6 @@ int inputMic;
     _micGainFirstLeading.constant = xMyDist;
     
     [self.view setNeedsUpdateConstraints];
-   // _instBtn1.hidden = YES;
-    //_instBtn2.hidden = YES;
-    
-    //[_instBtn1 setImage:[UIImage imageNamed:@"dropdown"] forState:UIControlStateSelected];
-   // [_instBtn1 setImage:[UIImage imageNamed:@"dropdown"] forState:UIControlStateNormal];
-    //_instBtn1.layer.cornerRadius = _instBtn1.frame.size.width/2;
 }
 
 // To learn about notifications, see "Notifications" in Cocoa Fundamentals Guide.
@@ -1965,7 +1877,6 @@ int inputMic;
 
 #pragma mark - DropDown setup & delegate methods
 - (void)dropDownLblTapAction {
-    //NSLog(@"lbl tap action");
     [self dropDownLblAction:nil];
 }
 
@@ -1994,7 +1905,6 @@ int inputMic;
     }];
 }
 
-
 // initilize genre drop down tableview
 - (void)setUpDropDown {
     CGRect rect = CGRectMake(self.micDropDownLbl.bounds.origin.x + self.micDropDownLbl.bounds.size.width, self.micDropDownLbl.bounds.origin.y + self.micDropDownLbl.bounds.size.height, self.micDropDownLbl.bounds.size.width, self.micDropDownLbl.bounds.size.height * 2);
@@ -2016,6 +1926,7 @@ int inputMic;
     [_micDropDownLbl sizeToFit];
     _micDropDownLbl.userInteractionEnabled = YES;
 }
+
 // Close genre drop down list
 -(void)closeDropDown {
     //    [self.dropDownBgView setHidden:YES];
@@ -2028,6 +1939,7 @@ int inputMic;
         [self.dropDownBgView setHidden:YES];
     }];
 }
+
 // Genere Table selected button action
 -(void)dropDownSelectedCell:(NSDictionary *)dct {
     [self setDropDownLblWithString:[dct objectForKey:@"selectedString"]];
@@ -2044,10 +1956,12 @@ int inputMic;
     [_instBtn1 setSelected:YES];
     [_instBtn2 setSelected:YES];
 }
+
 // Genre table same cell selected
 -(void)dropDownSameCellSelected{
     [self closeDropDown];
 }
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gesture shouldReceiveTouch:(UITouch *)touch {
     if (touch.tapCount > 1) { // It will ignore touch with less than two finger
         return YES;
@@ -2057,30 +1971,20 @@ int inputMic;
 // Set Genre lable text
 
 - (void)setDropDownLblWithString:(NSString*)string {
-    // NSString *title = [NSString stringWithFormat:@"Genre:%@",string];
     NSMutableAttributedString* genere = [[NSMutableAttributedString alloc]initWithString:@"Genre: " attributes:@{NSFontAttributeName:[UIFont fontWithName:FONT_MEDIUM size:15.5],NSForegroundColorAttributeName:[UIColor blackColor]}];
      NSMutableAttributedString* generType = [[NSMutableAttributedString alloc]initWithString:string attributes:@{NSFontAttributeName:[UIFont fontWithName:FONT_MEDIUM size:15.5],NSForegroundColorAttributeName:UIColorFromRGB(FONT_BLUE_COLOR)}];
     [genere appendAttributedString:generType];
     // for those calls we don't specify a range so it affects the whole string
     _dropDownLbl.attributedText = genere;
-   // _dropDownLbl.text = title;
     [_dropDownLbl sizeToFit];
     _dropDownLbl.textAlignment = NSTextAlignmentCenter;
     _dropDownLbl.center = CGPointMake(self.view.frame.size.width/2, _dropDownLbl.center.y);
     
-    //CGRect rect = _arrowImage.frame;
-   // rect.origin.x = CGRectGetMaxX(_dropDownLbl.frame)+5;
-   // _arrowImage.frame = rect;
-    
     if([string isEqualToString:@"Metronome"]) {
         clapFlag3 = 0;
-       
-        //[_instBtn3 setSelected:YES];
-       // [_instBtn3 setImage:[UIImage imageNamed:@"Claps4_Blue.png"] forState:UIControlStateSelected];
     }
     else {
         clapFlag3 = 1;
-       // [_instBtn3 setSelected:NO];
     }
      [self clap3Clicked:clap3ImageView];
 }
@@ -2114,11 +2018,11 @@ int inputMic;
 }
 #pragma mark - Play audio file methods
 - (void) playAudioFile {
+    [self disableUICompopnents];
     
     [MainNavigationViewController trimClickFile:mCurrentScore];
     [self performSelector:@selector(prepareAudioFiles) withObject:self afterDelay:0.1];
 }
-
 
 - (void) prepareAudioFiles {
     
@@ -2192,13 +2096,9 @@ int inputMic;
         [mixerController setInputVolume:(unsigned)i value:(Float32)[[dict valueForKey:@"volume"] floatValue]];
     }
     if(stopFlag == 1) {
-//        if(![_micSwitch isHidden]) {
-//            [_micLabel  setEnabled:NO];
-//            [_micSwitch setEnabled:NO];
-//        }
-        
         [audioRecorder startAudioRecording:@"MyAudioMemo.wav"];
-        if(inputMic == kUserInput_BuiltIn) {
+        
+        if([self getSelectedMicrophone] == kUserInput_BuiltIn) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 for (_input in [_session availableInputs]) {
                     // set as an input the build-in microphone
@@ -2225,6 +2125,7 @@ int inputMic;
 - (void)playAfterDelay {
     if (playFlag == 0)
         return;
+    
     //    [mixerController stopAUGraph];
     //----------------------------------------------
 //    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -2244,6 +2145,7 @@ int inputMic;
     //[self performSelector:@selector(startAUGraph) withObject:self afterDelay:0.105];
     
     //     Recording audio button selected
+    
     if (stopFlag == 1) {
         
         [_recordTimer invalidate];
@@ -2302,26 +2204,42 @@ int inputMic;
 //        [mixerController setMetronomeVolume:1.0f];
 //    }
     
-    _playBtn.userInteractionEnabled = YES;
-    if(stopFlag == 1)
-        [self performSelector:@selector(enableRecordingButton) withObject:self afterDelay:1.0];
+    [self enableUICompopnents];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChanged:) name:@"AUDIOROUTECHANGE" object:nil];
-
 }
 
-- (void) enableRecordingButton {
+- (void)disableUICompopnents {
+    _playBtn.userInteractionEnabled = NO;
+    bpmSlider.userInteractionEnabled = NO;
+    plusButton.userInteractionEnabled = NO;
+    minusButton.userInteractionEnabled = NO;
+    [_dronePickerView setUserInteractionEnabled:NO];
+}
+
+- (void)enableUICompopnents {
+    _playBtn.userInteractionEnabled = YES;
+    bpmSlider.userInteractionEnabled = YES;
+    plusButton.userInteractionEnabled = YES;
+    minusButton.userInteractionEnabled = YES;
+    [_dronePickerView setUserInteractionEnabled:YES];
+    
+    if(stopFlag == 1)
+        [self performSelector:@selector(enableRecordingButton) withObject:self afterDelay:1.0];
+}
+
+- (void)enableRecordingButton {
     _stopBtn.userInteractionEnabled = YES;
 }
 
 -(void)startRecord{
-    //    [audioRecorder startAudioRecording:@"MyAudioMemo.wav"];
     [audioRecorder startRecording];
 }
+
 -(void)startAUGraph{
     [mixerController startAUGraph];
-    
 }
+
 - (NSDictionary*)getTheDictionaryWithFileLocation:(NSString*)locaiton
                                            volume:(NSString*)volume
                                               bpm:(NSNumber*)rhythmBpmValue
@@ -2333,6 +2251,7 @@ int inputMic;
              @"startbpm":rhythmStartBPMValue,
              @"type":type};
 }
+
 - (NSString*)locationOfFileWithName:(NSString*)fileName{
     
 //    if([fileName isEqualToString:@"Indian/Sync 1.m4a"]){
@@ -2358,6 +2277,7 @@ int inputMic;
     
     [mixerController stopAUGraph:YES];
 }
+
 - (void)resetAllTimers {
     [beatTimer invalidate];
     beatTimer = nil;

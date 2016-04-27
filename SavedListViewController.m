@@ -65,7 +65,7 @@ static NSString *cellIdentifier = @"CELL";
    
     [self removeAdBannerView];
     [self refreshTableView];
-     [self setTableBackGroundView];
+    [self setTableBackGroundView];
    /* [_songTableView reloadData];
    
         if ([_selctRow isEqualToString:@"yes"]) {

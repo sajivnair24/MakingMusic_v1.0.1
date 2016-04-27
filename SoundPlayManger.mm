@@ -32,6 +32,8 @@
         mixerController = [[MultichannelMixerController alloc]init];
         listController = [[SavedListDetailViewController alloc]init];
         timeStretcher = [[TimeStretcher alloc]init];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioFilePlayedOnce:) name:@"AUDIOFILENOTLOOPING" object:nil];
     }
     return self;
    
@@ -70,6 +72,11 @@
     tV2 = [cellData.volTrackTwo floatValue];
     tV3 = [cellData.volTrackThree floatValue];
     tV4 = [cellData.volTrackFour floatValue];
+    
+    tP1 = [cellData.panTrackOne floatValue];
+    tP2 = [cellData.panTrackTwo floatValue];
+    tP3 = [cellData.panTrackThree floatValue];
+    tP4 = [cellData.panTrackFour floatValue];
     
     _recTrackOne = cellData.trackOne;
     _recTrackTwo = cellData.trackTwo;
@@ -121,6 +128,11 @@
     [mixerController stopAUGraph:YES];
     
     [UIApplication sharedApplication].idleTimerDisabled = NO;
+}
+
+-(void)audioFilePlayedOnce:(NSNotification *)sender{
+    NSDictionary *dict = (NSDictionary *)sender.object;
+    [mixerController enableInput:(UInt32)[dict[@"BUSNUMBER"] intValue] isOn:0.0];
 }
 
 - (void) playSelectedRecording:(RecordingListData *)data {

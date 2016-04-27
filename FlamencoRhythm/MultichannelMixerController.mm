@@ -43,7 +43,7 @@ static OSStatus renderInput(void *inRefCon,
     Float32 *outB = (Float32 *)ioData->mBuffers[1].mData;
     
     for (UInt32 i = 0; i < inNumberFrames; ++i) {
-        if(sample < bufSamples && inBusNumber > kNumOfRecordStartBus-1 && kNumOfRecordStartBus != 0) {
+        if(sample < bufSamples && inBusNumber > kNumOfRecordStartBus-1 && kNumOfRecordStartBus != 0){
             outA[i] = in[sample];
             outB[i] = in[sample];
             sample++;
@@ -52,6 +52,7 @@ static OSStatus renderInput(void *inRefCon,
             outA[i] = in[sample];
             outB[i] = in[sample];
             sample++;
+            
             if (sample > bufSamples) {
                 sample = 0;
             }
@@ -243,10 +244,10 @@ static OSStatus renderInput(void *inRefCon,
     
     for (int i = 0; i < NUMFILES && i < MAXBUFS; i++)  {
         if(kNumOfRecordStartBus != 0){
-            bpmMultiplier =(i < kNumOfRecordStartBus - 2) ? kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
+            bpmMultiplier = (i < kNumOfRecordStartBus - 2) ? kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
         }
         else {
-            bpmMultiplier =(i < _numbuses - 2) ? (bpmValue[i] == 1) ? kGraphSampleRate + 1 : kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
+            bpmMultiplier = (i < _numbuses - 2) ? (bpmValue[i] == 1) ? kGraphSampleRate + 1 : kGraphSampleRate * bpmValue[i] : kGraphSampleRate;
         }
         
         AVAudioFormat *clientFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32

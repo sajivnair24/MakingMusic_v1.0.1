@@ -1194,7 +1194,6 @@
 				047CFA101ADBBEC800E95BDB /* dywapitchtrack.c */,
 				047CF9FE1ADBBE2A00E95BDB /* iPublicUtility */,
 				047CFA081ADBBE2A00E95BDB /* Vendor */,
-				04F117791AAEDBF700EEA97A /* iCarousel */,
 				044EFB601AC28B5800941E3A /* Resources */,
 				04DCEA1C1AB986F90008C50B /* Database file */,
 				047009671AA6C3680081BD6E /* AppDelegate.h */,
@@ -1262,6 +1261,7 @@
 		047CF9FE1ADBBE2A00E95BDB /* iPublicUtility */ = {
 			isa = PBXGroup;
 			children = (
+				04F117791AAEDBF700EEA97A /* iCarousel */,
 				04CE8AAC1B85B04100B6DC08 /* CACFDictionary.h */,
 				04CE8AA91B85B02A00B6DC08 /* CAComponentDescription.cpp */,
 				04CE8AAA1B85B02A00B6DC08 /* CAComponentDescription.h */,

@@ -66,15 +66,7 @@
     secondVC= [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
     thirdVC = [self.storyboard instantiateViewControllerWithIdentifier:@"thirdVCold"];
     
-    if (IS_IPHONE_4s) {
-        
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"4sStoryboard" bundle:[NSBundle mainBundle]];
-        
-        savedDetailVC = [sb instantiateViewControllerWithIdentifier:@"Expander4s"];
-    }
-    else{
-        savedDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Expander"];
-    }
+    [self setSecondDetailVC];
     
     
     //    firstVC.myNavigationController = self;
@@ -108,7 +100,19 @@
     self.pageController.dataSource = nil;
     [self addFooterBackGround];
 }
-
+-(void)setSecondDetailVC{
+    
+    if (IS_IPHONE_4s) {
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"4sStoryboard" bundle:[NSBundle mainBundle]];
+        
+        savedDetailVC = [sb instantiateViewControllerWithIdentifier:@"Expander4s"];
+    }
+    else{
+        savedDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Expander"];
+    }
+     savedDetailVC.myNavigationController = self;
+}
 -(void)setUpMPVolumeView {
     volumeView = [[MPVolumeView alloc] initWithFrame: CGRectMake(-100,-100,16,16)];
     volumeView.showsRouteButton = NO;
@@ -196,6 +200,8 @@
 }
 
 -(void)openDetailRecordingView:(RecordingListData *)recordingData {
+    [self setSecondDetailVC];
+   
     savedDetailVC.recordingData = recordingData ;
     [navigationController pushViewController:savedDetailVC animated:YES];
 }
@@ -373,6 +379,14 @@
 
 + (BOOL)isHeadphonePlugged {
     return headphonePlugged;
+}
+
++ (void)setSelectedInputMic:(int)inputMic {
+    selectedInputMic = inputMic;
+}
+
++ (int)getSelectedInputMic {
+    return selectedInputMic;
 }
 
 + (NSString *)platformType:(NSString *)platform

@@ -38,6 +38,9 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     int mixerInputParam;
     BOOL isPurchaseRestored;
     NSArray *rotataryViewsArray;
+    UIView *headPhoneMic;
+    UILabel *headPhoneLabel;
+    NSLayoutConstraint *headPhoneDropdownViewWidthConstraint;
 }
 
 @property (strong, nonatomic) RAAlertController *alertController;
@@ -120,6 +123,15 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         self.shareCheckString = @"comeback";
     else
         self.shareCheckString = @"sameclass";
+    
+    if(![MainNavigationViewController isHeadphonePlugged]) {
+        headPhoneMic.hidden = YES;
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
+    }
+    else {
+        headPhoneMic.hidden = NO;
+        [self setSelectedMicrophone:kUserInput_Headphone];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -131,6 +143,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 //        [_songNameTxtFld endEditing:YES];
 //        [_songNameTxtFld resignFirstResponder];
 //    }
+    
+    [self updateRecordingTable];
 }
 
 -(void)trimAudioFilesOnBackThread{
@@ -437,11 +451,26 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     [_recSlider addTarget:self action:@selector(sliderDragged:)forControlEvents:UIControlEventTouchDragInside|UIControlEventTouchDragOutside];
     
-    [_backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    //[_backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     [_backButton setTitle:@"" forState:UIControlStateNormal];
     [self setFontsForAllLabels];
     [self addNavigationTopSeprator];
+    [self addHeadPhoneMicDropDownButton];
+    
+    if(![MainNavigationViewController isHeadphonePlugged]) {
+        headPhoneMic.hidden = YES;
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
+    }
+    else {
+        headPhoneMic.hidden = NO;
+        [self setSelectedMicrophone:kUserInput_Headphone];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hideMicSwitch:)
+                                                 name:@"HIDEMICSWITCH"
+                                               object:nil];
 }
 
 -(void)addNavigationTopSeprator{
@@ -455,9 +484,9 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_cellTopSeprator removeFromSuperview];
 }
 
--(void)backButtonClicked:(id)sender {
-    [self updateRecordingTable];
-}
+//-(void)backButtonClicked:(id)sender {
+//    [self updateRecordingTable];
+//}
 
 - (IBAction)backToRecordingList:(id)sender {
      [self.myNavigationController goBackToSoundListing];
@@ -475,6 +504,85 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_minRecDurationLbl setFont:[UIFont fontWithName:FONT_LIGHT size:10]];
 }
 
+-(void)hideMicSwitch:(NSNotification *)notification{
+    NSString *hideMicSwitch = [notification object];
+    if([hideMicSwitch isEqualToString:@"NO"]) {
+        [headPhoneMic setHidden:NO];
+        [self setSelectedMicrophone:kUserInput_Headphone];
+    } else {
+        [headPhoneMic setHidden:YES];
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
+    }
+}
+
+-(void)micShow {
+    headPhoneMic.userInteractionEnabled = YES;
+    headPhoneMic.alpha = 1.0f;
+}
+
+-(void)micHide {
+    headPhoneMic.userInteractionEnabled = NO;
+    headPhoneMic.alpha = 0.3f;
+}
+
+-(void)addHeadPhoneMicDropDownButton{
+    headPhoneMic = [[UIView alloc]init];
+    [self.view addSubview:headPhoneMic];
+    
+    headPhoneLabel = [[UILabel alloc]init];
+    [headPhoneMic addSubview:headPhoneLabel];
+    headPhoneLabel.text = @"Headphone Mic";
+    headPhoneLabel.font = [UIFont fontWithName:FONT_REGULAR size:9];
+    headPhoneLabel.textColor = UIColorFromRGB(FONT_BLUE_COLOR);
+    [headPhoneLabel autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:5];
+    [headPhoneLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    
+    UIImageView *dropDownImageView = [[UIImageView alloc]init];
+    dropDownImageView.image = [UIImage imageNamed:@"dropdown"];
+    [dropDownImageView autoSetDimensionsToSize:CGSizeMake(6, 4)];
+    [headPhoneMic addSubview:dropDownImageView];
+    [dropDownImageView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:5];
+    [dropDownImageView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    
+    [headPhoneMic autoAlignAxis:ALAxisVertical toSameAxisOfView:_recordingBtn];
+    [headPhoneMic autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_recordingBtn withOffset:0];
+    [headPhoneMic autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:6];
+    headPhoneDropdownViewWidthConstraint =  [headPhoneMic autoSetDimension:ALDimensionWidth toSize:84];
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headPhoneOptions:)];
+    [headPhoneMic addGestureRecognizer:gestureRecognizer];
+}
+
+-(void)headPhoneOptions:(id)sender{
+    DLog(@"headPhoneOptions");
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Built In Mic" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        headPhoneDropdownViewWidthConstraint.constant = 64;
+        headPhoneLabel.text = @"Built In Mic";
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Headphone Mic" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        headPhoneDropdownViewWidthConstraint.constant = 84;
+        headPhoneLabel.text = @"Headphone Mic";
+        [self setSelectedMicrophone:kUserInput_Headphone];
+    }]];
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)setSelectedMicrophone:(int)inputMic {
+    [MainNavigationViewController setSelectedInputMic:inputMic];
+}
+
+- (int)getSelectedMicrophone {
+    return [MainNavigationViewController getSelectedInputMic];
+}
+
 - (void)stopAudioPlayer:(NSNotification *)notification {
     if(playFlag == 1) {
         [self stopAudioFiles];
@@ -483,9 +591,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 }
 
 - (void)sliderTapped:(UIGestureRecognizer *)gestureRecognizer {
-    if(playFlag == 0) {
-        return;
-    }
+    if(playFlag == 0) return;
     
     CGPoint pointTapped = [gestureRecognizer locationInView:gestureRecognizer.view];
     CGFloat percentage = pointTapped.x / gestureRecognizer.view.bounds.size.width;
@@ -493,18 +599,13 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     CGFloat value = _recSlider.minimumValue + delta;
     [_recSlider setValue:value animated:YES];
     
-    NSLog(@"Slider tapped : %d", (int)[_recSlider value]);
-    
     [self updateSliderOnDragAndTouch];
 }
 
 - (void)sliderDragged:(id)sender
 {
-    if(playFlag == 0) {
-        return;
-    }
-    
-    NSLog(@"Slider value : %d", (int)[_recSlider value]);
+    if(playFlag == 0) return;
+        
     [self updateSliderOnDragAndTouch];
 }
 
@@ -555,7 +656,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [mixerController stopAUGraph:NO];
 }
 
--(void)audioRouteChanged:(id)sender{
+-(void)audioRouteChanged:(id)sender {
     [self setVolumeInputOutput];
 }
 
@@ -1500,6 +1601,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 {
     if(stopFlag == 1){
         [audioRecorder stopAudioRecording];
+        [self micShow];
     }
     
     if (playFlag == 0) {
@@ -1603,6 +1705,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             stopFlag = 1;
             playFlag = 1;
             
+            [self micHide];
             
             // have to give UISlider max value before SET value else it won't update its value and looks not updating.
             _recSlider.maximumValue = [durationStringUnFormatted floatValue];
@@ -1613,7 +1716,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             
         }
         else if (stopFlag == 1) {
-            
+            [self micShow];
             [audioRecorder stopAudioRecording];
             [self resetPlayButtonWithCell];
             [self recordingFinished];
@@ -1791,8 +1894,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             //                                            p2]];
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
                                             p2]];
-            
-            
         }
         
         
@@ -2250,8 +2351,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     [_instrument4 setAttributedTitle:attributedString forState:UIControlStateNormal];
     [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
-    
-    //[_instrument4 setTitleColor:color forState:state];
 }
 
 - (void)trimRequiredAudioFiles {
@@ -4088,18 +4187,21 @@ float roundUp (float value, int digits) {
     //[self setInputVolumeForAudioArray:audioPlayerArray withVoulme:0 withName:@"clap3"];
     if(stopFlag == 1) {
         [audioRecorder startAudioRecording:@"MyAudioMemo.wav"];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            for (_input in [_session availableInputs]) {
-                // set as an input the build-in microphone
-                
-                if ([_input.portType isEqualToString:AVAudioSessionPortBuiltInMic]) {
-                    _myPort = _input;
-                    break;
+        
+        if([self getSelectedMicrophone] == kUserInput_BuiltIn) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                for (_input in [_session availableInputs]) {
+                    // set as an input the build-in microphone
+                    
+                    if ([_input.portType isEqualToString:AVAudioSessionPortBuiltInMic]) {
+                        _myPort = _input;
+                        break;
+                    }
                 }
-            }
-            
-            [_session setPreferredInput:_myPort error:nil];
-        });
+                
+                [_session setPreferredInput:_myPort error:nil];
+            });
+        }
     }
     
     [mixerController initializeAudioForMetronome];

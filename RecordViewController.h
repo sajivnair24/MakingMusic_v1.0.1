@@ -67,6 +67,8 @@
     
     /***Nirma***/
     UISlider *bpmSlider;
+    UIButton *plusButton;
+    UIButton *minusButton;
     UIView *bpmSliderBackGround;
     UIVisualEffectView *visualEffectView;
     UIButton *clap3ImageView;
