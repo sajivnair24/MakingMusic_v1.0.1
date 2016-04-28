@@ -135,15 +135,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    //[self textFieldShouldReturn:_songNameTxtFld];
-    
-//    [super viewWillDisappear: animated];
-//    
-//    if([_songNameTxtFld isEditing]) {
-//        [_songNameTxtFld endEditing:YES];
-//        [_songNameTxtFld resignFirstResponder];
-//    }
-    
+    [audioRecorder stopAudioRecording];
     [self updateRecordingTable];
 }
 
@@ -456,7 +448,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_backButton setTitle:@"" forState:UIControlStateNormal];
     [self setFontsForAllLabels];
     [self addNavigationTopSeprator];
-    [self addHeadPhoneMicDropDownButton];
+    [self addHeadPhoneMicDropButton];
     
     if(![MainNavigationViewController isHeadphonePlugged]) {
         headPhoneMic.hidden = YES;
@@ -525,7 +517,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     headPhoneMic.alpha = 0.3f;
 }
 
--(void)addHeadPhoneMicDropDownButton{
+-(void)addHeadPhoneMicDropButton{
     headPhoneMic = [[UIView alloc]init];
     [self.view addSubview:headPhoneMic];
     
@@ -2614,9 +2606,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     AVMutableCompositionTrack* audioTrack;
     
     int length = (int)[audioFileURLArray count];
-    if(length == 0) {
-        return @"";
-    }
     
     AVMutableComposition* composition = [AVMutableComposition composition];
     
@@ -3952,8 +3941,8 @@ float roundUp (float value, int digits) {
 
 - (void)stopAudioFiles {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
-                                                        object:@"YES"];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
+    //                                                    object:@"YES"];
     
     [UIApplication sharedApplication].idleTimerDisabled = NO;
 
@@ -3967,8 +3956,8 @@ float roundUp (float value, int digits) {
     NSString *pan;
     NSDictionary *dct;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
-                                                        object:@"NO"];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
+    //                                                    object:@"NO"];
     
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     

@@ -891,25 +891,23 @@ int caraouselIndex = 0;
 - (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleDefault;
 }
+
 -(void)viewDidDisappear:(BOOL)animated{
-    //    [super viewDidAppear:animated];
-    
     if (playFlag == 1)
         [self.playBtn sendActionsForControlEvents: UIControlEventTouchUpInside];
     
-//    if(stopFlag == 1) {
-//        [audioRecorder stopAudioRecording];
-//        [self stopAudioFiles];
-//    }
+    [audioRecorder stopAudioRecording];
     
-    //     reset all timers
+    // reset all timers
     [self resetAllTimers];
 }
+
 - (void)viewDidUnload{
     [super viewDidUnload];
     //free up memory by releasing subviews
     self.carousel = nil;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -2026,8 +2024,8 @@ int caraouselIndex = 0;
 
 - (void) prepareAudioFiles {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
-                                                        object:@"NO"];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
+    //                                                    object:@"NO"];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     NSMutableArray *audioArray = [[NSMutableArray alloc]init];
@@ -2123,8 +2121,7 @@ int caraouselIndex = 0;
 }
 
 - (void)playAfterDelay {
-    if (playFlag == 0)
-        return;
+    if (playFlag == 0) return;
     
     //    [mixerController stopAUGraph];
     //----------------------------------------------
@@ -2215,6 +2212,7 @@ int caraouselIndex = 0;
     plusButton.userInteractionEnabled = NO;
     minusButton.userInteractionEnabled = NO;
     [_dronePickerView setUserInteractionEnabled:NO];
+    [_carousel setUserInteractionEnabled:NO];
 }
 
 - (void)enableUICompopnents {
@@ -2223,6 +2221,7 @@ int caraouselIndex = 0;
     plusButton.userInteractionEnabled = YES;
     minusButton.userInteractionEnabled = YES;
     [_dronePickerView setUserInteractionEnabled:YES];
+    [_carousel setUserInteractionEnabled:YES];
     
     if(stopFlag == 1)
         [self performSelector:@selector(enableRecordingButton) withObject:self afterDelay:1.0];
@@ -2271,9 +2270,9 @@ int caraouselIndex = 0;
 }
 
 - (void)stopAudioFiles {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
-                                                        object:@"YES"];
-    [UIApplication sharedApplication].idleTimerDisabled = NO;   //sn
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"enablePagingNotification"
+    //                                                    object:@"YES"];
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
     
     [mixerController stopAUGraph:YES];
 }

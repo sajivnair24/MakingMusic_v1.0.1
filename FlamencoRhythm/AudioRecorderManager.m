@@ -115,14 +115,16 @@ dispatch_source_t createDispatchTimer(double interval, dispatch_queue_t queue, d
 
 
 - (void) stopAudioRecording {
-    [auRecorder stopRecording];
+    if([self isRecording]) {
+        [auRecorder stopRecording];
 #if MIC_GAIN_ENABLED
-    [avRecorder stop];
-    if (micGageTimer) {
-        dispatch_source_cancel(micGageTimer);
-        micGageTimer = nil;
-    }
+        [avRecorder stop];
+        if (micGageTimer) {
+            dispatch_source_cancel(micGageTimer);
+            micGageTimer = nil;
+        }
 #endif
+    }
 }
 
 -(NSTimeInterval)currentTime {
@@ -219,10 +221,7 @@ dispatch_source_t createDispatchTimer(double interval, dispatch_queue_t queue, d
     micGain = (int)(peakPowerForChannel*100.0f);
     NSString *micGainString = [NSString stringWithFormat:@"%d",micGain];
     NSDictionary *dct = @{@"micGainValue":micGainString};
-    //NSLog(@"%@ \n", micGainString);
-    //    //NSLog(@"Average input: %f Peak input: %f", [recorder averagePowerForChannel:0], [recorder peakPowerForChannel:0]);
     if (avRecorder.isRecording) {
-        //NSLog(@"mic gain input: %d", micGain);
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMicGain"
                                                             object:dct];
     }

@@ -53,7 +53,7 @@ static OSStatus renderInput(void *inRefCon,
             outB[i] = in[sample];
             sample++;
             
-            if (sample > bufSamples) {
+            if (sample == bufSamples) {
                 sample = 0;
             }
         }

@@ -67,7 +67,7 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
     
     [self setNeedsStatusBarAppearanceUpdate];
     
-    [UIApplication sharedApplication].idleTimerDisabled = YES;    //sn
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
 //    if ([[AVAudioSession sharedInstance] isInputGainSettable]) {
 //        BOOL success = [[AVAudioSession sharedInstance] setInputGain:2
@@ -220,7 +220,7 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
                 }
                 
                 [self getCallibrationDiffArray];
-            } else if ((intFrequency - freqEnd[i]) < (freqStart[i + 1] - intFrequency)){
+            } else if ((intFrequency - freqEnd[i]) < (freqStart[i + 1] - intFrequency)) {
                 fRange = (freqEnd[i] + freq[11] * pow(2, i)) / 2;
                 sRange = freqEnd[i];
                 
@@ -401,8 +401,7 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
     return index;
 }
 
--(int)getIndexOfSmallestCallDiff
-{
+-(int)getIndexOfSmallestCallDiff {
     index = cLen - 1;
     
     for (int i = 0; i < cLen; i++) {
@@ -414,8 +413,7 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
     return index;
 }
 
--(void)getCallibrationDiffArray
-{
+-(void)getCallibrationDiffArray {
     for(int i = 0; i < cLen; i++) {
         if(callibrationArray[i] > floatFrequency) {
             diff = callibrationArray[i] - floatFrequency;
@@ -426,7 +424,6 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
         
         callibrationDiffArray[i] = diff;
     }
-    
 }
 
 -(void)delayCall {
@@ -458,7 +455,7 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
 }
 
 - (IBAction)onTapBack:(id)sender {
-    [UIApplication sharedApplication].idleTimerDisabled = NO;   //sn
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
     [self dismissViewControllerAnimated:YES completion:nil];
     [timer invalidate];
 }

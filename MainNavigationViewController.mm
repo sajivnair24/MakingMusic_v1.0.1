@@ -100,7 +100,7 @@
     self.pageController.dataSource = nil;
     [self addFooterBackGround];
 }
--(void)setSecondDetailVC{
+-(void)setSecondDetailVC {
     
     if (IS_IPHONE_4s) {
         
@@ -113,6 +113,7 @@
     }
      savedDetailVC.myNavigationController = self;
 }
+
 -(void)setUpMPVolumeView {
     volumeView = [[MPVolumeView alloc] initWithFrame: CGRectMake(-100,-100,16,16)];
     volumeView.showsRouteButton = NO;
@@ -120,7 +121,7 @@
     [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:volumeView];
 }
 
--(void)addFooterSeprator{
+-(void)addFooterSeprator {
     UIView *seprator = [[UIView alloc]init];
     [_footerImageView addSubview:seprator];
     seprator.backgroundColor = UIColorFromRGB(GRAY_COLOR);
@@ -128,10 +129,9 @@
     [seprator autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [seprator autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0.5];
     [seprator autoSetDimension:ALDimensionHeight toSize:0.5];
-    
 }
 
--(void)addNavigationController{
+-(void)addNavigationController {
     navigationController = [[UINavigationController alloc]initWithRootViewController:thirdVC];
     [self.view addSubview:navigationController.view];
     [self addChildViewController:navigationController];
@@ -140,14 +140,14 @@
     [navigationController.interactivePopGestureRecognizer setDelegate:self];
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if ([navigationController.viewControllers count]>1) {
         return YES;
     }
     return NO;
 }
 
--(void)addFooterBackGround{
+-(void)addFooterBackGround {
     [_tunerBlackImage setImage:[UIImage imageNamed:@"tuner_blue"]];
     [_tunerBlackImage setHidden:NO];
     
@@ -178,7 +178,7 @@
     [testPlayer play];
 }
 
--(void)viewToPresent:(int)_index withDictionary:(NSDictionary*)_dict{
+-(void)viewToPresent:(int)_index withDictionary:(NSDictionary*)_dict {
     
     NSArray *viewControllers = @[[viewControllerArray objectAtIndex:_index]];
     // For third View Controller
@@ -189,11 +189,11 @@
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
--(void)goBackToSoundListing{
+-(void)goBackToSoundListing {
     [navigationController popViewControllerAnimated:YES];
 }
 
--(void)openRecordingView{
+-(void)openRecordingView {
     secondVC= [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
     secondVC.myNavigationController = self;
     [navigationController pushViewController:secondVC animated:YES];
@@ -221,7 +221,7 @@
     [_tunerBlackImage setImage:[UIImage imageNamed:@"tuner_grey"]];
 }
 
-- (void) recordingDone {
+- (void)recordingDone {
     [self.tunerBtn setUserInteractionEnabled:YES];
     [_tunerBlackImage setImage:[UIImage imageNamed:@"tuner_blue"]];
 }
