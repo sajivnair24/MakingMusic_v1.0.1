@@ -425,7 +425,7 @@
     return NO;
 }
 
-+ (BOOL) checkNetworkStatus {
++ (BOOL)checkNetworkStatus {
     // check if we've got network connectivity
     BOOL isConnected = NO;
     Reachability *myNetwork = [Reachability reachabilityWithHostname:@"google.com"];
@@ -436,7 +436,7 @@
           {
             UIAlertView *networkAlert = [[UIAlertView alloc]
                                          initWithTitle:@"No Internet Access"
-                                         message:@"Your phone is not connected to internet"
+                                         message:@"Your phone does not have access to internet"
                                          delegate:self
                                          cancelButtonTitle:nil
                                          otherButtonTitles:@"Ok", nil];
@@ -468,18 +468,22 @@
 }
 
 + (BOOL)inAppPurchaseEnabled {
+    
+#if !IN_APP_PURCHASE_ENABLE
+    return NO;
+#endif
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *purshaseStatus = [defaults objectForKey:@"inAppPurchase"];
     
-//#if !IN_APP_PURCHASE_ENABLE
-//    return YES;
-//#endif
-    
-    if([purshaseStatus isEqualToString:@"not purchased"] || purshaseStatus == nil) {
-        return NO;
+    BOOL purchased;
+    if([purshaseStatus isEqualToString:PRODUCT_NOT_PURCHASED] || purshaseStatus == nil) {
+        purchased =  NO;
     } else {
-        return YES;
+        purchased = YES;
     }
+    
+    return purchased;
 }
 
 + (void)trimClickFile:(int)currentBpm {

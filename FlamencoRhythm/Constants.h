@@ -40,7 +40,16 @@ alpha:1.0]
 #   endif // NDEBUG
 #endif // DLog
 
-#define IN_APP_PURCHASE_ENABLE 1
+
+// In App Purchase
+#define IN_APP_PURCHASE_ENABLE 0
+
+#define PRODUCT_ID @"com.febe.musicmemos"
+
+#define PRODUCT_PURCHASED @"PURCHASED"
+#define PRODUCT_NOT_PURCHASED @"NOT PURCHASED"
+
+// For selected input mic.
 enum UserInputMic { kUserInput_BuiltIn, kUserInput_Headphone };
 
 /********************************colors***************************/

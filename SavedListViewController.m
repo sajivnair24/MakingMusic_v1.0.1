@@ -504,12 +504,12 @@ static NSString *cellIdentifier = @"CELL";
 }
 
 -(void)removeAdBannerView {
-    if([MainNavigationViewController inAppPurchaseEnabled]) {
-        [self.bannerView removeFromSuperview];
-        [self.admobBannerView removeFromSuperview];
-        [iAdBannerView removeFromSuperview];
-        //_songTableView.frame  =  CGRectMake(70, 70, _songTableView.frame.size.width, _songTableView.frame.size.height);
-    }
+//    if([MainNavigationViewController inAppPurchaseEnabled]) {
+//        [self.bannerView removeFromSuperview];
+//        [self.admobBannerView removeFromSuperview];
+//        [iAdBannerView removeFromSuperview];
+//        //_songTableView.frame  =  CGRectMake(70, 70, _songTableView.frame.size.width, _songTableView.frame.size.height);
+//    }
 }
 
 #pragma mark - IAd & Admob Delegate methods

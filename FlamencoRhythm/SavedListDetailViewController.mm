@@ -1617,17 +1617,29 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
      //============== Change this =========================
     
+//    if(![MainNavigationViewController checkNetworkStatus])
+//        return;
+//    
 //    if(![MainNavigationViewController inAppPurchaseEnabled]) {
-//        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-//        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 //        
-//        if(![MainNavigationViewController checkNetworkStatus])
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"In App Purchase" message:@"Do you want to buy 'Record On Top' feature ?" preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Buy" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            [self fetchAvailableProducts];
+//        }]];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 //            return;
+//        }]];
 //        
-//        [waitAlertView addSubview:waitActivityView];
-//        [waitActivityView startAnimating];
-//        //[waitAlertView show];
-//        //[self fetchAvailableProducts];
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Restore" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+//            [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+//        }]];
+//        
+//        [self presentViewController:alertController animated:YES completion:nil];
+//        
+//
 //    } else {
     
         if (![_recTrackFour isEqualToString:@"-1"]) {
@@ -4234,8 +4246,6 @@ float roundUp (float value, int digits) {
     }
 }
 
-
-
 - (IBAction) imageMoved:(id) sender withEvent:(UIEvent *) event{
     UIControl *control = sender ;
     int tag = (int)control.tag;
@@ -4373,12 +4383,12 @@ float roundUp (float value, int digits) {
 
 #pragma mark - In App Purchase.
 /////In App Purchase.
-#define PRODUCT_ID @"com.febe.musicmemos"
--(void)fetchAvailableProducts{
+
+-(void)fetchAvailableProducts {
     [waitAlertView show];
 
     NSSet *productIdentifiers = [NSSet
-                                 setWithObjects:PRODUCT_ID,nil];
+                                 setWithObjects:PRODUCT_ID, nil];
     productsRequest = [[SKProductsRequest alloc]
                        initWithProductIdentifiers:productIdentifiers];
     productsRequest.delegate = self;
@@ -4410,42 +4420,31 @@ updatedTransactions:(NSArray *)transactions {
             case SKPaymentTransactionStatePurchasing:
                 NSLog(@"Purchasing");
                  [waitAlertView show];
-               
-                
                 break;
+                
             case SKPaymentTransactionStatePurchased:
                 if ([transaction.payment.productIdentifier
-                     isEqualToString:@"com.febe.musicmemos"]) {
+                     isEqualToString:PRODUCT_ID]) {
                     NSLog(@"Purchased ");
-                    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:
-                                              @"Purchase is completed succesfully" message:nil delegate:
-                                              self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                    [alertView show];
                     [waitAlertView dismissWithClickedButtonIndex:0 animated:YES];
-                    [MainNavigationViewController setPurchaseInfo:@"purchased"];
+                    [MainNavigationViewController setPurchaseInfo:PRODUCT_PURCHASED];
                     self.recordingBtn.alpha =  1.0;
                 }
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
+                
             case SKPaymentTransactionStateRestored:
             {
                 NSLog(@"Restored ");
-                UIAlertView *tmp = [[UIAlertView alloc]
-                                    initWithTitle:@"Restore Purchase"
-                                    message:@"Restore previous purchase"
-                                    delegate:self
-                                    cancelButtonTitle:nil
-                                    otherButtonTitles:@"Restore", nil];
-                [tmp show];
                 isPurchaseRestored = YES;
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             }
                 break;
+                
             case SKPaymentTransactionStateFailed:
                 NSLog(@"Purchase failed");
-                [MainNavigationViewController setPurchaseInfo:@"not purchased"];   // change this
+                [MainNavigationViewController setPurchaseInfo:PRODUCT_NOT_PURCHASED];   // change this
                 [waitAlertView dismissWithClickedButtonIndex:0 animated:YES];
-                //self.recordingBtn.alpha =  1.0; // change this
                 break;
             default:
                 break;
@@ -4461,7 +4460,7 @@ updatedTransactions:(NSArray *)transactions {
         validProducts = response.products;
         validProduct = [response.products objectAtIndex:0];
         if ([validProduct.productIdentifier
-             isEqualToString:@"com.febe.musicmemos"]) {
+             isEqualToString:PRODUCT_ID]) {
             [self purchaseMyProduct:validProduct];
         }
     } else {
@@ -4485,11 +4484,8 @@ updatedTransactions:(NSArray *)transactions {
                             cancelButtonTitle:nil
                             otherButtonTitles:@"Ok", nil];
         [tmp show];
-        [MainNavigationViewController setPurchaseInfo:@"purchased"];
+        [MainNavigationViewController setPurchaseInfo:PRODUCT_PURCHASED];
         self.recordingBtn.alpha =  1.0;
-    } else {
-        [self fetchAvailableProducts];
-        //self.recordingBtn.alpha =  1.0;
     }
 }
 
