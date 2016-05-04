@@ -113,7 +113,7 @@
 }
 
 -(void)stopSound:(NSTimer *) timer{
-    NSLog(@" timer stoped ");
+    //NSLog(@" timer stoped ");
     [timer invalidate];
         [self stopAllSound];
     [self.delegate soundStopped];
@@ -622,11 +622,11 @@
      {
          if (AVAssetExportSessionStatusCompleted == exportSession.status)
          {
-             NSLog(@"Success!");
+             //NSLog(@"Success!");
          }
          else if (AVAssetExportSessionStatusFailed == exportSession.status)
          {
-             NSLog(@"failed");
+             //NSLog(@"failed");
          }
      }];
     

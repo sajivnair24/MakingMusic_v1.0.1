@@ -39,7 +39,7 @@
         [self.contentView addSubview:seprator];
          [self.contentView addSubview:songDetailLbl];
         UIImage *playImage = [UIImage imageNamed:@"play.png"];
-        NSLog(@"imageSize w=%f ,h=%f",playImage.size.width,playImage.size.height);
+        //NSLog(@"imageSize w=%f ,h=%f",playImage.size.width,playImage.size.height);
         [playButton setImage:playImage forState:UIControlStateNormal];
         [playButton autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:DIFFERENCE_FROM_PLAY_BUTTON];
         [playButton autoSetDimensionsToSize:CGSizeMake(42, 48)];

@@ -22,7 +22,7 @@ NSString * TPAACAudioConverterErrorDomain = @"com.atastypixel.TPAACAudioConverte
 
 static inline BOOL _checkResultLite(OSStatus result, const char *operation, const char* file, int line) {
     if ( result != noErr ) {
-        NSLog(@"%s:%d: %s result %d %08X %4.4s\n", file, line, operation, (int)result, (int)result, (char*)&result); 
+        //NSLog(@"%s:%d: %s result %d %08X %4.4s\n", file, line, operation, (int)result, (int)result, (char*)&result);
         return NO;
     }
     return YES;

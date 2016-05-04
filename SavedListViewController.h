@@ -15,14 +15,16 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVAudioPlayer.h>
 #import "DBManager.h"
-#import <iAd/iAd.h>
-#import "GADBannerView.h"
+//#import <iAd/iAd.h>
+//#import "GADBannerView.h"
 #import "SavedListDetailViewController.h"
 #import "SoundPlayManger.h"
 #define IS_IPHONE_4s ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )480 ) < DBL_EPSILON )
 @class MainNavigationViewController;
 
-@interface SavedListViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,AVAudioPlayerDelegate,ADBannerViewDelegate,GADBannerViewDelegate,ExpandedCellDelegate,SoundManagerDelegate>
+//@interface SavedListViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,AVAudioPlayerDelegate,ADBannerViewDelegate,GADBannerViewDelegate,ExpandedCellDelegate,SoundManagerDelegate>
+
+@interface SavedListViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,AVAudioPlayerDelegate, ExpandedCellDelegate,SoundManagerDelegate>
 {
      // array of arrays
     NSMutableArray *songList;
@@ -35,9 +37,9 @@
     
     /********Nirma********/
     SoundPlayManger *soundPlayer;
-    ADBannerView *iAdBannerView;
+    //ADBannerView *iAdBannerView;
     UILabel *tableBackGroundView;
-    NSLayoutConstraint *iAdBannerViewHeightConstraint;
+    //NSLayoutConstraint *iAdBannerViewHeightConstraint;
     /********Nirma********/
     
 }
@@ -49,8 +51,8 @@
 @property (strong, nonatomic) MainNavigationViewController *myNavigationController;
 @property (nonatomic, strong) UIPopoverController *activityPopoverController;
 
-@property (weak, nonatomic) IBOutlet ADBannerView *bannerView;
-@property (nonatomic, strong) GADBannerView *admobBannerView;
+//@property (weak, nonatomic) IBOutlet ADBannerView *bannerView;
+//@property (nonatomic, strong) GADBannerView *admobBannerView;
 
 //- (IBAction)shareBtnAction:(id)sender;
 //- (IBAction)OnChangeVolumeSlider:(id)sender;

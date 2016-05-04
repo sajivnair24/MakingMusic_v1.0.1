@@ -135,9 +135,7 @@ const float yPercCircles[15] = {73.23, 68.39, 63.90, 59.85, 56.51, 54.04, 52.55,
         sRange = floatFrequency/freq[fLen - 1];
         
         mult = [self getMultipleOfTwoInRange];
-        
-        NSLog(@"IntFrequency : %d\n", intFrequency);
-        
+                
         for(int i = 0; i < 9; i++) {
             if((freqEnd[i] < intFrequency) && (freqStart[i + 1] > intFrequency)) {
                 if((intFrequency - freqEnd[i]) > (freqStart[i + 1] - intFrequency)) {

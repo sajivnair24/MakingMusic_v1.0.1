@@ -18,9 +18,11 @@
 #import "AudioRecorderManager.h"
 #import "PureLayout.h"
 #import "Constants.h"
+
 #define DRONE_PICKERVIEW_NUMBER_OF_ROWS 20000
 // get the volume of player
 #define playerVolume(playerOn) (playerOn == 0 ? @"0" : @"1")
+
 float tempo = 94.0f;
 int caraouselIndex = 0;
 
@@ -225,7 +227,7 @@ int caraouselIndex = 0;
                                                  name:@"HIDEMICSWITCH"
                                                object:nil];
     
-   [MainNavigationViewController trimClickFile:mCurrentScore];
+    [MainNavigationViewController trimClickFile:mCurrentScore];
 }
 
 - (void)stopAudioPlayer:(NSNotification *)notification {
@@ -266,7 +268,8 @@ int caraouselIndex = 0;
 
 -(void)addHeadPhoneMicDropDownButton{
     _headPhoneMic = [[UIView alloc]init];
-    [self.view addSubview:_headPhoneMic];
+    //[self.view addSubview:_headPhoneMic];
+    [self.view insertSubview:_headPhoneMic belowSubview:visualEffectView];
     
     headPhoneLabel = [[UILabel alloc]init];
     [_headPhoneMic addSubview:headPhoneLabel];
@@ -2167,6 +2170,7 @@ int caraouselIndex = 0;
         }
         _recImgTimer = nil;
         float beatFrequency = 60.0 / mCurrentScore;
+        
         UIImageView *beatImg = (UIImageView*)[self.beatsView viewWithTag:0];
         [beatImg setImage:[UIImage imageNamed:@"beat_ball_red.png"]];
         if (!_recImgTimer) {

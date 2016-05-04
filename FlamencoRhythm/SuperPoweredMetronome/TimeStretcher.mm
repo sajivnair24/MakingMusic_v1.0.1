@@ -33,7 +33,7 @@
     //const char *openError = decoder->open([[url absoluteString] UTF8String], false, 0, 0);
     const char *openError = decoder->open([inputFile UTF8String], false, 0, 0);
     if (openError) {
-        NSLog(@"open error: %s", openError);
+        //NSLog(@"open error: %s", openError);
         delete decoder;
         return;
     };
@@ -54,7 +54,7 @@
     // Create the output WAVE file. The destination is accessible in iTunes File Sharing.
     FILE *fd = createWAV([destinationPath fileSystemRepresentation], decoder->samplerate, 2);
     if (!fd) {
-        NSLog(@"File creation error.");
+        //NSLog(@"File creation error.");
         delete decoder;
         return;
     };

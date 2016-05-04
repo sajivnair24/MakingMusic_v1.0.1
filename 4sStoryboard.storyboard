@@ -110,28 +110,60 @@
                                     <action selector="itemTouchUpInside:" destination="omo-bj-H68" eventType="touchUpInside" id="MWo-Gj-hFo"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_volume_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="QJf-7U-Rcs" userLabel="volImageT1">
+                            <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L26-Ua-nzF" userLabel="clap1View" customClass="MHRotaryKnob">
+                                <rect key="frame" x="20" y="117" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wXN-cR-LAy" userLabel="clap2View" customClass="MHRotaryKnob">
+                                <rect key="frame" x="95" y="117" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="3" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Rd-kO-PcT" userLabel="clap3View" customClass="MHRotaryKnob">
+                                <rect key="frame" x="172" y="117" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="4" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qjo-YF-2WU" userLabel="clap4View" customClass="MHRotaryKnob">
+                                <rect key="frame" x="253" y="117" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cR6-9k-XPd" userLabel="T1View" customClass="MHRotaryKnob">
+                                <rect key="frame" x="16" y="197" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="6" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M6b-76-ngf" userLabel="T2View" customClass="MHRotaryKnob">
+                                <rect key="frame" x="92" y="197" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="7" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sm7-ND-zh7" userLabel="T3View" customClass="MHRotaryKnob">
+                                <rect key="frame" x="169" y="197" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="8" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OL4-qX-YxB" userLabel="T4View" customClass="MHRotaryKnob">
+                                <rect key="frame" x="245" y="197" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QJf-7U-Rcs" userLabel="volImageT1">
                                 <rect key="frame" x="15" y="196" width="62" height="62"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_volume_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="pg3-fe-bdG" userLabel="volImageT2">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pg3-fe-bdG" userLabel="volImageT2">
                                 <rect key="frame" x="91" y="196" width="62" height="62"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_volume_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="1Q8-Ta-fjL" userLabel="volImageT3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Q8-Ta-fjL" userLabel="volImageT3">
                                 <rect key="frame" x="168" y="196" width="62" height="62"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_volume_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="dGc-Zl-tjr" userLabel="volImageT4">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dGc-Zl-tjr" userLabel="volImageT4">
                                 <rect key="frame" x="244" y="196" width="62" height="62"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_volume_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="EHq-t7-1nx" userLabel="volImageInstru1">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EHq-t7-1nx" userLabel="volImageInstru1">
                                 <rect key="frame" x="19" y="115" width="62" height="62"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_volume_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="oa8-Vy-jgf" userLabel="volImageInstru2">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oa8-Vy-jgf" userLabel="volImageInstru2">
                                 <rect key="frame" x="95" y="117" width="62" height="62"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="-1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_volume_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="1uI-cN-zuZ" userLabel="volImageInstru3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="-1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1uI-cN-zuZ" userLabel="volImageInstru3">
                                 <rect key="frame" x="172" y="116" width="62" height="62"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_volume_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="SG5-Yv-1ie" userLabel="volImageInstru4">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SG5-Yv-1ie" userLabel="volImageInstru4">
                                 <rect key="frame" x="252" y="116" width="62" height="62"/>
                             </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uyq-Tk-NVg" userLabel="CellView">
@@ -329,7 +361,7 @@
                         <outlet property="deleteImageT4" destination="gL8-TN-AzM" id="ftR-iS-DPs"/>
                         <outlet property="firstVolumeKnob" destination="ZQR-el-pg3" id="h2I-Z2-ZeU"/>
                         <outlet property="fourthVolumeKnob" destination="UQ6-2D-D0y" id="3Ee-Vx-tnn"/>
-                        <outlet property="instrument1" destination="Hy5-87-o0l" id="9Ip-hM-1Q6"/>
+                        <outlet property="instrument1" destination="Hy5-87-o0l" id="k7C-6B-lgh"/>
                         <outlet property="instrument2" destination="DVn-l4-MgY" id="Nln-Tu-AMm"/>
                         <outlet property="instrument3" destination="ChC-dK-ck9" id="fa9-Q8-E7S"/>
                         <outlet property="instrument4" destination="ekk-MA-9JW" id="Dqj-S0-TLR"/>
@@ -352,6 +384,14 @@
                         <outlet property="recordingBGView" destination="3UJ-8A-aKk" id="mXG-ph-DeA"/>
                         <outlet property="recordingBtn" destination="Xgc-JO-hdt" id="4xi-5l-Uqc"/>
                         <outlet property="recordingTimeLabel" destination="lcG-Mm-XGS" id="YMS-pQ-mfn"/>
+                        <outlet property="rotataryClap4" destination="Qjo-YF-2WU" id="hb8-Pf-ut5"/>
+                        <outlet property="rotatryClap1" destination="L26-Ua-nzF" id="jGH-pe-BO6"/>
+                        <outlet property="rotatryClap2" destination="wXN-cR-LAy" id="G1E-Ty-bPR"/>
+                        <outlet property="rotatryClap3" destination="5Rd-kO-PcT" id="6E9-gr-CHn"/>
+                        <outlet property="rotatryT1" destination="cR6-9k-XPd" id="qNR-4z-6Ce"/>
+                        <outlet property="rotatryT2" destination="M6b-76-ngf" id="GEZ-pN-jAJ"/>
+                        <outlet property="rotatryT3" destination="Sm7-ND-zh7" id="B0l-fX-KeR"/>
+                        <outlet property="rotatryT4" destination="OL4-qX-YxB" id="moV-vF-i3a"/>
                         <outlet property="secondVolumeKnob" destination="Kk0-kI-jzL" id="6Fc-Lu-HPK"/>
                         <outlet property="songDetailLbl" destination="Lea-z9-Xrm" id="l8j-A0-zzO"/>
                         <outlet property="songNameTxtFld" destination="HaJ-zy-glF" id="eoc-s1-94i"/>
@@ -380,7 +420,6 @@
         <image name="Claps4_Blue.png" width="120" height="120"/>
         <image name="Claps4_Gray.png" width="120" height="120"/>
         <image name="Claps_disabled.png" width="60" height="60"/>
-        <image name="circle_volume_white.png" width="60" height="60"/>
         <image name="closebutton.png" width="122" height="122"/>
         <image name="four_blue.png" width="60" height="60"/>
         <image name="four_darkgrey.png" width="60" height="60"/>

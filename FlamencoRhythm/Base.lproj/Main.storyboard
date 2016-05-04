@@ -1081,7 +1081,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Fc-jh-J26" secondAttribute="trailing" id="eeJ-23-v1Y"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="69965C89-BA9D-4481-A584-F71ED32DAD85" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3C54A3CE-FCC4-400E-B59D-05E86D675363" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
                                         <rect key="frame" x="0.0" y="64" width="600" height="72"/>
                                     </imageView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwJ-Ky-7ck" userLabel="iCarousel" customClass="iCarousel">
@@ -1096,7 +1096,7 @@
                                         </connections>
                                     </view>
                                     <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHL-8g-BN2" userLabel="RecordView">
-                                        <rect key="frame" x="0.0" y="64" width="600" height="282"/>
+                                        <rect key="frame" x="0.0" y="64" width="600" height="234"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCM-xt-VMr" userLabel="MicView">
@@ -1306,7 +1306,7 @@
                                 <constraints>
                                     <constraint firstItem="EIO-mD-Wga" firstAttribute="top" secondItem="wat-Yz-tSR" secondAttribute="bottom" id="74Q-5L-RUj"/>
                                     <constraint firstAttribute="trailing" secondItem="nbu-eo-yz4" secondAttribute="trailing" id="EZg-8Z-LSM"/>
-                                    <constraint firstItem="fHL-8g-BN2" firstAttribute="bottom" secondItem="JYH-H9-oUW" secondAttribute="bottom" multiplier="0.59652" constant="-12" id="GA8-ND-Kt4"/>
+                                    <constraint firstItem="fHL-8g-BN2" firstAttribute="bottom" secondItem="JYH-H9-oUW" secondAttribute="bottom" multiplier="0.59652" constant="-60" id="GA8-ND-Kt4"/>
                                     <constraint firstItem="pt7-0j-8Uj" firstAttribute="leading" secondItem="JYH-H9-oUW" secondAttribute="leading" id="Kzz-HU-ZQv"/>
                                     <constraint firstAttribute="bottom" secondItem="nbu-eo-yz4" secondAttribute="bottom" id="LOO-TU-PAy"/>
                                     <constraint firstItem="wat-Yz-tSR" firstAttribute="top" secondItem="JYH-H9-oUW" secondAttribute="top" constant="20" id="Meo-VW-GUI"/>
@@ -1613,12 +1613,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <adBannerView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whh-fC-cOD">
-                                <rect key="frame" x="0.0" y="20" width="320" height="50"/>
-                                <connections>
-                                    <outlet property="delegate" destination="XJj-Xa-D2q" id="VtM-gy-e2c"/>
-                                </connections>
-                            </adBannerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="PDZ-4O-SXR">
                                 <rect key="frame" x="0.0" y="70" width="627" height="450"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1683,7 +1677,6 @@
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="bannerView" destination="whh-fC-cOD" id="l4g-o6-afp"/>
                         <outlet property="songTableView" destination="PDZ-4O-SXR" id="02Z-3R-07y"/>
                     </connections>
                 </viewController>
@@ -1693,7 +1686,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="69965C89-BA9D-4481-A584-F71ED32DAD85" width="320" height="74">
+        <image name="3C54A3CE-FCC4-400E-B59D-05E86D675363" width="320" height="74">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

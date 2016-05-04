@@ -15,7 +15,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVAudioPlayer.h>
 #import "DBManager.h"
-#import <StoreKit/StoreKit.h>
+//#import <StoreKit/StoreKit.h>
 #import "RhythmClass.h"
 #import "RecordingListData.h"
 #import "TTOpenInAppActivity.h"
@@ -40,7 +40,9 @@
 @end
 
 
-@interface SavedListDetailViewController : UIViewController<UIGestureRecognizerDelegate,AVAudioPlayerDelegate,UIActionSheetDelegate,UITextFieldDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
+//@interface SavedListDetailViewController : UIViewController<UIGestureRecognizerDelegate,AVAudioPlayerDelegate,UIActionSheetDelegate,UITextFieldDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
+
+@interface SavedListDetailViewController : UIViewController<UIGestureRecognizerDelegate,AVAudioPlayerDelegate,UIActionSheetDelegate,UITextFieldDelegate>
 {
     NSArray *topItems;
     NSArray *currentOutputs;
@@ -135,9 +137,9 @@
     RhythmClass *rhythmRecord;
     float recordingDuration;
     
-    ///In App Purchase
-    SKProductsRequest *productsRequest;
-    NSArray *validProducts;
+//    ///In App Purchase
+//    SKProductsRequest *productsRequest;
+//    NSArray *validProducts;
    
 
 }
@@ -263,12 +265,12 @@
           withTotalDuration:(float)totalAudioDuration
         withRecordingString:(NSString *)recordingString;
 
-- (void)updateRecordingDb;
+//- (void)updateRecordingDb;
 
-////In App purchase
-- (void)fetchAvailableProducts;
-- (BOOL)canMakePurchases;
-- (void)purchaseMyProduct:(SKProduct*)product;
+//////In App purchase
+//- (void)fetchAvailableProducts;
+//- (BOOL)canMakePurchases;
+//- (void)purchaseMyProduct:(SKProduct*)product;
 
 
 @end

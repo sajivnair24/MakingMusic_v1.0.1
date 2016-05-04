@@ -63,7 +63,7 @@ static NSString *cellIdentifier = @"CELL";
     songList = [[NSMutableArray alloc] init];
     songList = [sqlManager getAllRecordingData];
    
-    [self removeAdBannerView];
+    //[self removeAdBannerView];   //sn
     [self refreshTableView];
     [self setTableBackGroundView];
    /* [_songTableView reloadData];
@@ -93,7 +93,8 @@ static NSString *cellIdentifier = @"CELL";
     [self removeAdBannerView];*/
     // [self.view bringSubviewToFront:_bannerView];
     //_bannerView.frame = CGRectMake(_bannerView.frame.origin.x, self.view.frame.size.height-_bannerView.frame.size.height-50, _bannerView.frame.size.width, _bannerView.frame.size.height);
-    [self.view bringSubviewToFront:iAdBannerView];
+    
+    //[self.view bringSubviewToFront:iAdBannerView];  //sn
 }
 -(void)addRecordingTableView{
     soundPlayer = [[SoundPlayManger alloc]init];
@@ -120,8 +121,8 @@ static NSString *cellIdentifier = @"CELL";
     [recordingTableView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [recordingTableView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [recordingTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:sepratorLine withOffset:0];
-    [recordingTableView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:iAdBannerView];
-    //[recordingTableView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+    //[recordingTableView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:iAdBannerView];
+    [recordingTableView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     recordingTableView.delegate = self;
     recordingTableView.dataSource = self;
     recordingTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -154,15 +155,17 @@ static NSString *cellIdentifier = @"CELL";
     backgroundView.backgroundColor = UIColorFromRGB(NAVIGATION_COLOR);
     return backgroundView;
 }
--(void)addIAdBannerView{
-    iAdBannerView = [[ADBannerView alloc]init];
-    [self.view addSubview:iAdBannerView];
-    [iAdBannerView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
-    [iAdBannerView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
-    iAdBannerViewHeightConstraint = [iAdBannerView autoSetDimension:ALDimensionHeight toSize:50];
-    [iAdBannerView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-    //iAdBannerView.backgroundColor = [UIColor blackColor];
-}
+
+//-(void)addIAdBannerView{    //sn
+//    iAdBannerView = [[ADBannerView alloc]init];
+//    [self.view addSubview:iAdBannerView];
+//    [iAdBannerView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
+//    [iAdBannerView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
+//    iAdBannerViewHeightConstraint = [iAdBannerView autoSetDimension:ALDimensionHeight toSize:50];
+//    [iAdBannerView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+//    //iAdBannerView.backgroundColor = [UIColor blackColor];
+//}
+
 -(void)openNewSession:(id)sender{
     [soundPlayer stopAllSound];
     [self.myNavigationController openRecordingView];
@@ -173,8 +176,8 @@ static NSString *cellIdentifier = @"CELL";
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
     sqlManager = [[DBManager alloc] init];
-    [self removeAdBannerView];
-    [self addIAdBannerView];
+    //[self removeAdBannerView];   //sn
+    //[self addIAdBannerView];     //sn
     [self addRecordingTableView];
     [self printAllFonts];
     [self addTableBackGroundView];
@@ -185,6 +188,7 @@ static NSString *cellIdentifier = @"CELL";
                                                  name:@"stopAudioPlayerNotification"
                                                object:nil];
 }
+
 -(void)addTableBackGroundView{
     tableBackGroundView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,40)];
     tableBackGroundView.text = @"Tap New Session to start";
@@ -194,9 +198,9 @@ static NSString *cellIdentifier = @"CELL";
 }
 -(void)printAllFonts{
     for (NSString *familyName in [UIFont familyNames]){
-        NSLog(@"Family name: %@", familyName);
+        //NSLog(@"Family name: %@", familyName);
         for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
-            NSLog(@"--Font name: %@", fontName);
+            //NSLog(@"--Font name: %@", fontName);
         }
     }
 }
@@ -321,7 +325,7 @@ static NSString *cellIdentifier = @"CELL";
     [playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
 -(void)playSound:(id)sender{
-    NSLog(@"play Sound");
+    //NSLog(@"play Sound");
     UIButton *playButton = (UIButton*)sender;
     RecordingListData *cellData = [songList objectAtIndex:playButton.tag];
     for (int i = 0; i<[songList count]; i++) {
@@ -498,8 +502,8 @@ static NSString *cellIdentifier = @"CELL";
     
     [_songTableView reloadData];
     
-    [self.view bringSubviewToFront:_admobBannerView];
-    [self removeAdBannerView];
+    //[self.view bringSubviewToFront:_admobBannerView];    //sn
+    //[self removeAdBannerView];
     
 }
 
@@ -512,40 +516,40 @@ static NSString *cellIdentifier = @"CELL";
 //    }
 }
 
-#pragma mark - IAd & Admob Delegate methods
-- (void)bannerViewWillLoadAd:(ADBannerView *)banner{
-    DLog(@"banner ad loaded");
-    iAdBannerViewHeightConstraint.constant = 50;
-}
--(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-    DLog(@"did FailTo ReceiveAd With Error");
-    iAdBannerViewHeightConstraint.constant = 1;
-}
-//-(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-//    
-//    [self.bannerView removeFromSuperview];
-//    _admobBannerView = [[GADBannerView alloc]
-//                        initWithFrame:CGRectMake(0.0,20.0,
-//                                                 self.view.frame.size.width,
-//                                                 50)];
-//    
-//    // 3
-//    self.admobBannerView.adUnitID = @"ca-app-pub-4385871422548542/4655620110";
-//    self.admobBannerView.rootViewController = self;
-//    self.admobBannerView.delegate = self;
-//    
-//    // 4
-//    [self.view addSubview:self.admobBannerView];
-//    [self.view bringSubviewToFront:self.expander.view];
-//    [self.admobBannerView loadRequest:[GADRequest request]];
-//    bannerStatus = YES;
+//#pragma mark - IAd & Admob Delegate methods
+//- (void)bannerViewWillLoadAd:(ADBannerView *)banner{
+//    DLog(@"banner ad loaded");
+//    iAdBannerViewHeightConstraint.constant = 50;
 //}
-
-- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
-    [self.admobBannerView removeFromSuperview];
-    [self.view addSubview:_bannerView];
-}
-
+//-(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+//    DLog(@"did FailTo ReceiveAd With Error");
+//    iAdBannerViewHeightConstraint.constant = 1;
+//}
+////-(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+////    
+////    [self.bannerView removeFromSuperview];
+////    _admobBannerView = [[GADBannerView alloc]
+////                        initWithFrame:CGRectMake(0.0,20.0,
+////                                                 self.view.frame.size.width,
+////                                                 50)];
+////    
+////    // 3
+////    self.admobBannerView.adUnitID = @"ca-app-pub-4385871422548542/4655620110";
+////    self.admobBannerView.rootViewController = self;
+////    self.admobBannerView.delegate = self;
+////    
+////    // 4
+////    [self.view addSubview:self.admobBannerView];
+////    [self.view bringSubviewToFront:self.expander.view];
+////    [self.admobBannerView loadRequest:[GADRequest request]];
+////    bannerStatus = YES;
+////}
+//
+//- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
+//    //[self.admobBannerView removeFromSuperview];
+//    //[self.view addSubview:_bannerView];
+//}
+//
 
 
 @end

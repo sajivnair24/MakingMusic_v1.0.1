@@ -336,7 +336,7 @@ static OSStatus renderInput(void *inRefCon,
                     [self enableInput:i isOn:0.0];
                     break;
                 }
-                totalFrames = totalFrames + numFramesArr[i];
+                totalFrames = totalFrames + numFramesArr[i] + 1;
             }
             framesDiffArr[i] = seekedFrame - (totalFrames - numFramesArr[i]);
         } else if(seekedFrame < numFramesArr[i]) {
@@ -366,7 +366,6 @@ static OSStatus renderInput(void *inRefCon,
 // Sets the panned position for a specific bus
 - (void)setPanPosition:(UInt32)inputNum value:(AudioUnitParameterValue)pannedPosition {
     float pan  = -1.0 + pannedPosition * 2.0;
-    NSLog(@"Pan : %f", pan);
     
     OSStatus result = AudioUnitSetParameter(mMixer, kMultiChannelMixerParam_Pan, kAudioUnitScope_Input, inputNum, pan, 0);
     if (result) { return; }
@@ -384,12 +383,6 @@ static OSStatus renderInput(void *inRefCon,
     if(getMutex() == 1) {
         return;
     }
-    
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [metronomePlayer open:@"Click AccentedNew.wav"];
-//        [NSThread sleepForTimeInterval:0.1f];
-//        [metronomePlayer play:currentBpm];
-//    });
     
     OSStatus result = AUGraphStart(mGraph);
     if (result) { return; }
@@ -442,17 +435,7 @@ static OSStatus renderInput(void *inRefCon,
 
 // Changes playback rate
 -(void)changePlaybackRate:(AudioUnitParameterValue)inputNum {
-    
-//    OSStatus result = AudioUnitSetParameter(mTimeAU,
-//                                            kTimePitchParam_Rate,
-//                                            kAudioUnitScope_Output,
-//                                            0,
-//                                            inputNum,
-//                                            0);
-    
     [metronomePlayer reset:currentBpm];
-    
-    //if (result) {return; }
 }
 
 -(void)setMetronomeVolume:(float)volume{

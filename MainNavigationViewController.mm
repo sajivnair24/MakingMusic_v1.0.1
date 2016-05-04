@@ -362,14 +362,14 @@
     switch (routeChangeReason) {
             
         case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
-            NSLog(@"Headphone/Line plugged in");
+            //NSLog(@"Headphone/Line plugged in");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"HIDEMICSWITCH"
                                                                 object:@"NO"];
             headphonePlugged = YES;
             break;
             
         case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
-            NSLog(@"Headphone/Line was pulled. Stopping player....");
+            //NSLog(@"Headphone/Line was pulled. Stopping player....");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"HIDEMICSWITCH"
                                                                 object:@"YES"];
             headphonePlugged = NO;
@@ -442,17 +442,17 @@
                                          otherButtonTitles:@"Ok", nil];
             [networkAlert show];
             
-            NSLog(@"There's no internet connection at all. Display error message now.");
+            //NSLog(@"There's no internet connection at all. Display error message now.");
           }
             break;
             
         case ReachableViaWWAN:
-            NSLog(@"We have a 3G connection");
+            //NSLog(@"We have a 3G connection");
             isConnected = YES;
             break;
             
         case ReachableViaWiFi:
-            NSLog(@"We have WiFi.");
+            //NSLog(@"We have WiFi.");
             isConnected = YES;
             break;
             
