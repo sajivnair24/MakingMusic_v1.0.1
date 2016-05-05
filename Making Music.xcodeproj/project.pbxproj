@@ -306,15 +306,6 @@
 		C0F9F83C1B26AFDE0008D78C /* TTOpenInAppActivity8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F9F8341B26AFDE0008D78C /* TTOpenInAppActivity8@2x.png */; };
 		C0F9F83D1B26AFDE0008D78C /* TTOpenInAppActivity8@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F9F8351B26AFDE0008D78C /* TTOpenInAppActivity8@3x.png */; };
 		C0F9F83E1B26AFDE0008D78C /* TTOpenInAppActivity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F9F8361B26AFDE0008D78C /* TTOpenInAppActivity@2x.png */; };
-		C0FA30B61BBD6C140064C0A6 /* icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30AD1BBD6C140064C0A6 /* icon-29.png */; };
-		C0FA30B71BBD6C140064C0A6 /* icon-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30AE1BBD6C140064C0A6 /* icon-29@2x.png */; };
-		C0FA30B81BBD6C140064C0A6 /* icon-29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30AF1BBD6C140064C0A6 /* icon-29@3x.png */; };
-		C0FA30B91BBD6C140064C0A6 /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30B01BBD6C140064C0A6 /* icon-40@2x.png */; };
-		C0FA30BA1BBD6C140064C0A6 /* icon-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30B11BBD6C140064C0A6 /* icon-40@3x.png */; };
-		C0FA30BB1BBD6C140064C0A6 /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30B21BBD6C140064C0A6 /* icon-57.png */; };
-		C0FA30BC1BBD6C140064C0A6 /* icon-57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30B31BBD6C140064C0A6 /* icon-57@2x.png */; };
-		C0FA30BD1BBD6C140064C0A6 /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30B41BBD6C140064C0A6 /* icon-60@2x.png */; };
-		C0FA30BE1BBD6C140064C0A6 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FA30B51BBD6C140064C0A6 /* icon-60@3x.png */; };
 		C0FF8EC91BA04563009FF11F /* MHRotaryKnob.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FF8EC81BA04563009FF11F /* MHRotaryKnob.m */; };
 /* End PBXBuildFile section */
 
@@ -706,15 +697,6 @@
 		C0F9F8341B26AFDE0008D78C /* TTOpenInAppActivity8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TTOpenInAppActivity8@2x.png"; sourceTree = "<group>"; };
 		C0F9F8351B26AFDE0008D78C /* TTOpenInAppActivity8@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TTOpenInAppActivity8@3x.png"; sourceTree = "<group>"; };
 		C0F9F8361B26AFDE0008D78C /* TTOpenInAppActivity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TTOpenInAppActivity@2x.png"; sourceTree = "<group>"; };
-		C0FA30AD1BBD6C140064C0A6 /* icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-29.png"; sourceTree = "<group>"; };
-		C0FA30AE1BBD6C140064C0A6 /* icon-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29@2x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-29@2x.png"; sourceTree = "<group>"; };
-		C0FA30AF1BBD6C140064C0A6 /* icon-29@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29@3x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-29@3x.png"; sourceTree = "<group>"; };
-		C0FA30B01BBD6C140064C0A6 /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-40@2x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-40@2x.png"; sourceTree = "<group>"; };
-		C0FA30B11BBD6C140064C0A6 /* icon-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-40@3x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-40@3x.png"; sourceTree = "<group>"; };
-		C0FA30B21BBD6C140064C0A6 /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-57.png"; sourceTree = "<group>"; };
-		C0FA30B31BBD6C140064C0A6 /* icon-57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57@2x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-57@2x.png"; sourceTree = "<group>"; };
-		C0FA30B41BBD6C140064C0A6 /* icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@2x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-60@2x.png"; sourceTree = "<group>"; };
-		C0FA30B51BBD6C140064C0A6 /* icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@3x.png"; path = "FlamencoRhythm/Images.xcassets/AppIcon.appiconset/icon-60@3x.png"; sourceTree = "<group>"; };
 		C0FF8EC71BA04563009FF11F /* MHRotaryKnob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHRotaryKnob.h; sourceTree = "<group>"; };
 		C0FF8EC81BA04563009FF11F /* MHRotaryKnob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHRotaryKnob.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1102,15 +1084,6 @@
 				048479851BF0D59300B20ECD /* libc++.tbd */,
 				048479831BF0D58B00B20ECD /* SystemConfiguration.framework */,
 				048479811BF0D58100B20ECD /* CoreTelephony.framework */,
-				C0FA30AD1BBD6C140064C0A6 /* icon-29.png */,
-				C0FA30AE1BBD6C140064C0A6 /* icon-29@2x.png */,
-				C0FA30AF1BBD6C140064C0A6 /* icon-29@3x.png */,
-				C0FA30B01BBD6C140064C0A6 /* icon-40@2x.png */,
-				C0FA30B11BBD6C140064C0A6 /* icon-40@3x.png */,
-				C0FA30B21BBD6C140064C0A6 /* icon-57.png */,
-				C0FA30B31BBD6C140064C0A6 /* icon-57@2x.png */,
-				C0FA30B41BBD6C140064C0A6 /* icon-60@2x.png */,
-				C0FA30B51BBD6C140064C0A6 /* icon-60@3x.png */,
 				63D32DA81B4CEBBB00DADF62 /* Framework */,
 				04BA1DB31AB01AEE0036FCD3 /* CustomScrollView.h */,
 				04BA1DB41AB01AEE0036FCD3 /* CustomScrollView.m */,
@@ -1532,17 +1505,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0FA30B61BBD6C140064C0A6 /* icon-29.png in Resources */,
-				C0FA30B71BBD6C140064C0A6 /* icon-29@2x.png in Resources */,
-				C0FA30B81BBD6C140064C0A6 /* icon-29@3x.png in Resources */,
 				630E8EB11CD73434005434DF /* volumeslider_sqaure_red@2x.png in Resources */,
-				C0FA30B91BBD6C140064C0A6 /* icon-40@2x.png in Resources */,
 				6305D1641CBF7F3C002550CA /* Guajiras 1.m4a in Resources */,
-				C0FA30BA1BBD6C140064C0A6 /* icon-40@3x.png in Resources */,
-				C0FA30BB1BBD6C140064C0A6 /* icon-57.png in Resources */,
-				C0FA30BC1BBD6C140064C0A6 /* icon-57@2x.png in Resources */,
-				C0FA30BD1BBD6C140064C0A6 /* icon-60@2x.png in Resources */,
-				C0FA30BE1BBD6C140064C0A6 /* icon-60@3x.png in Resources */,
 				4EBCA4DE1CA933900068BB94 /* upload-dsym.sh in Resources */,
 				044EFD1E1AC28B5800941E3A /* Triplet Kicks.m4a in Resources */,
 				6305D1A71CBF82FA002550CA /* Teentaal 2.m4a in Resources */,
@@ -1917,8 +1881,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FEBE Limited (EHRSN47VR5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FEBE Limited (EHRSN47VR5)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1939,7 +1903,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -1979,7 +1943,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1990,36 +1954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.0",
-				);
-				INFOPLIST_FILE = FlamencoRhythm/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor",
-					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.0",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/FlamencoRhythm/SuperPoweredMetronome",
-					"$(PROJECT_DIR)/TestFairy",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
-				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
-				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
-			};
-			name = Debug;
-		};
-		047009851AA6C3680081BD6E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: FEBE Limited (EHRSN47VR5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FEBE Limited (EHRSN47VR5)";
 				ENABLE_BITCODE = NO;
@@ -2028,7 +1963,7 @@
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.0",
 				);
 				INFOPLIST_FILE = FlamencoRhythm/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2041,7 +1976,39 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
+			};
+			name = Debug;
+		};
+		047009851AA6C3680081BD6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FEBE Limited (EHRSN47VR5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FEBE Limited (EHRSN47VR5)";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.0",
+				);
+				INFOPLIST_FILE = FlamencoRhythm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.0",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/FlamencoRhythm/SuperPoweredMetronome",
+					"$(PROJECT_DIR)/TestFairy",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
+				PRODUCT_NAME = "Making Music";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2051,8 +2018,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: FEBE Limited (EHRSN47VR5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FEBE Limited (EHRSN47VR5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2064,7 +2031,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Making Music.app/Making Music";
 			};
 			name = Debug;
@@ -2082,7 +2049,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Making Music.app/Making Music";
 			};
 			name = Release;
