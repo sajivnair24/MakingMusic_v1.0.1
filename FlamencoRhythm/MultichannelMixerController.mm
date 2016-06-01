@@ -414,7 +414,7 @@ static OSStatus renderInput(void *inRefCon,
         [self releaseSoundBuffer];
 }
 
-- (void) releaseSoundBuffer {
+- (void)releaseSoundBuffer {
     for (int i = 0; i < NUMFILES && i < MAXBUFS; i++)  {
         if(mSoundBuffer[i].data != nullptr) {
             free(mSoundBuffer[i].data);

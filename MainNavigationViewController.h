@@ -55,14 +55,18 @@ static int  selectedInputMic;
 -(void)viewToPresent:(int)_index withDictionary:(NSDictionary*)_dict;
 - (IBAction)OnChangeVolumeSlider:(id)sender;
 - (IBAction)onTapChromaticTuner:(id)sender;
+
+// Input microphone related getter & setter
 + (BOOL)isHeadphonePlugged;
 + (void)setSelectedInputMic:(int)inputMic;
 + (int)getSelectedInputMic;
+
 + (BOOL)isIPhoneOlderThanVersion6;
 + (BOOL)checkNetworkStatus;
 + (void)setPurchaseInfo:(NSString *)status;
 + (BOOL)inAppPurchaseEnabled;
 + (void)trimClickFile:(int)currentBpm;
+
 + (NSString *)getAbsBundlePath:(NSString *)fileName;
 + (NSString *)getAbsDocumentsPath:(NSString *)fileName;
 

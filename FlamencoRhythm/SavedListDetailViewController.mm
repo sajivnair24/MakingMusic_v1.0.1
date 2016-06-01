@@ -123,14 +123,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     else
         self.shareCheckString = @"sameclass";
     
-    if(![MainNavigationViewController isHeadphonePlugged]) {
-        headPhoneMic.hidden = YES;
-        [self setSelectedMicrophone:kUserInput_BuiltIn];
-    }
-    else {
-        headPhoneMic.hidden = NO;
-        [self setSelectedMicrophone:kUserInput_Headphone];
-    }
+    [self changeMicrophoneSettings];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -449,14 +442,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [self addNavigationTopSeprator];
     [self addHeadPhoneMicDropButton];
     
-    if(![MainNavigationViewController isHeadphonePlugged]) {
-        headPhoneMic.hidden = YES;
-        [self setSelectedMicrophone:kUserInput_BuiltIn];
-    }
-    else {
-        headPhoneMic.hidden = NO;
-        [self setSelectedMicrophone:kUserInput_Headphone];
-    }
+    [self changeMicrophoneSettings];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(hideMicSwitch:)
@@ -566,12 +552,39 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
+- (BOOL)isHeadphoneConnected {
+    return [MainNavigationViewController isHeadphonePlugged];
+}
+
 - (void)setSelectedMicrophone:(int)inputMic {
     [MainNavigationViewController setSelectedInputMic:inputMic];
 }
 
 - (int)getSelectedMicrophone {
     return [MainNavigationViewController getSelectedInputMic];
+}
+
+- (void)changeMicrophoneSettings {
+    
+    if(![self isHeadphoneConnected]) {
+        headPhoneMic.hidden = YES;
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
+    }
+    else {
+        headPhoneMic.hidden = NO;
+        
+        int selectedMic = [self getSelectedMicrophone];
+        [self setSelectedMicrophone:selectedMic];
+        
+        if(selectedMic == kUserInput_Headphone) {
+            headPhoneLabel.text = @"Headphone Mic";
+            headPhoneDropdownViewWidthConstraint.constant = 84;
+        }
+        else {
+            headPhoneLabel.text = @"Built In Mic";
+            headPhoneDropdownViewWidthConstraint.constant = 64;
+        }
+    }
 }
 
 - (void)stopAudioPlayer:(NSNotification *)notification {
@@ -932,12 +945,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                              object:nil];
     
     [notificationCenter addObserver:self
-                           selector:@selector (handle_NowPlayingItemChanged:)
+                           selector:@selector(handle_NowPlayingItemChanged:)
                                name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                              object:_musicPlayer];
     
     [notificationCenter addObserver:self
-                           selector:@selector (handle_PlaybackStateChanged:)
+                           selector:@selector(handle_PlaybackStateChanged:)
                                name:MPMusicPlayerControllerPlaybackStateDidChangeNotification
                              object:_musicPlayer];
     
@@ -1009,7 +1022,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
 // When the playback state changes, set the play/pause button in the Navigation bar
 //		appropriately.
-- (void) handle_PlaybackStateChanged: (id) notification {
+- (void)handle_PlaybackStateChanged: (id) notification {
     
     MPMusicPlaybackState playbackState = [_musicPlayer playbackState];
     
@@ -1851,13 +1864,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         [_alertController addAction:[RAAlertAction actionWithTitle:@"Delete"
                                                              style:RAAlertActionStyleDefault
                                                            handler:^(RAAlertAction *action) {
-                                                               //NSLog(@"... delete Clicked");
+                                                               if(playFlag == 1) {
+                                                                   [self resetPlayButtonWithCell];
+                                                               }
                                                                [self deleteRecords];
                                                            }]];
         [_alertController addAction:[RAAlertAction actionWithTitle:@"Cancel"
                                                              style:RAAlertActionStyleCancel
                                                            handler:^(RAAlertAction *action) {
-                                                               //NSLog(@"...cancel clicked");
                                                            }]];
         [_alertController presentInViewController:self animated:YES completion:^{
             //NSLog(@"Alert!");
@@ -1865,8 +1879,11 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         
     }
     
-    else  if ( buttonIndex == 0)
+    else if(buttonIndex == 0)
     {
+        if(playFlag == 1) {
+            [self resetPlayButtonWithCell];
+        }
         
         recordingMergeArray = [[NSMutableArray alloc] init];
         
@@ -1880,7 +1897,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
                                             p1]];
         }
-        
         
         if(clapFlag2 == 1)
         {
@@ -1899,18 +1915,15 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                             p2]];
         }
         
-        
         if(clapFlag3 == 1)
         {
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", clap3Path]];
         }
         
-        
         if(clapFlag4 == 1)
         {
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", clap4Path]];
         }
-        
         
         if(recFlag1 == 1)
         {
@@ -1918,13 +1931,11 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
         }
         
-        
         if(recFlag2 == 1)
         {
             NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackTwo lastPathComponent]];
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
         }
-        
         
         if(recFlag3 == 1)
         {
@@ -1948,7 +1959,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             [alert show];
             return;
         }
-
         
         NSString *mergeOutputPath = [self mixAudioFiles:recordingMergeArray
                                       withTotalDuration:[durationStringUnFormatted intValue]

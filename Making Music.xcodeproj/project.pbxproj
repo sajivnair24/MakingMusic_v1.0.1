@@ -1903,7 +1903,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -1943,7 +1943,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1976,7 +1976,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2008,7 +2008,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2031,7 +2031,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Making Music.app/Making Music";
 			};
 			name = Debug;
@@ -2049,7 +2049,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Making Music.app/Making Music";
 			};
 			name = Release;

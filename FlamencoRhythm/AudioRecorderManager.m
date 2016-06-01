@@ -218,8 +218,8 @@ dispatch_source_t createDispatchTimer(double interval, dispatch_queue_t queue, d
     [avRecorder updateMeters];
     peakPowerForChannel = pow(10, (0.05 * ([avRecorder peakPowerForChannel:0] + [avRecorder averagePowerForChannel:0])/2));
     
-    micGain = (int)(peakPowerForChannel*100.0f);
-    NSString *micGainString = [NSString stringWithFormat:@"%d",micGain];
+    micGain = (int)(peakPowerForChannel * 100.0f);
+    NSString *micGainString = [NSString stringWithFormat:@"%d", micGain];
     NSDictionary *dct = @{@"micGainValue":micGainString};
     if (avRecorder.isRecording) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMicGain"
@@ -230,6 +230,5 @@ dispatch_source_t createDispatchTimer(double interval, dispatch_queue_t queue, d
 -(BOOL)isRecording {
     return avRecorder.recording;
 }
-
 
 @end

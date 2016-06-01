@@ -48,9 +48,8 @@ static NSString *cellIdentifier = @"CELL";
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    
-   
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -96,6 +95,7 @@ static NSString *cellIdentifier = @"CELL";
     
     //[self.view bringSubviewToFront:iAdBannerView];  //sn
 }
+
 -(void)addRecordingTableView{
     soundPlayer = [[SoundPlayManger alloc]init];
     soundPlayer.delegate = self;
@@ -129,16 +129,16 @@ static NSString *cellIdentifier = @"CELL";
     recordingTableView.rowHeight = 60;
     [recordingTableView reloadData];
    // [recordingTableView setEditing:YES];
-    
 }
--(void)soundStopped{
+
+-(void)soundStopped {
     for (int i = 0; i<[songList count]; i++) {
         RecordingListData *cellData = [songList objectAtIndex:i];
         cellData.isSoundPlaying = NO;
     }
     [self refreshTableView];
-    
 }
+
 -(UIView*)getHeaderView{
     UIView *backgroundView = [[UIView alloc]init];
     UIButton *btn = [[UIButton alloc]init];
@@ -171,6 +171,7 @@ static NSString *cellIdentifier = @"CELL";
     [self.myNavigationController openRecordingView];
     //[self.myNavigationController viewToPresent:1 withDictionary:@[]];
 }
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -196,7 +197,8 @@ static NSString *cellIdentifier = @"CELL";
     [tableBackGroundView setFont:[UIFont fontWithName:FONT_REGULAR size:16]];
     tableBackGroundView.textColor = [UIColor grayColor];
 }
--(void)printAllFonts{
+
+-(void)printAllFonts {
     for (NSString *familyName in [UIFont familyNames]){
         //NSLog(@"Family name: %@", familyName);
         for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
@@ -204,8 +206,9 @@ static NSString *cellIdentifier = @"CELL";
         }
     }
 }
--(void)setDataToUIElements:(int)_index
-{
+
+-(void)setDataToUIElements:(int)_index {
+    
     RecordingListData *cellData = [[RecordingListData alloc] init];
     rhythmRecord = [[RhythmClass alloc] init];
     
@@ -219,7 +222,6 @@ static NSString *cellIdentifier = @"CELL";
     dateOfRecording = cellData.dateString;
         
     //songDetail = [NSString stringWithFormat:@"%@ %@ bpm %@",rhythmRecord.rhythmName,cellData.BPM,cellData.droneType];
-    
 }
 
 - (NSString *)timeFormatted:(int)totalSeconds
@@ -253,14 +255,6 @@ static NSString *cellIdentifier = @"CELL";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *ParentCellIdentifier = @"songCell";
-    //static NSString *ParentCellIdentifier = @"songCell";
-    //static NSString *ChildCellIdentifier = @"childCell";
-    
- 
-    //UITableViewCell *cell;
-    
     
    SessionCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -315,8 +309,8 @@ static NSString *cellIdentifier = @"CELL";
     cell.sessionSelectButton.tag = indexPath.row;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
-    
 }
+
 -(void)setPlayButtonImage:(UIButton *)playButton State:( RecordingListData *)cellData{
     NSString *imageName = @"play.png";
     if (cellData.isSoundPlaying) {
@@ -324,6 +318,7 @@ static NSString *cellIdentifier = @"CELL";
     }
     [playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
+
 -(void)playSound:(id)sender{
     //NSLog(@"play Sound");
     UIButton *playButton = (UIButton*)sender;
@@ -345,30 +340,36 @@ static NSString *cellIdentifier = @"CELL";
     [self refreshTableView];
     //[self setPlayButtonImage:playButton State:cellData];
 }
+
 -(void)refreshTableView{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.recordingTableView reloadData];
     });
 }
+
 #pragma mark - Table view delegate
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewRowAction *shareAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Share" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         // maybe show an action sheet with more options
         [self shareSoundTrackAtIndexPath:indexPath.row];
-        
     }];
+    
     shareAction.backgroundColor = UIColorFromRGB(GRAY_COLOR);
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         [self deleteSoundTrackAtIndex:indexPath];
         //[self.tableview deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
+    
     deleteAction.backgroundColor = UIColorFromRGB(DELETE_BUTTON_COLOR);
     return @[deleteAction, shareAction];
 }
--(void)deleteSoundTrackAtIndex:(NSIndexPath *)indexPath{
-    RecordingListData *cellData = [songList objectAtIndex:indexPath.row];
+
+-(void)deleteSoundTrackAtIndex:(NSIndexPath *)indexPath {
     [soundPlayer stopAllSound];
+
+    RecordingListData *cellData = [songList objectAtIndex:indexPath.row];
     
     [songList removeObjectAtIndex:indexPath.row];
     [self.recordingTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -400,6 +401,7 @@ static NSString *cellIdentifier = @"CELL";
 -(void)shareSoundTrackAtIndexPath:(int)index{
     [soundPlayer stopAllSound];
     [self soundStopped];
+    
     RecordingListData *cellData = [songList objectAtIndex:index];
      NSString *mergeOutputPath = [soundPlayer loadFilesForMixingAndSharing:cellData];
     if([mergeOutputPath isEqualToString:@""])
@@ -425,6 +427,7 @@ static NSString *cellIdentifier = @"CELL";
     
     //[self refreshTableView];
 }
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -433,7 +436,6 @@ static NSString *cellIdentifier = @"CELL";
     //cell.textLabel.backgroundColor = [UIColor clearColor];
     //cell.contentView.backgroundColor = [UIColor colorWithHue:.1 + .07*indexPath.row saturation:1 brightness:1 alpha:1];
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -475,18 +477,16 @@ static NSString *cellIdentifier = @"CELL";
         
         [self.expander didMoveToParentViewController:self];
     }];*/
-    
-    
 }
 
 -(void)openRecordingDeatils:(id)sender{
     UIButton *btn = (UIButton*)sender;
     [self openSessionDetails:btn.tag];
 }
+
 -(void)openSessionDetails:(int)sessionIndex{
     [self.myNavigationController openDetailRecordingView:[songList objectAtIndex:sessionIndex]];
 }
-
 
 -(void)expandedCellWillCollapse {
     [self.expander willMoveToParentViewController:nil];
@@ -550,6 +550,5 @@ static NSString *cellIdentifier = @"CELL";
 //    //[self.view addSubview:_bannerView];
 //}
 //
-
 
 @end

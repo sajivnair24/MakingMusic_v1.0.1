@@ -213,7 +213,7 @@ int caraouselIndex = 0;
     [self addHeadPhoneMicDropDownButton];
     _recordTimerText.font = [UIFont fontWithName:FONT_LIGHT size:30];
     
-    if(![MainNavigationViewController isHeadphonePlugged]) {
+    if(![self isHeadphoneConnected]) {
         _headPhoneMic.hidden = YES;
         [self setSelectedMicrophone:kUserInput_BuiltIn];
     }
@@ -317,12 +317,39 @@ int caraouselIndex = 0;
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
+- (BOOL)isHeadphoneConnected {
+    return [MainNavigationViewController isHeadphonePlugged];
+}
+
 - (void)setSelectedMicrophone:(int)inputMic {
     [MainNavigationViewController setSelectedInputMic:inputMic];
 }
 
 - (int)getSelectedMicrophone {
     return [MainNavigationViewController getSelectedInputMic];
+}
+
+- (void)changeMicrophoneSettings {
+    
+    if(![self isHeadphoneConnected]) {
+        _headPhoneMic.hidden = YES;
+        [self setSelectedMicrophone:kUserInput_BuiltIn];
+    }
+    else {
+        _headPhoneMic.hidden = NO;
+        
+        int selectedMic = [self getSelectedMicrophone];
+        [self setSelectedMicrophone:selectedMic];
+        
+        if(selectedMic == kUserInput_Headphone) {
+            headPhoneLabel.text = @"Headphone Mic";
+            headPhoneDropdownViewWidthConstraint.constant = 84;
+        }
+        else {
+            headPhoneLabel.text = @"Built In Mic";
+            headPhoneDropdownViewWidthConstraint.constant = 64;
+        }
+    }
 }
 
 -(void)addBackGroundViewToInstriments{
@@ -341,8 +368,8 @@ int caraouselIndex = 0;
     borderLayer.fillColor   = UIColorFromRGB(FONT_BLUE_COLOR).CGColor;
     [_instBtn1.layer addSublayer:borderLayer];
     [_instBtn1 setImage:nil forState:UIControlStateNormal];
-     [_instBtn1 setImage:nil forState:UIControlStateSelected];
-     [_instBtn1 setImage:nil forState:UIControlStateDisabled];
+    [_instBtn1 setImage:nil forState:UIControlStateSelected];
+    [_instBtn1 setImage:nil forState:UIControlStateDisabled];
     [_instBtn1 setBackgroundImage:nil forState:UIControlStateNormal];
     [_instBtn1 setBackgroundImage:nil forState:UIControlStateSelected];
     [_instBtn1 setBackgroundImage:nil forState:UIControlStateDisabled];
@@ -634,15 +661,7 @@ int caraouselIndex = 0;
         [_dropDownLbl setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16.0]];
     }
     
-    if(![MainNavigationViewController isHeadphonePlugged]) {
-        _headPhoneMic.hidden = YES;
-        [self setSelectedMicrophone:kUserInput_BuiltIn];
-    }
-    else {
-        _headPhoneMic.hidden = NO;
-        headPhoneLabel.text = @"Headphone Mic";
-        [self setSelectedMicrophone:kUserInput_Headphone];
-    }
+    [self changeMicrophoneSettings];
     
     [_playBtn setBackgroundImage:[UIImage imageNamed:@"play-button"] forState:UIControlStateNormal];
 }
