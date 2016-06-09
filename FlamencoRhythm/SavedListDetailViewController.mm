@@ -93,6 +93,23 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [self resetPlayButtonWithCell];
 }
 
+- (void)deleteTempBeatFiles:(NSArray*)beatsArray {
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    for(NSString* beatFile in beatsArray) {
+        
+        NSString* beatDocPath = [MainNavigationViewController getAbsDocumentsPath:[beatFile lastPathComponent]];
+        
+        if ([fileManager fileExistsAtPath:beatDocPath]) {
+            [fileManager removeItemAtPath:beatDocPath error:nil];
+            NSString* beatFileWav = [beatDocPath stringByDeletingPathExtension];
+            beatFileWav = [beatFileWav stringByAppendingPathExtension:@"wav"];
+            [fileManager removeItemAtPath:beatFileWav error:nil];
+        }
+    }
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if(_recordingData != nil){
@@ -129,6 +146,9 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 -(void)viewWillDisappear:(BOOL)animated {
     [audioRecorder stopAudioRecording];
     [self updateRecordingTable];
+    
+    NSArray* beatsArray = [[NSArray alloc] initWithObjects:clap1Path, clap2Path, nil];
+    [self deleteTempBeatFiles:beatsArray];
 }
 
 -(void)trimAudioFilesOnBackThread{
@@ -1885,34 +1905,46 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             [self resetPlayButtonWithCell];
         }
         
+        float tempo = [_startBPM floatValue]/[originalBPM floatValue];
         recordingMergeArray = [[NSMutableArray alloc] init];
         
         if(clapFlag1 == 1)
         {
-            NSString *p1 = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
-            //            p1 = [p1 stringByDeletingPathExtension];
-            //            p1 = [p1 stringByAppendingPathExtension:@"wav"];
-            //            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
-            //                                            p1]];
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
-                                            p1]];
+            NSString *beatOneFile;
+            if(tempo == 1.0f) {
+                beatOneFile = [MainNavigationViewController getAbsBundlePath:[clap1Path lastPathComponent]];
+            } else {
+                beatOneFile = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
+            }
+            
+            // p1 = [p1 stringByDeletingPathExtension];
+            // p1 = [p1 stringByAppendingPathExtension:@"wav"];
+            // [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
+            //                                 p1]];
+            
+            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", beatOneFile]];
         }
         
         if(clapFlag2 == 1)
         {
-            NSString *p2;
+            NSString *beatTwoFile;
             if([[clap2Path lastPathComponent] isEqualToString:@"Sync 2.m4a"]) {       //snn
-                p2 = [MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"];
+                beatTwoFile = [MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"];
             }
             else {
-                p2 = [MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]];
+                if(tempo == 1.0f) {
+                    beatTwoFile = [MainNavigationViewController getAbsBundlePath:[clap2Path lastPathComponent]];
+                } else {
+                    beatTwoFile = [MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]];
+                }
             }
-            //            p2 = [p2 stringByDeletingPathExtension];
-            //            p2 = [p2 stringByAppendingPathExtension:@"wav"];
-            //            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
-            //                                            p2]];
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
-                                            p2]];
+            
+            // p2 = [p2 stringByDeletingPathExtension];
+            // p2 = [p2 stringByAppendingPathExtension:@"wav"];
+            // [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
+            //                                 p2]];
+            
+            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", beatTwoFile]];
         }
         
         if(clapFlag3 == 1)
@@ -2681,7 +2713,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/Shared"];
     
     
@@ -2966,10 +2998,16 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 -(void)setDataForUIElements:(int)_index RecordingData :(RecordingListData *)data{
     RecordingListData *cellData = [[RecordingListData alloc] init];
     rhythmRecord = [[RhythmClass alloc] init];
-    currentIndex = _index;
+    //currentIndex = _index;
     cellData = data;
-    if (cellData.rhythmRecord == nil) {
+    
+    if (cellData.rhythmRecord == nil || [self.shareCheckString isEqualToString:@"opened"]) {
         NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+        if([self.shareCheckString isEqualToString:@"opened"]) {
+            songList = [sqlManager getAllRecordingData];
+            if(currentIndex == [songList count]) currentIndex = 0;
+            cellData = [songList objectAtIndex:currentIndex];
+        }
         dataArray = [sqlManager fetchRhythmRecordsByID:[NSNumber numberWithInt:[cellData.rhythmID intValue]]];
         cellData.rhythmRecord = [dataArray objectAtIndex:0];
     }
@@ -3077,6 +3115,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     recFlag2 = [cellData.t2Flag intValue];
     recFlag3 = [cellData.t3Flag intValue];
     recFlag4 = [cellData.t4Flag intValue];
+}
+
+- (void)setRowIndex:(int)rowIndex {
+    currentIndex = rowIndex;
 }
 
 - (void) swipedScreen:(UISwipeGestureRecognizer*)swipeGestureEffect {
@@ -3592,15 +3634,17 @@ float roundUp (float value, int digits) {
     //[self processAudio:audioDurationSeconds withFilePathURL:audioFileInput];
     // End time till which you want the audio file to be saved.
     // For eg. your file's length.
-    if(tempo == 1.0f) {
-        startTrimTime = 0.0480;
-        endTrimTime = audioDurationSeconds - 0.0202;
-    }
-    else {
-        startTrimTime = 0.0480/tempo - 0.0055;
-        //startTrimTime = (0.0480 - 0.0055)/tempo;
-        endTrimTime = audioDurationSeconds;
-    }
+    
+    // snair
+//    if(tempo == 1.0f) {
+//        startTrimTime = 0.0480;
+//        endTrimTime = audioDurationSeconds - 0.0202;
+//    }
+//    else {
+//        startTrimTime = 0.0480/tempo - 0.0055;
+//        //startTrimTime = (0.0480 - 0.0055)/tempo;
+//        endTrimTime = audioDurationSeconds;
+//    }
     
     CMTime startTime = CMTimeMake((int)(floor(startTrimTime * 44100)), 44100);
     CMTime stopTime = CMTimeMake((int)(ceil(endTrimTime * 44100)), 44100);

@@ -440,7 +440,7 @@ static NSString *cellIdentifier = @"CELL";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [soundPlayer stopAllSound];
-    [self.myNavigationController openDetailRecordingView:[songList objectAtIndex:indexPath.row]];
+    [self.myNavigationController openDetailRecordingView:[songList objectAtIndex:indexPath.row] atIndex:indexPath.row];
     //[self.myNavigationController viewToPresent:2 withDictionary:@[]];
    /* if (! self.expander) {
         if (IS_IPHONE_4s) {
@@ -485,7 +485,7 @@ static NSString *cellIdentifier = @"CELL";
 }
 
 -(void)openSessionDetails:(int)sessionIndex{
-    [self.myNavigationController openDetailRecordingView:[songList objectAtIndex:sessionIndex]];
+    [self.myNavigationController openDetailRecordingView:[songList objectAtIndex:sessionIndex] atIndex:sessionIndex];
 }
 
 -(void)expandedCellWillCollapse {

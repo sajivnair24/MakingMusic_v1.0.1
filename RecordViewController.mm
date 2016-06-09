@@ -1386,7 +1386,7 @@ int caraouselIndex = 0;
     DBManager *saveRhythm = [[DBManager alloc]init];
     [saveRhythm insertDataToRecordingInDictionary:musicDict];
     RecordingListData *recordingData = [saveRhythm getFirstRecordingData];
-    [_myNavigationController openDetailRecordingView:recordingData];
+    [_myNavigationController openDetailRecordingView:recordingData atIndex:value];
 }
 
 - (IBAction)onChangeBPM:(id)sender {

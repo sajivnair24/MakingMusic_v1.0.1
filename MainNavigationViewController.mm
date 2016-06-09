@@ -199,10 +199,11 @@
     [navigationController pushViewController:secondVC animated:YES];
 }
 
--(void)openDetailRecordingView:(RecordingListData *)recordingData {
+-(void)openDetailRecordingView:(RecordingListData *)recordingData atIndex:(int)rowIndex {
     [self setSecondDetailVC];
    
-    savedDetailVC.recordingData = recordingData ;
+    savedDetailVC.recordingData = recordingData;
+    [savedDetailVC setRowIndex:rowIndex];
     [navigationController pushViewController:savedDetailVC animated:YES];
 }
 

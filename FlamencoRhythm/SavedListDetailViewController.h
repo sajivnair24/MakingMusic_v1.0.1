@@ -253,6 +253,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *cellTopSeprator;
 @property(nonatomic ,strong)RecordingListData *recordingData;
+
 - (void)setDataForUIElements:(int)_index RecordingData :(RecordingListData *)data;
 
 - (void)timeStretchRhythmsAndSave:(NSString *)firstInstr
@@ -264,6 +265,8 @@
 - (NSString *)mixAudioFiles:(NSMutableArray*)audioFileURLArray
           withTotalDuration:(float)totalAudioDuration
         withRecordingString:(NSString *)recordingString;
+
+- (void)setRowIndex:(int)rowIndex;
 
 //- (void)updateRecordingDb;
 

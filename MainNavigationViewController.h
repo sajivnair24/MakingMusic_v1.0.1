@@ -73,5 +73,5 @@ static int  selectedInputMic;
 //navigation funcations
 -(void)openRecordingView;
 -(void)goBackToSoundListing;
--(void)openDetailRecordingView:(RecordingListData *)recordingData;
+-(void)openDetailRecordingView:(RecordingListData *)recordingData atIndex:(int)rowIndex;
 @end
