@@ -19,13 +19,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FlamencoRhythm/SavedListDetailViewController.mm"
-            timestampString = "487005639.220918"
+            filePath = "RecordViewController.mm"
+            timestampString = "487062933.961834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3006"
-            endingLineNumber = "3006"
-            landmarkName = "-setDataForUIElements:RecordingData:"
+            startingLineNumber = "1389"
+            endingLineNumber = "1389"
+            landmarkName = "-saveRhythmRecording"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RecordViewController.mm"
-            timestampString = "487062933.961834"
+            filePath = "FlamencoRhythm/SavedListDetailViewController.mm"
+            timestampString = "487493444.949518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1389"
-            endingLineNumber = "1389"
-            landmarkName = "-saveRhythmRecording"
+            startingLineNumber = "704"
+            endingLineNumber = "704"
+            landmarkName = "-handleSingleTap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

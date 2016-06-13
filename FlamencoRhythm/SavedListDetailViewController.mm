@@ -2315,6 +2315,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     rotaryKnob.knobImageCenter = CGPointMake(30.0, 30.0);
     [rotaryKnob addTarget:self action:@selector(rotaryKnobDidChange:) forControlEvents:UIControlEventValueChanged];
+    [rotaryKnob addTarget:self action:@selector(rotaryKnobDidSwipe:) forControlEvents:UIControlEventTouchDragInside];
+    
     int tag = (int)rotaryKnob.tag;
     switch (tag) {
         case 1:
@@ -2432,9 +2434,30 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                withTempo:tempo];
 }
 
+- (IBAction)rotaryKnobDidSwipe :(MHRotaryKnob *)knob {
+    [self removeRotaryKnobGestureRecognizer:knob];
+}
+
+- (void)addRotaryKnobGestureRecognizer:(MHRotaryKnob *)knob {
+    if (knob.gestureRecognizers.count == 0) {
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                               action:@selector(handleSingleTap:)];
+        [knob addGestureRecognizer:tapGestureRecognizer];
+    }
+}
+
+- (void)removeRotaryKnobGestureRecognizer:(MHRotaryKnob *)knob {
+    while (knob.gestureRecognizers.count) {
+        [knob removeGestureRecognizer:[knob.gestureRecognizers objectAtIndex:0]];
+    }
+}
+
 - (IBAction)rotaryKnobDidChange :(MHRotaryKnob *)knob
 {
+    [self addRotaryKnobGestureRecognizer:knob];
+    
     int tag = (int)knob.tag;
+    
     switch (tag) {
         case 1:
             (mixerInputParam == kMixerParam_Vol) ? instrV1 = knob.value : instrP1 = knob.value;
@@ -3121,8 +3144,9 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     currentIndex = rowIndex;
 }
 
-- (void) swipedScreen:(UISwipeGestureRecognizer*)swipeGestureEffect {
+- (void)swipedScreen:(UISwipeGestureRecognizer*)swipeGestureEffect {
     UIButton *button = (UIButton *)swipeGestureEffect.view;
+    
     if(swipeGestureEffect.direction == UISwipeGestureRecognizerDirectionUp) {
         // Swipe Up
         [self rotateImageViewClockWiseWithButtonTag:(int)button.tag];
@@ -3131,7 +3155,6 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         // Swipe Down
         [self rotateImageViewAnticlockWiseWithButtonTag:(int)button.tag];
     }
-    
 }
 
 - (void)rotateImageViewClockWiseWithButtonTag :(int)tag{
@@ -3287,7 +3310,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     //    }
 }
 
-- (void)spinKnobClockWiseAndModifiedValueOfPassedReferences:(int *)volume imageView :(UIImageView *)rotateImage{
+- (void)spinKnobClockWiseAndModifiedValueOfPassedReferences:(int *)volume
+                                                 imageView :(UIImageView *)rotateImage{
     if (VolumeKnobLevelCount < 8) {
         [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             [rotateImage setTransform:CGAffineTransformRotate(rotateImage.transform, (M_PI/4))];
