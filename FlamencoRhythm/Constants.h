@@ -49,6 +49,8 @@ alpha:1.0]
 #define PRODUCT_PURCHASED @"PURCHASED"
 #define PRODUCT_NOT_PURCHASED @"NOT PURCHASED"
 
+#define SAMPLE_RATE 44100
+
 // For selected input mic.
 enum UserInputMic { kUserInput_BuiltIn, kUserInput_Headphone };
 

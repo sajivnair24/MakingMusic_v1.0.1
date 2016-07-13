@@ -11,8 +11,7 @@
 #import "SavedListDetailViewController.h"
 #import "MultichannelMixerController.h"
 #import "TimeStretcher.h"
-
-#define SAMPLE_RATE 44100
+#import "Constants.h"
 
 @interface SoundPlayManger ()
 {
@@ -36,7 +35,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioFilePlayedOnce:) name:@"AUDIOFILENOTLOOPING" object:nil];
     }
     return self;
-   
+    
 }
 -(void)setDataFromRecord:(RecordingListData *)data
               forSharing:(BOOL)isShared {
@@ -115,9 +114,9 @@
 -(void)stopSound:(NSTimer *) timer{
     //NSLog(@" timer stoped ");
     [timer invalidate];
-        [self stopAllSound];
+    [self stopAllSound];
     [self.delegate soundStopped];
-
+    
 }
 -(void)stopAllSound {
     if([stopSoundTimer isValid]) {
@@ -367,6 +366,7 @@
     NSString *fileLocation;
     
     mixArray = [[NSMutableArray alloc]init];
+    float tempo = [_startBPM floatValue]/[originalBPM floatValue];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -376,8 +376,13 @@
     
     if (![beatOneMusicFile isEqualToString:@"-1"]) {
         if(clapFlag1 == 1) {
-            fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
-            fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
+            
+            if(tempo == 1.0f) {
+                fileLocation = [self getAbsoluteBundlePath:lastWordString];
+            } else {
+                fileLocation = [self getAbsoluteDocumentsPath:@"Beats"];
+                fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
+            }
             
             [mixArray addObject:[self getFilePathWithFormat:fileLocation
                                                     withKey:@"loopTrack"]];
@@ -389,8 +394,12 @@
             listItems = [beatTwoMusicFile componentsSeparatedByString:@"/"];
             lastWordString = [NSString stringWithFormat:@"%@", listItems.lastObject];
             
-            fileLocation = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
-            fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
+            if(tempo == 1.0f) {
+                fileLocation = [self getAbsoluteBundlePath:lastWordString];
+            } else {
+                fileLocation = [self getAbsoluteDocumentsPath:@"Beats"];
+                fileLocation = [NSString stringWithFormat:@"%@/%@", fileLocation, lastWordString];
+            }
             
             [mixArray addObject:[self getFilePathWithFormat:fileLocation
                                                     withKey:@"loopTrack"]];
@@ -400,13 +409,13 @@
     if(clapFlag3 == 1) {
         fileLocation = [self getAbsoluteDocumentsPath:@"Click.m4a"];
         [mixArray addObject:[self getFilePathWithFormat:fileLocation
-                                            withKey:@"loopTrack"]];
+                                                withKey:@"Metronome"]];
     }
     
     if(clapFlag4 == 1) {
         fileLocation = [self locationOfFileWithName:[NSString stringWithFormat:@"%@.m4a", _droneType]];
         [mixArray addObject:[self getFilePathWithFormat:fileLocation
-                                            withKey:@"loopTrack"]];
+                                                withKey:@"loopTrack"]];
     }
     
     if (![_recTrackOne isEqualToString:@"-1"]) {
@@ -453,9 +462,10 @@
     
     NSString *mergeOutputPath = [listController mixAudioFiles:mixArray
                                             withTotalDuration:songDuration
-                                          withRecordingString:currentRythmName];
+                                          withRecordingString:currentRythmName
+                                                     andTempo:tempo];
     
-    NSString *beatsDirectory = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
+    NSString *beatsDirectory = [self getAbsoluteDocumentsPath:@"Beats"];
     if ([[NSFileManager defaultManager] isDeletableFileAtPath:beatsDirectory]) {
         [[NSFileManager defaultManager] removeItemAtPath:beatsDirectory error:nil];
     }
@@ -464,8 +474,9 @@
 }
 
 -(void)startAUGraphVC{
-     [mixerController startAUGraph];
+    [mixerController startAUGraph];
 }
+
 - (NSString*)locationOfFileWithName:(NSString*)fileName{
     NSArray* array = [fileName componentsSeparatedByString:@"/"];
     NSString *beatFilePath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], array.lastObject];
@@ -474,12 +485,12 @@
     //                                                           withString:@"wav"];
     return beatFilePath;
 }
-- (NSDictionary*)getTheDictionaryWithFileLocation:(NSString*)locaiton
-                                           volume:(NSString*)volume
-                                              pan:(NSString*)pan
-                                              bpm:(NSNumber*)rhythmBpmValue
+- (NSDictionary*)getTheDictionaryWithFileLocation:(NSString *)locaiton
+                                           volume:(NSString *)volume
+                                              pan:(NSString *)pan
+                                              bpm:(NSNumber *)rhythmBpmValue
                                       andStartBPM:(NSNumber *)rhythmStartBPMValue
-                                         fileType:(NSString*)type
+                                         fileType:(NSString *)type
                                  withRecordString:(NSString *)recordedString{
     return @{
              @"fileLocation":locaiton,
@@ -496,10 +507,12 @@
     return [NSString stringWithFormat:@"%@:%@", key, filePath];
 }
 
+- (NSString *)getAbsoluteBundlePath:(NSString *)fileName {
+    return [MainNavigationViewController getAbsBundlePath:fileName];
+}
+
 - (NSString *)getAbsoluteDocumentsPath:(NSString *)fileName {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [NSString stringWithFormat:@"%@/%@", documentsDirectory, fileName];
+    return [MainNavigationViewController getAbsDocumentsPath:fileName];
 }
 
 - (void)trimRequiredAudioFiles:(BOOL)isShared {
@@ -513,8 +526,8 @@
         NSArray *beatTwoItems = [beatTwoMusicFile componentsSeparatedByString:@"/"];
         NSString *beatTwo = [NSString stringWithFormat:@"%@", beatTwoItems.lastObject];
         
-        beatOne = [MainNavigationViewController getAbsBundlePath:beatOne];
-        NSString *beatOneTimeStretched = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
+        beatOne = [self getAbsoluteBundlePath:beatOne];
+        NSString *beatOneTimeStretched = [self getAbsoluteDocumentsPath:@"Beats"];
         
         BOOL isDir;
         
@@ -532,8 +545,8 @@
                               withOutputFile:beatOneTimeStretched
                                    withTempo:tempo];
         
-        beatTwo = [MainNavigationViewController getAbsBundlePath:beatTwo];
-        NSString *beatTwoTimeStretched = [MainNavigationViewController getAbsDocumentsPath:@"Beats"];
+        beatTwo = [self getAbsoluteBundlePath:beatTwo];
+        NSString *beatTwoTimeStretched = [self getAbsoluteDocumentsPath:@"Beats"];
         beatTwoTimeStretched = [NSString stringWithFormat:@"%@/%@", beatTwoTimeStretched, beatTwoItems.lastObject];
         
         [timeStretcher timeStretchAndConvert:beatTwo
@@ -542,15 +555,32 @@
         
         // Trim code
         NSString *beatOnePath = beatOneTimeStretched;
+        
+        NSString *bundlePath = [self getAbsoluteBundlePath:[beatOneMusicFile lastPathComponent]];
+        
+        AVURLAsset *bundleAsset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:bundlePath]
+                                                         options:nil];
+        
+        CMTime bundleAssetDuration = bundleAsset.duration;
+        float bundleAssetDurationSeconds = CMTimeGetSeconds(bundleAssetDuration);
+
         beatOnePath = [beatOnePath stringByDeletingPathExtension];
         beatOnePath = [beatOnePath stringByAppendingPathExtension:@"wav"];
+        
+        AVURLAsset *assetAfterTimeStretching = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:beatOnePath]
+                                                         options:nil];
+        
+        CMTime assetAfterTimeStretchingDuration = assetAfterTimeStretching.duration;
+        float assetAfterTimeStretchingDurationSeconds = CMTimeGetSeconds(assetAfterTimeStretchingDuration);
+        
+        float durationToBeRemoved = bundleAssetDurationSeconds/tempo - assetAfterTimeStretchingDurationSeconds;
         
         NSString *beatTwoPath = beatTwoTimeStretched;
         beatTwoPath = [beatTwoPath stringByDeletingPathExtension];
         beatTwoPath = [beatTwoPath stringByAppendingPathExtension:@"wav"];
         
-        [self trimAudioFileInputFilePath:beatOnePath toOutputFilePath:beatOneTimeStretched];
-        [self trimAudioFileInputFilePath:beatTwoPath toOutputFilePath:beatTwoTimeStretched];
+        [self trimAudioFileInputFilePath:beatOnePath toOutputFilePath:beatOneTimeStretched withStartTrimTime:durationToBeRemoved];
+        [self trimAudioFileInputFilePath:beatTwoPath toOutputFilePath:beatTwoTimeStretched withStartTrimTime:durationToBeRemoved];
         
         [NSThread sleepForTimeInterval:0.5];
     }
@@ -564,7 +594,8 @@
 }
 
 - (void)trimAudioFileInputFilePath:(NSString *)inputPath
-                  toOutputFilePath:(NSString *)outputPath {
+                  toOutputFilePath:(NSString *)outputPath
+                 withStartTrimTime:(float)startTrimTime {
     
     NSError *error;
     
@@ -573,7 +604,7 @@
     NSURL *audioFileInput = [NSURL fileURLWithPath:strInputFilePath];
     
     // Path of trimmed file.
-    float startTrimTime;
+    //float startTrimTime;
     float endTrimTime;
     NSURL *audioFileOutput = [NSURL fileURLWithPath:outputPath];
     
@@ -600,15 +631,17 @@
     //[self processAudio:audioDurationSeconds withFilePathURL:audioFileInput];
     // End time till which you want the audio file to be saved.
     // For eg. your file's length.
-    if(tempo == 1.0f) {
-        startTrimTime = 0.0480;
-        endTrimTime = audioDurationSeconds - 0.0202;
-    }
-    else {
-        startTrimTime = 0.0480/tempo - 0.0055;
-        //startTrimTime = (0.0480 - 0.0055)/tempo;
-        endTrimTime = audioDurationSeconds;
-    }
+//    if(tempo == 1.0f) {
+//        startTrimTime = 0.0480;
+//        endTrimTime = audioDurationSeconds - 0.0202;
+//    }
+//    else {
+//        startTrimTime = 0.0480/tempo - 0.0055;
+//        //startTrimTime = (0.0480 - 0.0055)/tempo;
+//        endTrimTime = audioDurationSeconds;
+//    }
+    
+    endTrimTime = audioDurationSeconds;
     
     CMTime startTime = CMTimeMake((int)(floor(startTrimTime * SAMPLE_RATE)), SAMPLE_RATE);
     CMTime stopTime = CMTimeMake((int)(ceil(endTrimTime * SAMPLE_RATE)), SAMPLE_RATE);

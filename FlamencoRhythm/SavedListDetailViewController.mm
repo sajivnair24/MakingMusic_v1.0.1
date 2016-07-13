@@ -584,6 +584,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     return [MainNavigationViewController getSelectedInputMic];
 }
 
+- (NSString *)getAbsoluteBundlePath:(NSString *)fileName {
+    return [MainNavigationViewController getAbsBundlePath:fileName];
+}
+
+- (NSString *)getAbsoluteDocumentsPath:(NSString *)fileName {
+    return [MainNavigationViewController getAbsDocumentsPath:fileName];
+}
+
 - (void)changeMicrophoneSettings {
     
     if(![self isHeadphoneConnected]) {
@@ -1922,6 +1930,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             // [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
             //                                 p1]];
             
+            NSString *str = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
+            
             [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", beatOneFile]];
         }
         
@@ -1949,7 +1959,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         
         if(clapFlag3 == 1)
         {
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", clap3Path]];
+            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"Metronome", clap3Path]];
         }
         
         if(clapFlag4 == 1)
@@ -1994,7 +2004,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         
         NSString *mergeOutputPath = [self mixAudioFiles:recordingMergeArray
                                       withTotalDuration:[durationStringUnFormatted intValue]
-                                    withRecordingString:currentRythmName];
+                                    withRecordingString:currentRythmName
+                                              andTempo:tempo];
         
         self.shareCheckString = @"opened";
         
@@ -2400,25 +2411,65 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [_instrument4 setAttributedTitle:attributedString forState:UIControlStateSelected];
 }
 
+//- (void)trimRequiredAudioFiles {
+//    [self trimAudioFileWithInputFilePath:[MainNavigationViewController getAbsBundlePath:@"Click AccentedNew.wav"]
+//                        toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"]
+//                                withFlag:NO];
+//    
+//    float tempo = [_startBPM floatValue]/[originalBPM floatValue];
+//    [self timeStretchRhythmsAndSave:clap1Path withSecondInstr:clap2Path withTempo:tempo];
+//    
+//    // Trim code
+//    NSString *inst1Path = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
+//    inst1Path = [inst1Path stringByDeletingPathExtension];
+//    inst1Path = [inst1Path stringByAppendingPathExtension:@"wav"];
+//    
+//    NSString *inst2Path = [MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]];
+//    inst2Path = [inst2Path stringByDeletingPathExtension];
+//    inst2Path = [inst2Path stringByAppendingPathExtension:@"wav"];
+//    
+//    [self trimAudioFileInputFilePath:inst1Path toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]]];
+//    [self trimAudioFileInputFilePath:inst2Path toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]]];
+//}
+
 - (void)trimRequiredAudioFiles {
-    [self trimAudioFileWithInputFilePath:[MainNavigationViewController getAbsBundlePath:@"Click AccentedNew.wav"]
-                        toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"]
+    
+    [self trimAudioFileWithInputFilePath:[self getAbsoluteBundlePath:@"Click AccentedNew.wav"]
+                        toOutputFilePath:[self getAbsoluteDocumentsPath:@"Click.m4a"]
                                 withFlag:NO];
     
     float tempo = [_startBPM floatValue]/[originalBPM floatValue];
     [self timeStretchRhythmsAndSave:clap1Path withSecondInstr:clap2Path withTempo:tempo];
     
     // Trim code
-    NSString *inst1Path = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
+    NSString *inst1Path = [self getAbsoluteDocumentsPath:[clap1Path lastPathComponent]];
+    
+    NSString *bundlePath = [self getAbsoluteBundlePath:[clap1Path lastPathComponent]];
+    
+    AVURLAsset *bundleAsset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:bundlePath]
+                                                     options:nil];
+    
+    CMTime bundleAssetDuration = bundleAsset.duration;
+    float bundleAssetDurationSeconds = CMTimeGetSeconds(bundleAssetDuration);
+    
+    
     inst1Path = [inst1Path stringByDeletingPathExtension];
     inst1Path = [inst1Path stringByAppendingPathExtension:@"wav"];
     
-    NSString *inst2Path = [MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]];
+    AVURLAsset *assetAfterTimeStretching = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:inst1Path]
+                                                     options:nil];
+    
+    CMTime assetAfterTimeStretchingDuration = assetAfterTimeStretching.duration;
+    float assetAfterTimeStretchingDurationSeconds = CMTimeGetSeconds(assetAfterTimeStretchingDuration);
+    
+    float durationToBeRemoved = bundleAssetDurationSeconds/tempo - assetAfterTimeStretchingDurationSeconds;
+    
+    NSString *inst2Path = [self getAbsoluteDocumentsPath:[clap2Path lastPathComponent]];
     inst2Path = [inst2Path stringByDeletingPathExtension];
     inst2Path = [inst2Path stringByAppendingPathExtension:@"wav"];
     
-    [self trimAudioFileInputFilePath:inst1Path toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]]];
-    [self trimAudioFileInputFilePath:inst2Path toOutputFilePath:[MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]]];
+    [self trimAudioFileInputFilePath:inst1Path toOutputFilePath:[self getAbsoluteDocumentsPath:[clap1Path lastPathComponent]] withStartTrimTime:durationToBeRemoved];
+    [self trimAudioFileInputFilePath:inst2Path toOutputFilePath:[self getAbsoluteDocumentsPath:[clap2Path lastPathComponent]] withStartTrimTime:durationToBeRemoved];
 }
 
 - (void)timeStretchRhythmsAndSave:(NSString *)firstInstr
@@ -2671,7 +2722,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
 - (NSString *)mixAudioFiles:(NSMutableArray*)audioFileURLArray
           withTotalDuration:(float)totalAudioDuration
-        withRecordingString:(NSString *)recordingString {
+        withRecordingString:(NSString *)recordingString
+                   andTempo:(float)tempo{
     
     NSError* error = nil;
     NSString *outputFile;
@@ -2699,12 +2751,20 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                                             options:nil];
         
         // If not recordings.
-        if([[fileAssetDetails objectAtIndex:0] isEqualToString:@"loopTrack"]) {
+        if(![[fileAssetDetails objectAtIndex:0] isEqualToString:@"recording"]) {
             if(CMTimeCompare(maxDuration, fileAsset.duration) == 1 || CMTimeCompare(maxDuration, fileAsset.duration) == 0 ){
                 CMTime currTime = kCMTimeZero;
+                CMTime audioDuration = fileAsset.duration;
+                
+                if(![[fileAssetDetails objectAtIndex:0] isEqualToString:@"Metronome"]) {
+                    if(tempo == 1.0f) {
+                        float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+                        
+                        audioDuration = CMTimeMakeWithSeconds(audioDurationSeconds, 10);
+                    }
+                }
                 
                 while(YES) {
-                    CMTime audioDuration = fileAsset.duration;
                     CMTime totalDuration = CMTimeAdd(currTime, audioDuration);
                     
                     if(CMTimeCompare(totalDuration, maxDuration)==1){
@@ -2760,8 +2820,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         switch (exportSession.status)
         {
             case AVAssetExportSessionStatusFailed:
+                NSLog(@"#### Failed\n");
                 break;
             case AVAssetExportSessionStatusCompleted:
+                NSLog(@"### Success\n");
                 break;
             case AVAssetExportSessionStatusWaiting:
                 break;
@@ -3612,10 +3674,12 @@ float roundUp (float value, int digits) {
      {
          if (AVAssetExportSessionStatusCompleted == exportSession.status)
          {
-                        // NSLog(@"Success!");
-             //             sound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:newPath] error:nil];
-             //             NSLog(@"Duration = %f",sound.duration);
-             
+             if(isRecordedFile) {
+                 NSFileManager *fileManager = [NSFileManager defaultManager];
+                 if ([fileManager fileExistsAtPath:inputPath]) {
+                     [fileManager removeItemAtPath:inputPath error:nil];
+                 }
+             }
          }
          else if (AVAssetExportSessionStatusFailed == exportSession.status)
          {
@@ -3625,13 +3689,15 @@ float roundUp (float value, int digits) {
 }
 
 - (void)trimAudioFileInputFilePath:(NSString *)inputPath
-                  toOutputFilePath:(NSString *)outputPath {
+                  toOutputFilePath:(NSString *)outputPath
+                 withStartTrimTime:(float)startTrimTime {
+    
     // Path of your source audio file
     NSString *strInputFilePath = inputPath;
     NSURL *audioFileInput = [NSURL fileURLWithPath:strInputFilePath];
     
     // Path of trimmed file.
-    float startTrimTime;
+    //float startTrimTime;
     float endTrimTime;
     NSURL *audioFileOutput = [NSURL fileURLWithPath:outputPath];
     
@@ -3650,7 +3716,8 @@ float roundUp (float value, int digits) {
         //return;
     }
     
-    float tempo = [_startBPM floatValue]/[originalBPM floatValue];
+    //float tempo = [_startBPM floatValue]/[originalBPM floatValue];
+    
     //startTrimTime = 0.0525/tempo;
     
     //startTrimTime = 0.0480/tempo;        //snn
@@ -3669,6 +3736,8 @@ float roundUp (float value, int digits) {
 //        //startTrimTime = (0.0480 - 0.0055)/tempo;
 //        endTrimTime = audioDurationSeconds;
 //    }
+    
+    endTrimTime = audioDurationSeconds;
     
     CMTime startTime = CMTimeMake((int)(floor(startTrimTime * 44100)), 44100);
     CMTime stopTime = CMTimeMake((int)(ceil(endTrimTime * 44100)), 44100);
@@ -3693,8 +3762,6 @@ float roundUp (float value, int digits) {
          }
      }];
 }
-
-
 
 -(void)recordingFinished{
     int value = [[userDefaults objectForKey:@"recodingid"] intValue];

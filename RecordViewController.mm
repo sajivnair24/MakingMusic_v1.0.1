@@ -1296,10 +1296,10 @@ int caraouselIndex = 0;
      {
          if (AVAssetExportSessionStatusCompleted == exportSession.status)
          {
-             //             NSLog(@"Success!");
-             //             sound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:newPath] error:nil];
-             //             NSLog(@"Duration = %f",sound.duration);
-             
+             NSFileManager *fileManager = [NSFileManager defaultManager];
+             if ([fileManager fileExistsAtPath:inputPath]) {
+                 [fileManager removeItemAtPath:inputPath error:nil];
+             }
          }
          else if (AVAssetExportSessionStatusFailed == exportSession.status)
          {

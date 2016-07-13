@@ -49,7 +49,7 @@
         
         [songNameLbl autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:playButton withOffset:DIFFERENCE_FROM_PLAY_BUTTON];
         [songNameLbl autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:10];
-       // [songNameLbl autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:60];
+        [songNameLbl autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:10];
         
         [dateLbl autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:playButton withOffset:DIFFERENCE_FROM_PLAY_BUTTON];
         [dateLbl autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:12];

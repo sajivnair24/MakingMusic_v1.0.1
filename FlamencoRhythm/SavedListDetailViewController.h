@@ -264,7 +264,8 @@
 
 - (NSString *)mixAudioFiles:(NSMutableArray*)audioFileURLArray
           withTotalDuration:(float)totalAudioDuration
-        withRecordingString:(NSString *)recordingString;
+        withRecordingString:(NSString *)recordingString
+                   andTempo:(float)tempo;
 
 - (void)setRowIndex:(int)rowIndex;
 
