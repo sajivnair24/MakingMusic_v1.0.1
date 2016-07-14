@@ -14,7 +14,7 @@
 #import "SavedListViewController.h"
 #import "RhythmClass.h"
 #import "TestFairy.h"
-
+#import "iRate.h"
 @interface AppDelegate (){
     
 }
@@ -39,9 +39,30 @@
     
     self.window.rootViewController = myNavigationController;
     [TestFairy begin:@"06f08cccd13056e2504baab36a50f47a699efcd0"];//sdk app token
+    [self setIRateConfig];
     return YES;
 }
+-(void)setIRateConfig{
+    //[iRate sharedInstance].appStoreID = 966466277;//please provide app store id
+    
+    [iRate sharedInstance].eventsUntilPrompt = 12;
+    
+    //disable minimum day limit and reminder periods
+    [iRate sharedInstance].daysUntilPrompt = 0;
+    [iRate sharedInstance].remindPeriod = 0;
+   
+    //enable preview mode
+    //for testing purpose only
+    [iRate sharedInstance].previewMode = YES;
+    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+}
+#pragma mark iRate delegate methods
 
+- (void)iRateUserDidRequestReminderToRateApp
+{
+    //reset event count after every 5 (for demo purposes)
+    [iRate sharedInstance].eventCount = 0;
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

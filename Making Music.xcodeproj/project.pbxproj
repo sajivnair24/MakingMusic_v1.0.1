@@ -286,6 +286,7 @@
 		63E17A371C0707140038176F /* SuperpoweredIOSAudioOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63E17A2E1C0707140038176F /* SuperpoweredIOSAudioOutput.mm */; };
 		63E17A381C0707140038176F /* TimeStretcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63E17A331C0707140038176F /* TimeStretcher.mm */; };
 		63E17A391C0707140038176F /* TPAACAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E17A351C0707140038176F /* TPAACAudioConverter.m */; };
+		63F354711D37669000F40BD5 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F354701D37669000F40BD5 /* iRate.m */; };
 		C004F9791B1C7359005CB244 /* RAAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C004F9781B1C7359005CB244 /* RAAlertController.m */; };
 		C005F7A51BA98D360086181F /* CustomActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = C005F7A41BA98D360086181F /* CustomActionSheet.m */; };
 		C009086A1B0F45D20095E955 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C00908691B0F45D20095E955 /* menu@2x.png */; };
@@ -672,6 +673,8 @@
 		63E17A331C0707140038176F /* TimeStretcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TimeStretcher.mm; sourceTree = "<group>"; };
 		63E17A341C0707140038176F /* TPAACAudioConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPAACAudioConverter.h; sourceTree = "<group>"; };
 		63E17A351C0707140038176F /* TPAACAudioConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPAACAudioConverter.m; sourceTree = "<group>"; };
+		63F3546F1D37669000F40BD5 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		63F354701D37669000F40BD5 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		C004F9771B1C7359005CB244 /* RAAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAAlertController.h; sourceTree = "<group>"; };
 		C004F9781B1C7359005CB244 /* RAAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAAlertController.m; sourceTree = "<group>"; };
 		C005F7A31BA98D360086181F /* CustomActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActionSheet.h; sourceTree = "<group>"; };
@@ -1105,6 +1108,7 @@
 		047009621AA6C3680081BD6E /* FlamencoRhythm */ = {
 			isa = PBXGroup;
 			children = (
+				63F3546E1D37669000F40BD5 /* iRate */,
 				4E78B5601C901D3D00860699 /* Constants.h */,
 				4E78B5501C901CBF00860699 /* PureAutoLayOut */,
 				04FA47A11B9EBA300042B279 /* SuperPoweredMetronome */,
@@ -1381,6 +1385,15 @@
 				63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		63F3546E1D37669000F40BD5 /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				63F3546F1D37669000F40BD5 /* iRate.h */,
+				63F354701D37669000F40BD5 /* iRate.m */,
+			);
+			path = iRate;
 			sourceTree = "<group>";
 		};
 		C004F9761B1C7293005CB244 /* Custom AlertView */ = {
@@ -1780,6 +1793,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63F354711D37669000F40BD5 /* iRate.m in Sources */,
 				047CFA0E1ADBBE2A00E95BDB /* CAXException.cpp in Sources */,
 				C0FF8EC91BA04563009FF11F /* MHRotaryKnob.m in Sources */,
 				047CFA111ADBBEC800E95BDB /* dywapitchtrack.c in Sources */,
@@ -1881,7 +1895,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Santosh Bangera (E9EFU9Z8CP)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
@@ -1903,7 +1917,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -1943,7 +1957,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1955,7 +1969,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Santosh Bangera (DP72HRN777)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1976,7 +1990,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2008,7 +2022,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2018,7 +2032,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Santosh Bangera (E9EFU9Z8CP)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -2031,7 +2045,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "69059462-ba27-4cbf-a62d-9b7b965f2a94";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Making Music.app/Making Music";
 			};
 			name = Debug;
@@ -2049,7 +2063,7 @@
 				INFOPLIST_FILE = FlamencoRhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "defa3b20-1184-40e9-817a-075fad639c8f";
+				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Making Music.app/Making Music";
 			};
 			name = Release;

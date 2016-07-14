@@ -86,6 +86,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *playBtn;
 @property (strong, nonatomic) IBOutlet UIButton *stopBtn;
 @property (strong, nonatomic) IBOutlet UISlider *volumeSlider;
+@property (strong, nonatomic) UILabel *lblPlayTime;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *micGainFirstLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Instrument1_Layout;

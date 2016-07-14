@@ -18,6 +18,7 @@
 #import "AudioRecorderManager.h"
 #import "PureLayout.h"
 #import "Constants.h"
+#import "iRate.h"
 
 #define DRONE_PICKERVIEW_NUMBER_OF_ROWS 20000
 // get the volume of player
@@ -228,8 +229,22 @@ int caraouselIndex = 0;
                                                object:nil];
     
     [MainNavigationViewController trimClickFile:mCurrentScore];
+    
+    [[iRate sharedInstance] logEvent:NO];
+   // [self openGenerDropDown];
+    [self addPlayTimerLabel];
 }
-
+-(void)addPlayTimerLabel{
+    
+    _lblPlayTime = [UILabel new];
+    [self.view addSubview:_lblPlayTime];
+    [_lblPlayTime autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_playBtn withOffset:2];
+    [_lblPlayTime autoAlignAxis:ALAxisVertical toSameAxisOfView:_playBtn];
+    
+    _lblPlayTime.text = @"2:30";
+    _lblPlayTime.textAlignment = NSTextAlignmentCenter ;
+    _lblPlayTime.font = [UIFont fontWithName:FONT_NAME size:12];
+}
 - (void)stopAudioPlayer:(NSNotification *)notification {
     
     if(playFlag == 1) {
@@ -1051,7 +1066,7 @@ int caraouselIndex = 0;
     
     // Play button selected and audio is playing
     if (playFlag == 0) {
-        [_stopBtn setEnabled:NO];
+       // [_stopBtn setEnabled:NO];
         playFlag = 1;
         
         //[_playBtn setBackgroundImage:[UIImage imageNamed:@"stopicon@2x.png"] forState:UIControlStateNormal];
@@ -1116,6 +1131,7 @@ int caraouselIndex = 0;
     
     // Recording button pressed
     if (stopFlag == 0) {
+        [self onTapPlayBtn:_playBtn];
         [_playBtn setSelected:YES];
         [_stopBtn setSelected:YES];
         
@@ -1911,6 +1927,9 @@ int caraouselIndex = 0;
 }
 
 - (IBAction)dropDownLblAction:(id)sender {
+    [self openGenerDropDown];
+}
+-(void)openGenerDropDown{
     [self.dropDownBgView setHidden:NO];
     self.dropDownBgView.alpha = 0.6;
     
@@ -1919,12 +1938,11 @@ int caraouselIndex = 0;
         _myNavigationController.footerFadedBackground.alpha = 0.4;
         //visualEffectView.frame = self.view.bounds;
         visualEffectView.frame = CGRectMake(0, 0, self.view.frame.size.width,  457);
-
+        
     } completion:^(BOOL finished) {
         
     }];
 }
-
 // initilize genre drop down tableview
 - (void)setUpDropDown {
     CGRect rect = CGRectMake(self.micDropDownLbl.bounds.origin.x + self.micDropDownLbl.bounds.size.width, self.micDropDownLbl.bounds.origin.y + self.micDropDownLbl.bounds.size.height, self.micDropDownLbl.bounds.size.width, self.micDropDownLbl.bounds.size.height * 2);
