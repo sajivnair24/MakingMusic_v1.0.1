@@ -192,6 +192,7 @@
 		4EBCA4E71CA934040068BB94 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBCA4E61CA934040068BB94 /* OpenGLES.framework */; };
 		4EBED0931C97DBD500B4A7B2 /* SF-UI-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EBED0921C97DBD500B4A7B2 /* SF-UI-Text-Regular.otf */; };
 		4EBED0951C9826CA00B4A7B2 /* SF-UI-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EBED0941C9826CA00B4A7B2 /* SF-UI-Text-Light.otf */; };
+		4EC037A31D7560FE007C169D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC037A21D7560FE007C169D /* MBProgressHUD.m */; };
 		59795FC41B86299B008C6F8A /* AudioRecorderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 59795FC31B86299B008C6F8A /* AudioRecorderManager.m */; };
 		59B7BAF71AD7E68300D9F86A /* close-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B7BAF61AD7E68300D9F86A /* close-icon.png */; };
 		59CA074F1ACD38C900BE6B3D /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59CA074C1ACD38C900BE6B3D /* CustomCell.m */; };
@@ -549,6 +550,8 @@
 		4EBCA4E61CA934040068BB94 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		4EBED0921C97DBD500B4A7B2 /* SF-UI-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Regular.otf"; sourceTree = "<group>"; };
 		4EBED0941C9826CA00B4A7B2 /* SF-UI-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Light.otf"; sourceTree = "<group>"; };
+		4EC037A11D7560FE007C169D /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		4EC037A21D7560FE007C169D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		59795FC21B86299B008C6F8A /* AudioRecorderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecorderManager.h; sourceTree = "<group>"; };
 		59795FC31B86299B008C6F8A /* AudioRecorderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderManager.m; sourceTree = "<group>"; };
 		59B7BAF61AD7E68300D9F86A /* close-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-icon.png"; sourceTree = "<group>"; };
@@ -1075,6 +1078,7 @@
 		047009571AA6C3680081BD6E = {
 			isa = PBXGroup;
 			children = (
+				4EC037A01D7560FE007C169D /* HUD */,
 				4EBCA4E61CA934040068BB94 /* OpenGLES.framework */,
 				4EBCA4E31CA933F10068BB94 /* AVFoundation.framework */,
 				4EBCA4E11CA933E60068BB94 /* CoreMotion.framework */,
@@ -1290,6 +1294,15 @@
 				4EBCA4DC1CA933900068BB94 /* upload-dsym.sh */,
 			);
 			path = TestFairy;
+			sourceTree = "<group>";
+		};
+		4EC037A01D7560FE007C169D /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				4EC037A11D7560FE007C169D /* MBProgressHUD.h */,
+				4EC037A21D7560FE007C169D /* MBProgressHUD.m */,
+			);
+			path = HUD;
 			sourceTree = "<group>";
 		};
 		59C561221AF9E69700699B6F /* GoogleMobileAdsSdkiOS-6.12.0 */ = {
@@ -1808,6 +1821,7 @@
 				4E78B55C1C901CBF00860699 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				04A74DC31C2BE4CA002718AA /* Reachability.m in Sources */,
 				59CA07501ACD38C900BE6B3D /* DropDown.m in Sources */,
+				4EC037A31D7560FE007C169D /* MBProgressHUD.m in Sources */,
 				04F1177C1AAEDBF700EEA97A /* iCarousel.m in Sources */,
 				4E78B5661C90245300860699 /* SoundPlayManger.mm in Sources */,
 				63C6FE331B4BA99C00394A0A /* AudioUnitRecorder.m in Sources */,
@@ -1895,8 +1909,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Santosh Bangera (E9EFU9Z8CP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Santosh Bangera (E9EFU9Z8CP)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1917,7 +1931,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -1957,7 +1971,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "ab60a534-dbfe-489e-9dd6-607b4ac0c5b1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1969,8 +1983,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Santosh Bangera (E9EFU9Z8CP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Santosh Bangera (E9EFU9Z8CP)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1990,7 +2004,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};
@@ -2022,7 +2036,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.febe.makingmusic;
 				PRODUCT_NAME = "Making Music";
-				PROVISIONING_PROFILE = "806ddffb-57f7-4a82-bc2d-47a1b6694eab";
+				PROVISIONING_PROFILE = "ab60a534-dbfe-489e-9dd6-607b4ac0c5b1";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../flamenco_rhythm/Vendor/**";
 			};

@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0470095F1AA6C3680081BD6E"
-            BuildableName = "FlamencoRhythm.app"
-            BlueprintName = "FlamencoRhythm"
-            ReferencedContainer = "container:FlamencoRhythm.xcodeproj">
+            BuildableName = "Making Music.app"
+            BlueprintName = "Making Music"
+            ReferencedContainer = "container:Making Music.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0470095F1AA6C3680081BD6E"
-            BuildableName = "FlamencoRhythm.app"
-            BlueprintName = "FlamencoRhythm"
-            ReferencedContainer = "container:FlamencoRhythm.xcodeproj">
+            BuildableName = "Making Music.app"
+            BlueprintName = "Making Music"
+            ReferencedContainer = "container:Making Music.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

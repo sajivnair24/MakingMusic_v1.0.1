@@ -1639,7 +1639,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     if (playFlag == 0) {
         _playRecBtn.userInteractionEnabled = NO;
         [_playRecBtn setBackgroundImage:[UIImage imageNamed:@"stopicon.png"] forState:UIControlStateNormal];
-        [_recordingBtn setEnabled:NO];
+        //[_recordingBtn setEnabled:NO];
         
         playFlag = 1;
         
@@ -1702,6 +1702,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         micArray = [[NSArray alloc]initWithObjects:_mic1,_mic2,_mic3,_mic4,_mic5,_mic6,_mic7,_mic8,_mic9,_mic10, nil];
         
         if (stopFlag == 0) {
+            [self resetPlayButtonWithCell];
             [_playRecBtn setUserInteractionEnabled:NO];
             [_recordingBtn setUserInteractionEnabled:NO];
             //[self.savedDetailDelegate tappedRecordButton];// delegate called
@@ -1909,121 +1910,134 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     else if(buttonIndex == 0)
     {
-        if(playFlag == 1) {
-            [self resetPlayButtonWithCell];
-        }
-        
-        float tempo = [_startBPM floatValue]/[originalBPM floatValue];
-        recordingMergeArray = [[NSMutableArray alloc] init];
-        
-        if(clapFlag1 == 1)
-        {
-            NSString *beatOneFile;
-            if(tempo == 1.0f) {
-                beatOneFile = [MainNavigationViewController getAbsBundlePath:[clap1Path lastPathComponent]];
-            } else {
-                beatOneFile = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
+        __block MBProgressHUD *hud;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            hud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.label.text = NSLocalizedString(@"Exporting...", @"");
+            
+            
+            
+        });
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            if(playFlag == 1) {
+                [self resetPlayButtonWithCell];
             }
             
-            // p1 = [p1 stringByDeletingPathExtension];
-            // p1 = [p1 stringByAppendingPathExtension:@"wav"];
-            // [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
-            //                                 p1]];
+            float tempo = [_startBPM floatValue]/[originalBPM floatValue];
+            recordingMergeArray = [[NSMutableArray alloc] init];
             
-            NSString *str = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
-            
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", beatOneFile]];
-        }
-        
-        if(clapFlag2 == 1)
-        {
-            NSString *beatTwoFile;
-            if([[clap2Path lastPathComponent] isEqualToString:@"Sync 2.m4a"]) {       //snn
-                beatTwoFile = [MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"];
-            }
-            else {
+            if(clapFlag1 == 1)
+            {
+                NSString *beatOneFile;
                 if(tempo == 1.0f) {
-                    beatTwoFile = [MainNavigationViewController getAbsBundlePath:[clap2Path lastPathComponent]];
+                    beatOneFile = [MainNavigationViewController getAbsBundlePath:[clap1Path lastPathComponent]];
                 } else {
-                    beatTwoFile = [MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]];
+                    beatOneFile = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
                 }
+                
+                // p1 = [p1 stringByDeletingPathExtension];
+                // p1 = [p1 stringByAppendingPathExtension:@"wav"];
+                // [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
+                //                                 p1]];
+                
+                NSString *str = [MainNavigationViewController getAbsDocumentsPath:[clap1Path lastPathComponent]];
+                
+                [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", beatOneFile]];
             }
             
-            // p2 = [p2 stringByDeletingPathExtension];
-            // p2 = [p2 stringByAppendingPathExtension:@"wav"];
-            // [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
-            //                                 p2]];
+            if(clapFlag2 == 1)
+            {
+                NSString *beatTwoFile;
+                if([[clap2Path lastPathComponent] isEqualToString:@"Sync 2.m4a"]) {       //snn
+                    beatTwoFile = [MainNavigationViewController getAbsDocumentsPath:@"Click.m4a"];
+                }
+                else {
+                    if(tempo == 1.0f) {
+                        beatTwoFile = [MainNavigationViewController getAbsBundlePath:[clap2Path lastPathComponent]];
+                    } else {
+                        beatTwoFile = [MainNavigationViewController getAbsDocumentsPath:[clap2Path lastPathComponent]];
+                    }
+                }
+                
+                // p2 = [p2 stringByDeletingPathExtension];
+                // p2 = [p2 stringByAppendingPathExtension:@"wav"];
+                // [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack",
+                //                                 p2]];
+                
+                [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", beatTwoFile]];
+            }
             
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", beatTwoFile]];
-        }
-        
-        if(clapFlag3 == 1)
-        {
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"Metronome", clap3Path]];
-        }
-        
-        if(clapFlag4 == 1)
-        {
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", clap4Path]];
-        }
-        
-        if(recFlag1 == 1)
-        {
-            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackOne lastPathComponent]];
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
-        }
-        
-        if(recFlag2 == 1)
-        {
-            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackTwo lastPathComponent]];
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
-        }
-        
-        if(recFlag3 == 1)
-        {
-            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackThree lastPathComponent]];
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
-        }
-        
-        if(recFlag4 == 1)
-        {
-            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackFour lastPathComponent]];
-            [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
-        }
-        
-        // If mixed file not created
-        if([recordingMergeArray count] == 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Failed !!"
-                                                            message:@"All channels are muted !"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-            return;
-        }
-        
-        NSString *mergeOutputPath = [self mixAudioFiles:recordingMergeArray
-                                      withTotalDuration:[durationStringUnFormatted intValue]
-                                    withRecordingString:currentRythmName
-                                              andTempo:tempo];
-        
-        self.shareCheckString = @"opened";
-        
-        TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.menuButton.frame];
-        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
-        
-        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            // Store reference to superview (UIActionSheet) to allow dismissal
-            openInAppActivity.superViewController = activityViewController;
-            [self presentViewController:activityViewController animated:YES completion:NULL];
-        } else {
-            // Create pop up
-            self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
-            // Store reference to superview (UIPopoverController) to allow dismissal
-            openInAppActivity.superViewController = self.activityPopoverController;
-            // Show UIActivityViewController in popup
-            [self.activityPopoverController presentPopoverFromRect:self.menuButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
+            if(clapFlag3 == 1)
+            {
+                [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"Metronome", clap3Path]];
+            }
+            
+            if(clapFlag4 == 1)
+            {
+                [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"loopTrack", clap4Path]];
+            }
+            
+            if(recFlag1 == 1)
+            {
+                NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackOne lastPathComponent]];
+                [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
+            }
+            
+            if(recFlag2 == 1)
+            {
+                NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackTwo lastPathComponent]];
+                [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
+            }
+            
+            if(recFlag3 == 1)
+            {
+                NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackThree lastPathComponent]];
+                [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
+            }
+            
+            if(recFlag4 == 1)
+            {
+                NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackFour lastPathComponent]];
+                [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
+            }
+            
+            // If mixed file not created
+            if([recordingMergeArray count] == 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Failed !!"
+                                                                message:@"All channels are muted !"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+                return;
+            }
+            
+            NSString *mergeOutputPath = [self mixAudioFiles:recordingMergeArray
+                                          withTotalDuration:[durationStringUnFormatted intValue]
+                                        withRecordingString:currentRythmName
+                                                   andTempo:tempo];
+            [hud hideAnimated:YES];
+            self.shareCheckString = @"opened";
+            
+            TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.menuButton.frame];
+            UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
+            
+            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+                // Store reference to superview (UIActionSheet) to allow dismissal
+                openInAppActivity.superViewController = activityViewController;
+                [self presentViewController:activityViewController animated:YES completion:NULL];
+            } else {
+                // Create pop up
+                self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
+                // Store reference to superview (UIPopoverController) to allow dismissal
+                openInAppActivity.superViewController = self.activityPopoverController;
+                // Show UIActivityViewController in popup
+                [self.activityPopoverController presentPopoverFromRect:self.menuButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            }
+
+            
+        });
     }
 }
 
@@ -2052,6 +2066,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     if (![textField.text isEqualToString:@""]) {
+        currentRythmName = _songNameTxtFld.text;
         [sqlManager updateRecordingNameOfRecordID:recordID updatedName:_songNameTxtFld.text];
     }
     else

@@ -15,6 +15,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVAudioPlayer.h>
 #import "DBManager.h"
+#import "MBProgressHUD.h"
 //#import <iAd/iAd.h>
 //#import "GADBannerView.h"
 #import "SavedListDetailViewController.h"
@@ -39,6 +40,7 @@
     SoundPlayManger *soundPlayer;
     //ADBannerView *iAdBannerView;
     UILabel *tableBackGroundView;
+   
     //NSLayoutConstraint *iAdBannerViewHeightConstraint;
     /********Nirma********/
     

@@ -38,7 +38,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     self.window.rootViewController = myNavigationController;
-    [TestFairy begin:@"06f08cccd13056e2504baab36a50f47a699efcd0"];//sdk app token
+    //[TestFairy begin:@"06f08cccd13056e2504baab36a50f47a699efcd0"];//sdk app token
     [self setIRateConfig];
     return YES;
 }
@@ -53,8 +53,11 @@
    
     //enable preview mode
     //for testing purpose only
-    [iRate sharedInstance].previewMode = YES;
-    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+    //[iRate sharedInstance].previewMode = YES;
+    [iRate sharedInstance].promptAtLaunch = NO;
+    [iRate sharedInstance].verboseLogging =YES;
+    
+    //[iRate sharedInstance].onlyPromptIfLatestVersion = NO;
 }
 #pragma mark iRate delegate methods
 

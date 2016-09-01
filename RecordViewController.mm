@@ -231,7 +231,7 @@ int caraouselIndex = 0;
     [MainNavigationViewController trimClickFile:mCurrentScore];
     
     [[iRate sharedInstance] logEvent:NO];
-   // [self openGenerDropDown];
+    [self openGenerDropDown];
     [self addPlayTimerLabel];
 }
 -(void)addPlayTimerLabel{
@@ -244,6 +244,17 @@ int caraouselIndex = 0;
     _lblPlayTime.text = @"2:30";
     _lblPlayTime.textAlignment = NSTextAlignmentCenter ;
     _lblPlayTime.font = [UIFont fontWithName:FONT_NAME size:12];
+}
+-(void)updatePlayTimer:(NSTimer *)timer{
+    seconds++;
+    if(seconds == 60)
+    {
+        seconds = 0;
+        minutes++;
+    }
+    duration = [NSString stringWithFormat:@"%.2d:%.2d", minutes, seconds];
+    // timer value change
+    [_lblPlayTime setText:duration];
 }
 - (void)stopAudioPlayer:(NSNotification *)notification {
     
@@ -778,6 +789,7 @@ int caraouselIndex = 0;
     duration = [NSString stringWithFormat:@"%.2d:%.2d", minutes, seconds];
     // timer value change
     [_recordTimerText setText:duration];
+    
 }
 
 - (void) updateMicGain:(NSNotification *) notification {
@@ -1063,10 +1075,11 @@ int caraouselIndex = 0;
 
 - (IBAction)onTapPlayBtn:(id)sender {
     // Show 2 Labels
-    
+    _lblPlayTime.text = @"";
     // Play button selected and audio is playing
     if (playFlag == 0) {
        // [_stopBtn setEnabled:NO];
+        
         playFlag = 1;
         
         //[_playBtn setBackgroundImage:[UIImage imageNamed:@"stopicon@2x.png"] forState:UIControlStateNormal];
@@ -1128,7 +1141,7 @@ int caraouselIndex = 0;
 - (IBAction)onTapStopBtn:(id)sender {
     //    [self enableDropDownLbl:YES];
     // change 2 buttons image
-    
+    _lblPlayTime.text = @"";
     // Recording button pressed
     if (stopFlag == 0) {
         [self onTapPlayBtn:_playBtn];
@@ -2228,11 +2241,13 @@ int caraouselIndex = 0;
 //        _playTimer = nil;
 //        seconds = 0;
 //        minutes = 0;
-//        _playTimer = [NSTimer scheduledTimerWithTimeInterval: 1.0f
-//                                                      target: self
-//                                                    selector:@selector(onPlayTimer:)
-//                                                    userInfo: nil repeats:YES];
-//        [[NSRunLoop mainRunLoop] addTimer:_playTimer forMode:NSRunLoopCommonModes];
+        [_playTimer invalidate];
+        _playTimer = nil;
+        _playTimer = [NSTimer scheduledTimerWithTimeInterval: 1.0f
+                                                     target: self
+                                                    selector:@selector(updatePlayTimer:)
+                                                    userInfo: nil repeats:YES];
+       [[NSRunLoop mainRunLoop] addTimer:_playTimer forMode:NSRunLoopCommonModes];
         //[_playTimer fire];
     }
     

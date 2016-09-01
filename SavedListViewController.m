@@ -188,6 +188,7 @@ static NSString *cellIdentifier = @"CELL";
                                              selector:@selector(stopAudioPlayer:)
                                                  name:@"stopAudioPlayerNotification"
                                                object:nil];
+   
 }
 
 -(void)addTableBackGroundView{
@@ -399,33 +400,50 @@ static NSString *cellIdentifier = @"CELL";
 }
 
 -(void)shareSoundTrackAtIndexPath:(int)index{
-    [soundPlayer stopAllSound];
-    [self soundStopped];
+    __block MBProgressHUD *hud;
+    __block NSString *mergeOutputPath = @"";
+    dispatch_async(dispatch_get_main_queue(), ^{
+        hud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = NSLocalizedString(@"Exporting...", @"");
+
+       
+
+    });
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        // Do something...
+        [self soundStopped];
+        
+        RecordingListData *cellData = [songList objectAtIndex:index];
+        
+        mergeOutputPath = [soundPlayer loadFilesForMixingAndSharing:cellData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if([mergeOutputPath isEqualToString:@""])
+            return;
+        
+        
+        
+        TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.view.frame];
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
+        
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            // Store reference to superview (UIActionSheet) to allow dismissal
+            openInAppActivity.superViewController = activityViewController;
+            // Show UIActivityViewController
+            [self presentViewController:activityViewController animated:YES completion:NULL];
+        } else {
+            // Create pop up
+            self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
+            // Store reference to superview (UIPopoverController) to allow dismissal
+            openInAppActivity.superViewController = self.activityPopoverController;
+            // Show UIActivityViewController in popup
+            [self.activityPopoverController presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            //            [self.activityPopoverController presentPopoverFromRect:((UIButton *)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+
+    });
     
-    RecordingListData *cellData = [songList objectAtIndex:index];
-     NSString *mergeOutputPath = [soundPlayer loadFilesForMixingAndSharing:cellData];
-    if([mergeOutputPath isEqualToString:@""])
-        return;
     
-    TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.view.frame];
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
-    
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        // Store reference to superview (UIActionSheet) to allow dismissal
-        openInAppActivity.superViewController = activityViewController;
-        // Show UIActivityViewController
-        [self presentViewController:activityViewController animated:YES completion:NULL];
-    } else {
-        // Create pop up
-        self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
-        // Store reference to superview (UIPopoverController) to allow dismissal
-        openInAppActivity.superViewController = self.activityPopoverController;
-        // Show UIActivityViewController in popup
-        [self.activityPopoverController presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        //            [self.activityPopoverController presentPopoverFromRect:((UIButton *)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
-    
-    //[self refreshTableView];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
