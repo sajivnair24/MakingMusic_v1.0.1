@@ -39,7 +39,7 @@
     
     self.window.rootViewController = myNavigationController;
     //[TestFairy begin:@"06f08cccd13056e2504baab36a50f47a699efcd0"];//sdk app token
-    [self setIRateConfig];
+    //[self setIRateConfig];
     return YES;
 }
 -(void)setIRateConfig{

@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SoundParameters : NSObject
-
+@property(nonatomic ,strong) NSString *soundUrl;
+@property(nonatomic ,strong) NSString *soundPan;
+@property(nonatomic ,strong) NSString *soundVolume;
 @end

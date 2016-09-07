@@ -127,7 +127,7 @@ static OSStatus renderInput(void *inRefCon,
         // this is the format for the graph
         mAudioFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32
                                                         sampleRate:kGraphSampleRate
-                                                          channels:2              //sn
+                                                          channels:2
                                                        interleaved:NO];
         OSStatus result = noErr;
         

@@ -400,6 +400,7 @@ static NSString *cellIdentifier = @"CELL";
 }
 
 -(void)shareSoundTrackAtIndexPath:(int)index{
+    // NSString *mergeOutputPath = @"";
     __block MBProgressHUD *hud;
     __block NSString *mergeOutputPath = @"";
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -413,7 +414,7 @@ static NSString *cellIdentifier = @"CELL";
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         // Do something...
         [self soundStopped];
-        
+        [soundPlayer stopAllSound];
         RecordingListData *cellData = [songList objectAtIndex:index];
         
         mergeOutputPath = [soundPlayer loadFilesForMixingAndSharing:cellData];

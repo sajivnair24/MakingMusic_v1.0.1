@@ -204,7 +204,7 @@ int caraouselIndex = 0;
                                                  name:@"stopAudioPlayerNotification"
                                                object:nil];
     
-    
+    [self addUpDownArrowsToDrone];
     [self addBackButton];
     [self changeBackGroundColors];
     [self addSlider];
@@ -212,6 +212,7 @@ int caraouselIndex = 0;
     [self addClap3Image];
     [self addBlurrEffect];
     [self addHeadPhoneMicDropDownButton];
+    
     _recordTimerText.font = [UIFont fontWithName:FONT_LIGHT size:30];
     
     if(![self isHeadphoneConnected]) {
@@ -230,20 +231,42 @@ int caraouselIndex = 0;
     
     [MainNavigationViewController trimClickFile:mCurrentScore];
     
-    [[iRate sharedInstance] logEvent:NO];
+    
     [self openGenerDropDown];
     [self addPlayTimerLabel];
+  
+}
+-(void)addUpDownArrowsToDrone{
+    UIImage *upArrowImage = [UIImage imageNamed:@"upArrow"];
+    UIImage *downArrowImage = [UIImage imageNamed:@"downArrow"];
+    UIImageView *topArrow = [[UIImageView alloc]initWithFrame:CGRectZero];
+    [self.view insertSubview:topArrow belowSubview:self.dronePickerBackView];
+    
+    [topArrow autoSetDimensionsToSize:upArrowImage.size];
+    [topArrow autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView: self.dronePickerBackView withOffset:-2];
+    [topArrow autoAlignAxis:ALAxisVertical toSameAxisOfView:self.dronePickerBackView];
+    
+    UIImageView *bottomArrow = [[UIImageView alloc]initWithFrame:CGRectZero];
+     [self.view insertSubview:bottomArrow belowSubview:self.dronePickerBackView];
+   // [self.view addSubview:bottomArrow];
+    
+    [bottomArrow autoSetDimensionsToSize:downArrowImage.size];
+    [bottomArrow autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView: self.dronePickerBackView withOffset:2];
+    [bottomArrow autoAlignAxis:ALAxisVertical toSameAxisOfView:self.dronePickerBackView];
+    
+     //topArrow.backgroundColor = bottomArrow.backgroundColor = [UIColor blueColor];
+    topArrow.image = upArrowImage;
+    bottomArrow.image = downArrowImage;
 }
 -(void)addPlayTimerLabel{
     
     _lblPlayTime = [UILabel new];
-    [self.view addSubview:_lblPlayTime];
-    [_lblPlayTime autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_playBtn withOffset:2];
-    [_lblPlayTime autoAlignAxis:ALAxisVertical toSameAxisOfView:_playBtn];
-    
-    _lblPlayTime.text = @"2:30";
+    [_playBtn addSubview:_lblPlayTime];
+    [_lblPlayTime autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    [_lblPlayTime autoAlignAxis:ALAxisVertical toSameAxisOfView:_playBtn withOffset:16];
+    _lblPlayTime.text = @"";
     _lblPlayTime.textAlignment = NSTextAlignmentCenter ;
-    _lblPlayTime.font = [UIFont fontWithName:FONT_NAME size:12];
+    _lblPlayTime.font = [UIFont fontWithName:FONT_MEDIUM size:13];
 }
 -(void)updatePlayTimer:(NSTimer *)timer{
     seconds++;
@@ -779,7 +802,7 @@ int caraouselIndex = 0;
     
     counter++;    redCounter++;
 }
--(void)onPlayTimer:(NSTimer *)timer {
+-(void)onRecordTimer:(NSTimer *)timer {
     seconds++;
     if(seconds == 60)
     {
@@ -1079,11 +1102,11 @@ int caraouselIndex = 0;
     // Play button selected and audio is playing
     if (playFlag == 0) {
        // [_stopBtn setEnabled:NO];
-        
+        _lblPlayTime.text = @"00:00";
         playFlag = 1;
         
         //[_playBtn setBackgroundImage:[UIImage imageNamed:@"stopicon@2x.png"] forState:UIControlStateNormal];
-        [_playBtn setBackgroundImage:[UIImage imageNamed:@"stopicon"] forState:UIControlStateNormal];
+        [_playBtn setBackgroundImage:[UIImage imageNamed:@"playstop"] forState:UIControlStateNormal];
         [_playTimerBtn setHidden:NO];
         [_playStopBtn setHidden:NO];
         _playBtn.userInteractionEnabled = NO;
@@ -1141,7 +1164,7 @@ int caraouselIndex = 0;
 - (IBAction)onTapStopBtn:(id)sender {
     //    [self enableDropDownLbl:YES];
     // change 2 buttons image
-    _lblPlayTime.text = @"";
+   
     // Recording button pressed
     if (stopFlag == 0) {
         [self onTapPlayBtn:_playBtn];
@@ -1171,6 +1194,7 @@ int caraouselIndex = 0;
         // [self startRecord]; // Start recording
     } // End of recording button
     else if (stopFlag == 1) {
+        //[[iRate sharedInstance] logEvent:NO];
         [self micHides];
         [self updateBpmText];
         
@@ -1210,6 +1234,7 @@ int caraouselIndex = 0;
         [_bpmView setHidden:NO];
         [_micView setHidden:NO];
     }
+     _lblPlayTime.text = @"";
 }
 - (IBAction)onTapPlusBtn:(id)sender {
     if (mCurrentScore < 240) {
@@ -2202,7 +2227,7 @@ int caraouselIndex = 0;
         _recordTimer = nil;
         _recordTimer = [NSTimer scheduledTimerWithTimeInterval: 1.0f
                                                         target: self
-                                                      selector:@selector(onPlayTimer:)
+                                                      selector:@selector(onRecordTimer:)
                                                       userInfo: nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:_recordTimer forMode:NSRunLoopCommonModes];
         

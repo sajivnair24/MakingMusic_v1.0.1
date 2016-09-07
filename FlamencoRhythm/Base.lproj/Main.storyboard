@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -1081,7 +1081,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Fc-jh-J26" secondAttribute="trailing" id="eeJ-23-v1Y"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3C54A3CE-FCC4-400E-B59D-05E86D675363" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3928FE57-2D54-4B31-A8B0-24F62A58A2E5" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
                                         <rect key="frame" x="0.0" y="64" width="600" height="72"/>
                                     </imageView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwJ-Ky-7ck" userLabel="iCarousel" customClass="iCarousel">
@@ -1686,10 +1686,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3C54A3CE-FCC4-400E-B59D-05E86D675363" width="320" height="74">
+        <image name="3928FE57-2D54-4B31-A8B0-24F62A58A2E5" width="320" height="74">
             <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
-GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
+YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
+GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
 DBIAwAAAgAKACtISCRMVWk5TLm9iamVjdHOhFIADgAnSEgkXGqIYGYAEgAWACBAA0h0JHh9fEBROU1RJ
 RkZSZXByZXNlbnRhdGlvboAGgAdPEgABfw5NTQAqAAFyCAN6//8Dev//A3r//wN6//8Dev//A3r//wN6
 //8Dev//A3r//wN6//8Dev//A3r//wN6//8Dev//A3r//wN6//8Dev//A3r//wN6//8Dev//A3r//wN6
@@ -3326,15 +3326,14 @@ xFHEzsVLxcjGRsbDx0HHv8g9yLzJOsm5yjjKt8s2y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB
 00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp22vvbgNwF3IrdEN2W3hzeot8p36/gNuC94UThzOJT
 4tvjY+Pr5HPk/OWE5g3mlucf56noMui86Ubp0Opb6uXrcOv77IbtEe2c7ijutO9A78zwWPDl8XLx//KM
 8xnzp/Q09ML1UPXe9m32+/eK+Bn4qPk4+cf6V/rn+3f8B/yY/Sn9uv5L/tz/bf//0iIjJCVaJGNsYXNz
-bmFtZVgkY2xhc3Nlc18QEE5TQml0bWFwSW1hZ2VSZXCjJicoXxAQTlNCaXRtYXBJbWFnZVJlcFpOU0lt
-YWdlUmVwWE5TT2JqZWN00iIjKitXTlNBcnJheaIqKNIiIy0uXk5TTXV0YWJsZUFycmF5oy0qKNMwMQky
-MzRXTlNXaGl0ZVxOU0NvbG9yU3BhY2VEMCAwABADgAvSIiM2N1dOU0NvbG9yojYo0iIjOTpXTlNJbWFn
-ZaI5KF8QD05TS2V5ZWRBcmNoaXZlctE9PlRyb290gAEAAAAIAAAAEQAAABoAAAAjAAAALQAAADIAAAA3
-AAAARQAAAEsAAABUAAAAWwAAAGgAAABvAAAAdwAAAHkAAAB+AAAAgAAAAIIAAACHAAAAkgAAAJQAAACW
-AAAAmAAAAJ0AAACgAAAAogAAAKQAAACmAAAAqAAAAK0AAADEAAAAxgAAAMgAAX/cAAF/4QABf+wAAX/1
-AAGACAABgAwAAYAfAAGAKgABgDMAAYA4AAGAQAABgEMAAYBIAAGAVwABgFsAAYBiAAGAagABgHcAAYB8
-AAGAfgABgIAAAYCFAAGAjQABgJAAAYCVAAGAnQABgKAAAYCyAAGAtQABgLoAAAAAAAAEAQAAAAAAAAA/
-AAAAAAAAAAAAAAAAAAGAvA
+bmFtZVgkY2xhc3Nlc18QEE5TQml0bWFwSW1hZ2VSZXCjJCYnWk5TSW1hZ2VSZXBYTlNPYmplY3TSIiMp
+KldOU0FycmF5oikn0iIjLC1eTlNNdXRhYmxlQXJyYXmjLCkn0y8wCTEyM1dOU1doaXRlXE5TQ29sb3JT
+cGFjZUQwIDAAEAOAC9IiIzU2V05TQ29sb3KiNSfSIiM4OVdOU0ltYWdlojgnXxAPTlNLZXllZEFyY2hp
+dmVy0Tw9VHJvb3SAAQAAAAgAAAARAAAAGgAAACMAAAAtAAAAMgAAADcAAABFAAAASwAAAFQAAABbAAAA
+aAAAAG8AAAB3AAAAeQAAAH4AAACAAAAAggAAAIcAAACSAAAAlAAAAJYAAACYAAAAnQAAAKAAAACiAAAA
+pAAAAKYAAACoAAAArQAAAMQAAADGAAAAyAABf9wAAX/hAAF/7AABf/UAAYAIAAGADAABgBcAAYAgAAGA
+JQABgC0AAYAwAAGANQABgEQAAYBIAAGATwABgFcAAYBkAAGAaQABgGsAAYBtAAGAcgABgHoAAYB9AAGA
+ggABgIoAAYCNAAGAnwABgKIAAYCnAAAAAAAABAEAAAAAAAAAPgAAAAAAAAAAAAAAAAABgKk
 </mutableData>
         </image>
         <image name="Bar.png" width="620" height="86"/>

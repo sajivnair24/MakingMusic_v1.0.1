@@ -177,6 +177,7 @@
 		04F20A7A1AE53E5E007E5880 /* flat.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F20A781AE53E5E007E5880 /* flat.png */; };
 		04F20A7B1AE53E5E007E5880 /* sharp.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F20A791AE53E5E007E5880 /* sharp.png */; };
 		04FA47A81B9EBA300042B279 /* MetronomePlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04FA47A31B9EBA300042B279 /* MetronomePlayer.mm */; };
+		4E504AC41D7FD4B9006EF957 /* SoundParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E504AC31D7FD4B9006EF957 /* SoundParameters.m */; };
 		4E66D1E51C9BF56800BE54B9 /* SF-UI-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E66D1E41C9BF56800BE54B9 /* SF-UI-Text-Medium.otf */; };
 		4E78B55A1C901CBF00860699 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E78B5521C901CBF00860699 /* ALView+PureLayout.m */; };
 		4E78B55B1C901CBF00860699 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E78B5541C901CBF00860699 /* NSArray+PureLayout.m */; };
@@ -503,8 +504,8 @@
 		04A74DC11C2BE4CA002718AA /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		04A74DC21C2BE4CA002718AA /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		04B04CC91AFCBD1100AF3666 /* bar_lightgrey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bar_lightgrey@3x.png"; sourceTree = "<group>"; };
-		04BA1DB31AB01AEE0036FCD3 /* CustomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomScrollView.h; sourceTree = "<group>"; };
-		04BA1DB41AB01AEE0036FCD3 /* CustomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomScrollView.m; sourceTree = "<group>"; };
+		04BA1DB31AB01AEE0036FCD3 /* CustomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomScrollView.h; path = ../CustomScrollView.h; sourceTree = "<group>"; };
+		04BA1DB41AB01AEE0036FCD3 /* CustomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomScrollView.m; path = ../CustomScrollView.m; sourceTree = "<group>"; };
 		04CE8AA61B85AFDA00B6DC08 /* MultichannelMixerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultichannelMixerController.h; sourceTree = "<group>"; };
 		04CE8AA71B85AFDA00B6DC08 /* MultichannelMixerController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MultichannelMixerController.mm; sourceTree = "<group>"; };
 		04CE8AA91B85B02A00B6DC08 /* CAComponentDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAComponentDescription.cpp; sourceTree = "<group>"; };
@@ -526,6 +527,8 @@
 		04F20A791AE53E5E007E5880 /* sharp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sharp.png; sourceTree = "<group>"; };
 		04FA47A21B9EBA300042B279 /* MetronomePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetronomePlayer.h; sourceTree = "<group>"; };
 		04FA47A31B9EBA300042B279 /* MetronomePlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetronomePlayer.mm; sourceTree = "<group>"; };
+		4E504AC21D7FD4B9006EF957 /* SoundParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundParameters.h; sourceTree = "<group>"; };
+		4E504AC31D7FD4B9006EF957 /* SoundParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundParameters.m; sourceTree = "<group>"; };
 		4E66D1E41C9BF56800BE54B9 /* SF-UI-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Medium.otf"; sourceTree = "<group>"; };
 		4E78B5511C901CBF00860699 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
 		4E78B5521C901CBF00860699 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
@@ -539,8 +542,8 @@
 		4E78B55D1C901D1F00860699 /* SessionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionCell.h; sourceTree = "<group>"; };
 		4E78B55E1C901D1F00860699 /* SessionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionCell.m; sourceTree = "<group>"; };
 		4E78B5601C901D3D00860699 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		4E78B5641C90245300860699 /* SoundPlayManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayManger.h; sourceTree = "<group>"; };
-		4E78B5651C90245300860699 /* SoundPlayManger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SoundPlayManger.mm; sourceTree = "<group>"; };
+		4E78B5641C90245300860699 /* SoundPlayManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundPlayManger.h; path = ../SoundPlayManger.h; sourceTree = "<group>"; };
+		4E78B5651C90245300860699 /* SoundPlayManger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SoundPlayManger.mm; path = ../SoundPlayManger.mm; sourceTree = "<group>"; };
 		4EBCA4DA1CA933900068BB94 /* libTestFairy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFairy.a; sourceTree = "<group>"; };
 		4EBCA4DB1CA933900068BB94 /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFairy.h; sourceTree = "<group>"; };
 		4EBCA4DC1CA933900068BB94 /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "upload-dsym.sh"; sourceTree = "<group>"; };
@@ -1078,22 +1081,15 @@
 		047009571AA6C3680081BD6E = {
 			isa = PBXGroup;
 			children = (
-				4EC037A01D7560FE007C169D /* HUD */,
 				4EBCA4E61CA934040068BB94 /* OpenGLES.framework */,
 				4EBCA4E31CA933F10068BB94 /* AVFoundation.framework */,
 				4EBCA4E11CA933E60068BB94 /* CoreMotion.framework */,
 				4EBCA4DF1CA933DA0068BB94 /* CoreMedia.framework */,
-				4EBCA4D91CA933900068BB94 /* TestFairy */,
-				63DD40A01C9187F5005469CB /* Fonts */,
-				4E78B5641C90245300860699 /* SoundPlayManger.h */,
-				4E78B5651C90245300860699 /* SoundPlayManger.mm */,
 				048479871BF0D59C00B20ECD /* libz.tbd */,
 				048479851BF0D59300B20ECD /* libc++.tbd */,
 				048479831BF0D58B00B20ECD /* SystemConfiguration.framework */,
 				048479811BF0D58100B20ECD /* CoreTelephony.framework */,
 				63D32DA81B4CEBBB00DADF62 /* Framework */,
-				04BA1DB31AB01AEE0036FCD3 /* CustomScrollView.h */,
-				04BA1DB41AB01AEE0036FCD3 /* CustomScrollView.m */,
 				047009621AA6C3680081BD6E /* FlamencoRhythm */,
 				0470097C1AA6C3680081BD6E /* FlamencoRhythmTests */,
 				047009611AA6C3680081BD6E /* Products */,
@@ -1112,49 +1108,21 @@
 		047009621AA6C3680081BD6E /* FlamencoRhythm */ = {
 			isa = PBXGroup;
 			children = (
-				63F3546E1D37669000F40BD5 /* iRate */,
-				4E78B5601C901D3D00860699 /* Constants.h */,
-				4E78B5501C901CBF00860699 /* PureAutoLayOut */,
+				4E504AC11D7FD482006EF957 /* Reachability */,
+				63DD40A01C9187F5005469CB /* Fonts */,
+				4E504AC01D7FD45C006EF957 /* App Delegate */,
+				4E504ABF1D7FD38B006EF957 /* MusicFiles */,
+				4E504ABE1D7FD33B006EF957 /* ThirdParties */,
+				4E504ABD1D7FD2F4006EF957 /* CustomClasses */,
+				4E504ABC1D7FD2D9006EF957 /* Extra */,
+				4E504ABB1D7FD2B8006EF957 /* View */,
+				4E504ABA1D7FD23A006EF957 /* Controllers */,
+				4E504AB91D7FD22A006EF957 /* Models */,
+				4E504AB81D7FD211006EF957 /* Utilty */,
 				04FA47A11B9EBA300042B279 /* SuperPoweredMetronome */,
-				04CE8AA61B85AFDA00B6DC08 /* MultichannelMixerController.h */,
-				04CE8AA71B85AFDA00B6DC08 /* MultichannelMixerController.mm */,
-				C0F9F82D1B26AFDE0008D78C /* TTOpenInAppActivity */,
-				C0FF8EC61BA04563009FF11F /* MHRotaryKnob */,
-				C004F9761B1C7293005CB244 /* Custom AlertView */,
-				047CFA121ADBBF3600E95BDB /* CTPitchTracker.h */,
-				047CFA131ADBBF3600E95BDB /* CTPitchTracker.mm */,
-				047CFA101ADBBEC800E95BDB /* dywapitchtrack.c */,
-				047CF9FE1ADBBE2A00E95BDB /* iPublicUtility */,
 				047CFA081ADBBE2A00E95BDB /* Vendor */,
 				044EFB601AC28B5800941E3A /* Resources */,
 				04DCEA1C1AB986F90008C50B /* Database file */,
-				047009671AA6C3680081BD6E /* AppDelegate.h */,
-				047009681AA6C3680081BD6E /* AppDelegate.m */,
-				4E78B55D1C901D1F00860699 /* SessionCell.h */,
-				4E78B55E1C901D1F00860699 /* SessionCell.m */,
-				C005F7A31BA98D360086181F /* CustomActionSheet.h */,
-				C005F7A41BA98D360086181F /* CustomActionSheet.m */,
-				0470098F1AA6C8680081BD6E /* MainNavigationViewController.h */,
-				047009901AA6C8680081BD6E /* MainNavigationViewController.mm */,
-				63C6FE341B4BA9B300394A0A /* InMemoryAudioFile.h */,
-				63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */,
-				63C6FE311B4BA99C00394A0A /* AudioUnitRecorder.h */,
-				63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */,
-				047009891AA6C6F70081BD6E /* RecordViewController.h */,
-				0470098A1AA6C6F70081BD6E /* RecordViewController.mm */,
-				59795FC21B86299B008C6F8A /* AudioRecorderManager.h */,
-				59795FC31B86299B008C6F8A /* AudioRecorderManager.m */,
-				0470098C1AA6C71B0081BD6E /* SavedListViewController.h */,
-				0470098D1AA6C71B0081BD6E /* SavedListViewController.m */,
-				59DFCCE01B949652008F6D28 /* SavedListDetailViewController.h */,
-				59DFCCE11B949652008F6D28 /* SavedListDetailViewController.mm */,
-				C09A8E1F1AADC9D20071D8AF /* FrequencyViewController.h */,
-				C09A8E201AADC9D20071D8AF /* FrequencyViewController.mm */,
-				C05960541AA754B800D803A6 /* protypeTableCell.h */,
-				C05960551AA754B800D803A6 /* protypeTableCell.m */,
-				04A74DC11C2BE4CA002718AA /* Reachability.h */,
-				04A74DC21C2BE4CA002718AA /* Reachability.m */,
-				59CA07511ACD39A800BE6B3D /* DropDown */,
 				0470096D1AA6C3680081BD6E /* Main.storyboard */,
 				C0B341721B15BE500003B667 /* 4sStoryboard.storyboard */,
 				047009701AA6C3680081BD6E /* Images.xcassets */,
@@ -1270,6 +1238,163 @@
 			path = SuperPoweredMetronome;
 			sourceTree = "<group>";
 		};
+		4E504AB81D7FD211006EF957 /* Utilty */ = {
+			isa = PBXGroup;
+			children = (
+				4E78B5601C901D3D00860699 /* Constants.h */,
+			);
+			name = Utilty;
+			sourceTree = "<group>";
+		};
+		4E504AB91D7FD22A006EF957 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4E504AC21D7FD4B9006EF957 /* SoundParameters.h */,
+				4E504AC31D7FD4B9006EF957 /* SoundParameters.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4E504ABA1D7FD23A006EF957 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E504AC91D7FD56C006EF957 /* Frequency */,
+				4E504AC81D7FD55D006EF957 /* MainNavigation */,
+				4E504AC71D7FD54C006EF957 /* RecordingDetail */,
+				4E504AC61D7FD53D006EF957 /* Recording */,
+				4E504AC51D7FD530006EF957 /* TableList */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		4E504ABB1D7FD2B8006EF957 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E78B55D1C901D1F00860699 /* SessionCell.h */,
+				4E78B55E1C901D1F00860699 /* SessionCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		4E504ABC1D7FD2D9006EF957 /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				C05960541AA754B800D803A6 /* protypeTableCell.h */,
+				C05960551AA754B800D803A6 /* protypeTableCell.m */,
+			);
+			name = Extra;
+			sourceTree = "<group>";
+		};
+		4E504ABD1D7FD2F4006EF957 /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				04BA1DB31AB01AEE0036FCD3 /* CustomScrollView.h */,
+				04BA1DB41AB01AEE0036FCD3 /* CustomScrollView.m */,
+				59CA07511ACD39A800BE6B3D /* DropDown */,
+				C004F9761B1C7293005CB244 /* Custom AlertView */,
+				C005F7A31BA98D360086181F /* CustomActionSheet.h */,
+				C005F7A41BA98D360086181F /* CustomActionSheet.m */,
+			);
+			name = CustomClasses;
+			sourceTree = "<group>";
+		};
+		4E504ABE1D7FD33B006EF957 /* ThirdParties */ = {
+			isa = PBXGroup;
+			children = (
+				4EBCA4D91CA933900068BB94 /* TestFairy */,
+				4EC037A01D7560FE007C169D /* HUD */,
+				047CF9FE1ADBBE2A00E95BDB /* iPublicUtility */,
+				C0F9F82D1B26AFDE0008D78C /* TTOpenInAppActivity */,
+				C0FF8EC61BA04563009FF11F /* MHRotaryKnob */,
+				4E78B5501C901CBF00860699 /* PureAutoLayOut */,
+				63F3546E1D37669000F40BD5 /* iRate */,
+			);
+			name = ThirdParties;
+			sourceTree = "<group>";
+		};
+		4E504ABF1D7FD38B006EF957 /* MusicFiles */ = {
+			isa = PBXGroup;
+			children = (
+				4E78B5641C90245300860699 /* SoundPlayManger.h */,
+				4E78B5651C90245300860699 /* SoundPlayManger.mm */,
+				63C6FE341B4BA9B300394A0A /* InMemoryAudioFile.h */,
+				63C6FE351B4BA9B300394A0A /* InMemoryAudioFile.m */,
+				63C6FE311B4BA99C00394A0A /* AudioUnitRecorder.h */,
+				63C6FE321B4BA99C00394A0A /* AudioUnitRecorder.m */,
+				59795FC21B86299B008C6F8A /* AudioRecorderManager.h */,
+				59795FC31B86299B008C6F8A /* AudioRecorderManager.m */,
+				047CFA101ADBBEC800E95BDB /* dywapitchtrack.c */,
+				04CE8AA61B85AFDA00B6DC08 /* MultichannelMixerController.h */,
+				04CE8AA71B85AFDA00B6DC08 /* MultichannelMixerController.mm */,
+				047CFA121ADBBF3600E95BDB /* CTPitchTracker.h */,
+				047CFA131ADBBF3600E95BDB /* CTPitchTracker.mm */,
+			);
+			name = MusicFiles;
+			sourceTree = "<group>";
+		};
+		4E504AC01D7FD45C006EF957 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				047009671AA6C3680081BD6E /* AppDelegate.h */,
+				047009681AA6C3680081BD6E /* AppDelegate.m */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		4E504AC11D7FD482006EF957 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				04A74DC11C2BE4CA002718AA /* Reachability.h */,
+				04A74DC21C2BE4CA002718AA /* Reachability.m */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
+		4E504AC51D7FD530006EF957 /* TableList */ = {
+			isa = PBXGroup;
+			children = (
+				0470098C1AA6C71B0081BD6E /* SavedListViewController.h */,
+				0470098D1AA6C71B0081BD6E /* SavedListViewController.m */,
+			);
+			name = TableList;
+			sourceTree = "<group>";
+		};
+		4E504AC61D7FD53D006EF957 /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				047009891AA6C6F70081BD6E /* RecordViewController.h */,
+				0470098A1AA6C6F70081BD6E /* RecordViewController.mm */,
+			);
+			name = Recording;
+			sourceTree = "<group>";
+		};
+		4E504AC71D7FD54C006EF957 /* RecordingDetail */ = {
+			isa = PBXGroup;
+			children = (
+				59DFCCE01B949652008F6D28 /* SavedListDetailViewController.h */,
+				59DFCCE11B949652008F6D28 /* SavedListDetailViewController.mm */,
+			);
+			name = RecordingDetail;
+			sourceTree = "<group>";
+		};
+		4E504AC81D7FD55D006EF957 /* MainNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				0470098F1AA6C8680081BD6E /* MainNavigationViewController.h */,
+				047009901AA6C8680081BD6E /* MainNavigationViewController.mm */,
+			);
+			name = MainNavigation;
+			sourceTree = "<group>";
+		};
+		4E504AC91D7FD56C006EF957 /* Frequency */ = {
+			isa = PBXGroup;
+			children = (
+				C09A8E1F1AADC9D20071D8AF /* FrequencyViewController.h */,
+				C09A8E201AADC9D20071D8AF /* FrequencyViewController.mm */,
+			);
+			name = Frequency;
+			sourceTree = "<group>";
+		};
 		4E78B5501C901CBF00860699 /* PureAutoLayOut */ = {
 			isa = PBXGroup;
 			children = (
@@ -1293,7 +1418,8 @@
 				4EBCA4DB1CA933900068BB94 /* TestFairy.h */,
 				4EBCA4DC1CA933900068BB94 /* upload-dsym.sh */,
 			);
-			path = TestFairy;
+			name = TestFairy;
+			path = ../TestFairy;
 			sourceTree = "<group>";
 		};
 		4EC037A01D7560FE007C169D /* HUD */ = {
@@ -1302,7 +1428,8 @@
 				4EC037A11D7560FE007C169D /* MBProgressHUD.h */,
 				4EC037A21D7560FE007C169D /* MBProgressHUD.m */,
 			);
-			path = HUD;
+			name = HUD;
+			path = ../HUD;
 			sourceTree = "<group>";
 		};
 		59C561221AF9E69700699B6F /* GoogleMobileAdsSdkiOS-6.12.0 */ = {
@@ -1398,6 +1525,7 @@
 				63CABCB61CB7BD7600E6FBEE /* SFUIDisplay-Ultralight.ttf */,
 			);
 			name = Fonts;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		63F3546E1D37669000F40BD5 /* iRate */ = {
@@ -1841,6 +1969,7 @@
 				63E17A391C0707140038176F /* TPAACAudioConverter.m in Sources */,
 				04DCEA1F1AB989E20008C50B /* GenreClass.m in Sources */,
 				C0F9F8371B26AFDE0008D78C /* TTOpenInAppActivity.m in Sources */,
+				4E504AC41D7FD4B9006EF957 /* SoundParameters.m in Sources */,
 				047009911AA6C8680081BD6E /* MainNavigationViewController.mm in Sources */,
 				4E78B55A1C901CBF00860699 /* ALView+PureLayout.m in Sources */,
 				047CFA0B1ADBBE2A00E95BDB /* CADebugMacros.cpp in Sources */,
