@@ -10,4 +10,12 @@
 
 @implementation SoundParameters
 
+-(id)init{
+    self = [super init];
+    if (self) {
+        self.soundPan = 0;
+        self.soundVolume = 1;
+    }
+    return self;
+}
 @end

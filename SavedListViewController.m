@@ -18,6 +18,7 @@
 #import "PureLayout.h"
 
 
+
 #define NUM_TOP_ITEMS 20
 #define NUM_SUBITEMS 6
 
@@ -54,46 +55,14 @@ static NSString *cellIdentifier = @"CELL";
 {
     [super viewWillAppear:animated];
     
-    //    songList = [[NSMutableArray alloc] initWithObjects:@"Tangos (100 BPM A#)",@"My Second Song",@"My Third Song",@"My Forth Song",@"Thriller Remix",@"MC Hammer"@"Save The World",@"Get Down",@"Get Up",@"Good Morning", nil];
-    
-//    if(songList != nil)
-//        [_expander updateRecordingDb];
-    
+      
     songList = [[NSMutableArray alloc] init];
     songList = [sqlManager getAllRecordingData];
    
     //[self removeAdBannerView];   //sn
     [self refreshTableView];
     [self setTableBackGroundView];
-   /* [_songTableView reloadData];
    
-        if ([_selctRow isEqualToString:@"yes"]) {
-            _selctRow = @"no";
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//            [self.songTableView selectRowAtIndexPath:indexPath
-//                                            animated:YES
-//                                      scrollPosition:UITableViewScrollPositionNone];
-            
-                [self tableView:self.songTableView didSelectRowAtIndexPath:indexPath];
-            
-            
-        }
-    [self setNeedsStatusBarAppearanceUpdate];
-   
-    if ([self.expander.shareCheckString isEqualToString:@"comeback"]) {
-        [self addChildViewController:self.expander];
-        self.expander.view.frame = self.view.bounds;
-        self.expander.collapseButton.alpha = 1;
-        [self.view addSubview:self.expander.view];
-        [self.expander didMoveToParentViewController:self];
-        
-    }
-    
-    [self removeAdBannerView];*/
-    // [self.view bringSubviewToFront:_bannerView];
-    //_bannerView.frame = CGRectMake(_bannerView.frame.origin.x, self.view.frame.size.height-_bannerView.frame.size.height-50, _bannerView.frame.size.width, _bannerView.frame.size.height);
-    
-    //[self.view bringSubviewToFront:iAdBannerView];  //sn
 }
 
 -(void)addRecordingTableView{
@@ -422,28 +391,31 @@ static NSString *cellIdentifier = @"CELL";
         if([mergeOutputPath isEqualToString:@""])
             return;
         
+        [self openAppActivityWithUrl:mergeOutputPath];
         
-        
-        TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.view.frame];
-        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
-        
-        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            // Store reference to superview (UIActionSheet) to allow dismissal
-            openInAppActivity.superViewController = activityViewController;
-            // Show UIActivityViewController
-            [self presentViewController:activityViewController animated:YES completion:NULL];
-        } else {
-            // Create pop up
-            self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
-            // Store reference to superview (UIPopoverController) to allow dismissal
-            openInAppActivity.superViewController = self.activityPopoverController;
-            // Show UIActivityViewController in popup
-            [self.activityPopoverController presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            //            [self.activityPopoverController presentPopoverFromRect:((UIButton *)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-
     });
     
+    
+}
+-(void)openAppActivityWithUrl:(NSString *)mergeOutputPath{
+    
+    TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.view.frame];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        // Store reference to superview (UIActionSheet) to allow dismissal
+        openInAppActivity.superViewController = activityViewController;
+        // Show UIActivityViewController
+        [self presentViewController:activityViewController animated:YES completion:NULL];
+    } else {
+        // Create pop up
+        self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
+        // Store reference to superview (UIPopoverController) to allow dismissal
+        openInAppActivity.superViewController = self.activityPopoverController;
+        // Show UIActivityViewController in popup
+        [self.activityPopoverController presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
+    }
     
 }
 

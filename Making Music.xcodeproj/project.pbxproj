@@ -179,11 +179,14 @@
 		04FA47A81B9EBA300042B279 /* MetronomePlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04FA47A31B9EBA300042B279 /* MetronomePlayer.mm */; };
 		4E504AC41D7FD4B9006EF957 /* SoundParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E504AC31D7FD4B9006EF957 /* SoundParameters.m */; };
 		4E66D1E51C9BF56800BE54B9 /* SF-UI-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E66D1E41C9BF56800BE54B9 /* SF-UI-Text-Medium.otf */; };
+		4E6ECEED1D811DF8001732C4 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E6ECEEC1D811DF8001732C4 /* Accelerate.framework */; };
+		4E6ECEF31D8125CE001732C4 /* SoundExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6ECEF21D8125CE001732C4 /* SoundExporter.m */; };
 		4E78B55A1C901CBF00860699 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E78B5521C901CBF00860699 /* ALView+PureLayout.m */; };
 		4E78B55B1C901CBF00860699 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E78B5541C901CBF00860699 /* NSArray+PureLayout.m */; };
 		4E78B55C1C901CBF00860699 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E78B5561C901CBF00860699 /* NSLayoutConstraint+PureLayout.m */; };
 		4E78B55F1C901D1F00860699 /* SessionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E78B55E1C901D1F00860699 /* SessionCell.m */; };
 		4E78B5661C90245300860699 /* SoundPlayManger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4E78B5651C90245300860699 /* SoundPlayManger.mm */; };
+		4E7BD7851D828B5D00BCF2AD /* Click AccentedNew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BD7841D828B5D00BCF2AD /* Click AccentedNew.wav */; };
 		4EBCA4DD1CA933900068BB94 /* libTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBCA4DA1CA933900068BB94 /* libTestFairy.a */; };
 		4EBCA4DE1CA933900068BB94 /* upload-dsym.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCA4DC1CA933900068BB94 /* upload-dsym.sh */; };
 		4EBCA4E01CA933DA0068BB94 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBCA4DF1CA933DA0068BB94 /* CoreMedia.framework */; };
@@ -199,7 +202,6 @@
 		59CA074F1ACD38C900BE6B3D /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59CA074C1ACD38C900BE6B3D /* CustomCell.m */; };
 		59CA07501ACD38C900BE6B3D /* DropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 59CA074E1ACD38C900BE6B3D /* DropDown.m */; };
 		59D033B41AD528AA00F199DF /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D033B31AD528AA00F199DF /* arrow@2x.png */; };
-		59D215701AD677A800292D13 /* Click AccentedNew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 59D2156F1AD677A800292D13 /* Click AccentedNew.wav */; };
 		59DFCCE21B949652008F6D28 /* SavedListDetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59DFCCE11B949652008F6D28 /* SavedListDetailViewController.mm */; };
 		6305D13F1CBF7DC2002550CA /* Jungle 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 6305D13E1CBF7DC2002550CA /* Jungle 1.m4a */; };
 		6305D15C1CBF7F3C002550CA /* Alegrias 1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 6305D1401CBF7F3C002550CA /* Alegrias 1.m4a */; };
@@ -530,6 +532,9 @@
 		4E504AC21D7FD4B9006EF957 /* SoundParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundParameters.h; sourceTree = "<group>"; };
 		4E504AC31D7FD4B9006EF957 /* SoundParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundParameters.m; sourceTree = "<group>"; };
 		4E66D1E41C9BF56800BE54B9 /* SF-UI-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Medium.otf"; sourceTree = "<group>"; };
+		4E6ECEEC1D811DF8001732C4 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		4E6ECEF11D8125CE001732C4 /* SoundExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundExporter.h; sourceTree = "<group>"; };
+		4E6ECEF21D8125CE001732C4 /* SoundExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundExporter.m; sourceTree = "<group>"; };
 		4E78B5511C901CBF00860699 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
 		4E78B5521C901CBF00860699 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
 		4E78B5531C901CBF00860699 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
@@ -544,6 +549,7 @@
 		4E78B5601C901D3D00860699 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		4E78B5641C90245300860699 /* SoundPlayManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundPlayManger.h; path = ../SoundPlayManger.h; sourceTree = "<group>"; };
 		4E78B5651C90245300860699 /* SoundPlayManger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SoundPlayManger.mm; path = ../SoundPlayManger.mm; sourceTree = "<group>"; };
+		4E7BD7841D828B5D00BCF2AD /* Click AccentedNew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Click AccentedNew.wav"; sourceTree = "<group>"; };
 		4EBCA4DA1CA933900068BB94 /* libTestFairy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFairy.a; sourceTree = "<group>"; };
 		4EBCA4DB1CA933900068BB94 /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFairy.h; sourceTree = "<group>"; };
 		4EBCA4DC1CA933900068BB94 /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "upload-dsym.sh"; sourceTree = "<group>"; };
@@ -578,7 +584,6 @@
 		59CA074D1ACD38C900BE6B3D /* DropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDown.h; sourceTree = "<group>"; };
 		59CA074E1ACD38C900BE6B3D /* DropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDown.m; sourceTree = "<group>"; };
 		59D033B31AD528AA00F199DF /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
-		59D2156F1AD677A800292D13 /* Click AccentedNew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Click AccentedNew.wav"; path = "../Click AccentedNew.wav"; sourceTree = "<group>"; };
 		59DFCCE01B949652008F6D28 /* SavedListDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedListDetailViewController.h; sourceTree = "<group>"; };
 		59DFCCE11B949652008F6D28 /* SavedListDetailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SavedListDetailViewController.mm; sourceTree = "<group>"; };
 		6305D13E1CBF7DC2002550CA /* Jungle 1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Jungle 1.m4a"; sourceTree = "<group>"; };
@@ -715,6 +720,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E6ECEED1D811DF8001732C4 /* Accelerate.framework in Frameworks */,
 				4EBCA4E71CA934040068BB94 /* OpenGLES.framework in Frameworks */,
 				4EBCA4E51CA933FD0068BB94 /* SystemConfiguration.framework in Frameworks */,
 				4EBCA4E41CA933F10068BB94 /* AVFoundation.framework in Frameworks */,
@@ -756,6 +762,7 @@
 		044EFB7A1AC28B5800941E3A /* Music_Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E7BD7841D828B5D00BCF2AD /* Click AccentedNew.wav */,
 				044EFC271AC28B5800941E3A /* Rock & Country */,
 				044EFBCB1AC28B5800941E3A /* Hip Hop & R'n'B */,
 				044EFB8C1AC28B5800941E3A /* Dance */,
@@ -900,7 +907,6 @@
 		044EFBDB1AC28B5800941E3A /* Indian */ = {
 			isa = PBXGroup;
 			children = (
-				59D2156F1AD677A800292D13 /* Click AccentedNew.wav */,
 				044EFBDC1AC28B5800941E3A /* Bhangra 1 1.m4a */,
 				044EFBDD1AC28B5800941E3A /* Bhangra 1 2.m4a */,
 				044EFBDE1AC28B5800941E3A /* Bhangra 2 1.m4a */,
@@ -1081,6 +1087,7 @@
 		047009571AA6C3680081BD6E = {
 			isa = PBXGroup;
 			children = (
+				4E6ECEEC1D811DF8001732C4 /* Accelerate.framework */,
 				4EBCA4E61CA934040068BB94 /* OpenGLES.framework */,
 				4EBCA4E31CA933F10068BB94 /* AVFoundation.framework */,
 				4EBCA4E11CA933E60068BB94 /* CoreMotion.framework */,
@@ -1242,6 +1249,8 @@
 			isa = PBXGroup;
 			children = (
 				4E78B5601C901D3D00860699 /* Constants.h */,
+				4E6ECEF11D8125CE001732C4 /* SoundExporter.h */,
+				4E6ECEF21D8125CE001732C4 /* SoundExporter.m */,
 			);
 			name = Utilty;
 			sourceTree = "<group>";
@@ -1665,6 +1674,7 @@
 				044EFD1E1AC28B5800941E3A /* Triplet Kicks.m4a in Resources */,
 				6305D1A71CBF82FA002550CA /* Teentaal 2.m4a in Resources */,
 				C0F9F83C1B26AFDE0008D78C /* TTOpenInAppActivity8@2x.png in Resources */,
+				4E7BD7851D828B5D00BCF2AD /* Click AccentedNew.wav in Resources */,
 				6305D16C1CBF7F3C002550CA /* Sevillanas 1.m4a in Resources */,
 				044EFCD81AC28B5800941E3A /* Bhangra 1 1.m4a in Resources */,
 				044EFC891AC28B5800941E3A /* Reggaeton 1.m4a in Resources */,
@@ -1708,7 +1718,6 @@
 				044EFD301AC28B5800941E3A /* Triplets 1.m4a in Resources */,
 				6305D19F1CBF82FA002550CA /* Keherwa 2.m4a in Resources */,
 				044EFD151AC28B5800941E3A /* Four Down.m4a in Resources */,
-				59D215701AD677A800292D13 /* Click AccentedNew.wav in Resources */,
 				6305D1D21CBF9F71002550CA /* db.m4a in Resources */,
 				C0B341731B15BE500003B667 /* 4sStoryboard.storyboard in Resources */,
 				044EFD161AC28B5800941E3A /* Lombardo Ride.m4a in Resources */,
@@ -1978,6 +1987,7 @@
 				63E17A381C0707140038176F /* TimeStretcher.mm in Sources */,
 				04FA47A81B9EBA300042B279 /* MetronomePlayer.mm in Sources */,
 				047251DA1AF0C14B003420E1 /* DroneName.m in Sources */,
+				4E6ECEF31D8125CE001732C4 /* SoundExporter.m in Sources */,
 				59CA074F1ACD38C900BE6B3D /* CustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

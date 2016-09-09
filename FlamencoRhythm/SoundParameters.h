@@ -7,9 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+enum SoundType{
+       kSoundTypeRecording,
+       kSoundTypeLoopTrack,
+       kSoundTypeMetrome
+};
 
 @interface SoundParameters : NSObject
 @property(nonatomic ,strong) NSString *soundUrl;
-@property(nonatomic ,strong) NSString *soundPan;
-@property(nonatomic ,strong) NSString *soundVolume;
+@property(nonatomic ,assign) int soundPan;
+@property(nonatomic ,assign) int soundVolume;
+@property(nonatomic ,assign) enum SoundType soundType;
+@property(nonatomic ,assign) float soundLeftChannelVolume;
+@property(nonatomic ,assign) float soundRightChannelVolume;
 @end
