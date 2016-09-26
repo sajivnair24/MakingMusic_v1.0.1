@@ -14,7 +14,7 @@
 #import "SavedListViewController.h"
 #import "RhythmClass.h"
 #import "TestFairy.h"
-#import "iRate.h"
+//#import "iRate.h"
 @interface AppDelegate (){
     
 }
@@ -45,7 +45,7 @@
 -(void)setIRateConfig{
     //[iRate sharedInstance].appStoreID = 966466277;//please provide app store id
     
-    [iRate sharedInstance].eventsUntilPrompt = 12;
+    /*[iRate sharedInstance].eventsUntilPrompt = 12;
     
     //disable minimum day limit and reminder periods
     [iRate sharedInstance].daysUntilPrompt = 0;
@@ -55,7 +55,7 @@
     //for testing purpose only
     //[iRate sharedInstance].previewMode = YES;
     [iRate sharedInstance].promptAtLaunch = NO;
-    [iRate sharedInstance].verboseLogging =YES;
+    [iRate sharedInstance].verboseLogging =YES;*/
     
     //[iRate sharedInstance].onlyPromptIfLatestVersion = NO;
 }
@@ -64,7 +64,7 @@
 - (void)iRateUserDidRequestReminderToRateApp
 {
     //reset event count after every 5 (for demo purposes)
-    [iRate sharedInstance].eventCount = 0;
+   // [iRate sharedInstance].eventCount = 0;
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

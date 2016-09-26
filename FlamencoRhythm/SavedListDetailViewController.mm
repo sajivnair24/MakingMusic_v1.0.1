@@ -3199,8 +3199,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     NSString *documentsDirectory = [paths objectAtIndex:0];
     clap3Path = [documentsDirectory stringByAppendingPathComponent:@"/Click.m4a"];
     
-    clap4Path = [NSString stringWithFormat:@"%@/C.wav", [[NSBundle mainBundle] resourcePath]];
-    
+    //clap4Path = [NSString stringWithFormat:@"%@/C.wav", [[NSBundle mainBundle] resourcePath]];
+    clap4Path = [self locationOfFileWithName:[NSString stringWithFormat:@"%@.m4a", _droneType]];
     firstKnob = _firstVolumeKnob;
     secondKnob = _secondVolumeKnob;
     thirdKnob = _thirdVolumeKnob;

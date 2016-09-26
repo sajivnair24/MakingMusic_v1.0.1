@@ -18,7 +18,7 @@
 #import "AudioRecorderManager.h"
 #import "PureLayout.h"
 #import "Constants.h"
-#import "iRate.h"
+//#import "iRate.h"
 
 #define DRONE_PICKERVIEW_NUMBER_OF_ROWS 20000
 // get the volume of player
