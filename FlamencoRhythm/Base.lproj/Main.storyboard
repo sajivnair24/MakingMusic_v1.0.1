@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -427,7 +427,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="33" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifc-Ri-9SC" userLabel="recBtn3">
-                                <rect key="frame" x="169" y="245" width="60" height="60"/>
+                                <rect key="frame" x="168" y="245" width="60" height="60"/>
                                 <state key="normal" backgroundImage="three_darkgrey.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1081,7 +1081,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Fc-jh-J26" secondAttribute="trailing" id="eeJ-23-v1Y"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3928FE57-2D54-4B31-A8B0-24F62A58A2E5" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CB2037BC-83CD-4373-A8AF-BBDD2C18DD21" translatesAutoresizingMaskIntoConstraints="NO" id="EIO-mD-Wga">
                                         <rect key="frame" x="0.0" y="64" width="600" height="72"/>
                                     </imageView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwJ-Ky-7ck" userLabel="iCarousel" customClass="iCarousel">
@@ -1686,7 +1686,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3928FE57-2D54-4B31-A8B0-24F62A58A2E5" width="320" height="74">
+        <image name="Bar.png" width="620" height="86"/>
+        <image name="BlockBlue.png" width="620" height="86"/>
+        <image name="CB2037BC-83CD-4373-A8AF-BBDD2C18DD21" width="320" height="74">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -3336,8 +3338,6 @@ JQABgC0AAYAwAAGANQABgEQAAYBIAAGATwABgFcAAYBkAAGAaQABgGsAAYBtAAGAcgABgHoAAYB9AAGA
 ggABgIoAAYCNAAGAnwABgKIAAYCnAAAAAAAABAEAAAAAAAAAPgAAAAAAAAAAAAAAAAABgKk
 </mutableData>
         </image>
-        <image name="Bar.png" width="620" height="86"/>
-        <image name="BlockBlue.png" width="620" height="86"/>
         <image name="Cajon.png" width="61" height="61"/>
         <image name="Cajon_disabled.png" width="60" height="60"/>
         <image name="Claps.png" width="92" height="92"/>

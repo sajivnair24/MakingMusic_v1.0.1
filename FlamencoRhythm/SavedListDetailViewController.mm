@@ -288,7 +288,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         [_rotatryT4 setHidden:YES];
     }
     else if ([_recTrackThree isEqualToString:@"-1"]) {
-        
+       // NSLog(@" _recTrackThree three_redoutline ");
         [_thirdVolumeKnob setBackgroundImage:[UIImage imageNamed:@"three_redoutline.png"] forState:UIControlStateNormal];
         [_fourthVolumeKnob setBackgroundImage:[UIImage imageNamed:@"four_greyoutline.png"] forState:UIControlStateNormal];
         [_rotatryT3 setHidden:YES];
@@ -353,6 +353,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
     _fourthVolumeKnob.selected = recFlag4;
     [self setRotaryKnobImage:_rotatryT4 isSelected:_fourthVolumeKnob.isSelected];
+   // NSLog(@"_thirdVolumeKnob back ground image %@ = ",_thirdVolumeKnob.currentBackgroundImage.CGImage);
 }
 
 -(void)setInstuemntsAndKnobs{
@@ -710,7 +711,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 -(void)handleSingleTap:(UITapGestureRecognizer *)sender
 {
     UIControl *control = sender.view;
-    
+    NSLog(@"handle Tap Gestures array %@",sender.view.gestureRecognizers);
     if (control.tag == 1 )
     {
         if (clapFlag1 == 0 ) {
@@ -1697,12 +1698,14 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             
             return;
         }
-        
+    
         [_recordingBGView setHidden:NO];
+    
         micArray = [[NSArray alloc]initWithObjects:_mic1,_mic2,_mic3,_mic4,_mic5,_mic6,_mic7,_mic8,_mic9,_mic10, nil];
         
         if (stopFlag == 0) {
             [self resetPlayButtonWithCell];
+            [_recordingBGView setHidden:NO];
             [_playRecBtn setUserInteractionEnabled:NO];
             [_recordingBtn setUserInteractionEnabled:NO];
             //[self.savedDetailDelegate tappedRecordButton];// delegate called
@@ -2081,6 +2084,9 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if(stopFlag == 1){
+        return;
+    }
     [_songNameTxtFld resignFirstResponder];
     didHold = NO;
     UITouch *t = [[event allTouches] anyObject];
@@ -2509,6 +2515,12 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                action:@selector(handleSingleTap:)];
         [knob addGestureRecognizer:tapGestureRecognizer];
+        if(knob.tag >=5){
+            UILongPressGestureRecognizer *longPressForKnob = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongPress:)];
+            longPressForKnob.minimumPressDuration = .5; //seconds
+            longPressForKnob.delegate = self;
+            [knob addGestureRecognizer:longPressForKnob];
+        }
     }
 }
 
@@ -4371,6 +4383,8 @@ float roundUp (float value, int digits) {
 }
 
 - (void) LongPress:(UILongPressGestureRecognizer *)gesture{
+    NSLog(@" long press pressed");
+    NSLog(@"Play Flag Value = =%d",playFlag);
     if (playFlag != 1) {
         
         UIButton *button = (UIButton *)gesture.view;
