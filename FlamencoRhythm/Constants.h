@@ -63,4 +63,9 @@ enum UserInputMic { kUserInput_BuiltIn, kUserInput_Headphone };
 #define DELETE_BUTTON_COLOR 0xfb4438
 #define SHARE_BUTTON_COLOR 0xceced2
 #define LIGHT_GRAY_COLOR [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1]
+
+
+#define ASYNC(...) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ __VA_ARGS__ })
+#define ASYNC_MAIN(...) dispatch_async(dispatch_get_main_queue(), ^{ __VA_ARGS__ })
+
 #endif /* Constants_h */

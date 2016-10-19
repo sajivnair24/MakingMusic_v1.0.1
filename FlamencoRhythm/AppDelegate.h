@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "MainNavigationViewController.h"
-
+#import "SoundPlayManger.h"
 @class RecordViewController;
 @class SavedListViewController;
 @class  RhythmClass;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,SoundManagerDelegate>{
+    SoundPlayManger *soundManager;
+    int totalNumberOfWaveFiles;
+    int convertedWavFilesNumber;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MainNavigationViewController *myNavigationController;

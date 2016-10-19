@@ -17,6 +17,10 @@
 
 @optional
 -(void)soundStopped;
+-(void)wavConvertedIntoM4A;
+-(void)trackExportedWithUrl:(NSString*)url;
+-(void)trackExportedFailed;
+-(void)tracksMuted;
 @end
 
 
@@ -42,10 +46,14 @@
 @property (nonatomic, assign) id<SoundManagerDelegate> delegate;
 - (void) playSelectedRecording:(RecordingListData *)data;
 
-- (NSString *)loadFilesForMixingAndSharing:(RecordingListData *)data;
+- (void)loadFilesForMixingAndSharing:(RecordingListData *)data;
 
-
+-(void)trimAndConvertRecordedWavFileToM4A:(NSString*)waveFilePath;
 -(void)stopAllSound;
+-(void)mixAudioFiles:(NSMutableArray*)audioFileURLArray
+   withTotalDuration:(float)totalAudioDuration
+ withRecordingString:(NSString *)recordingString
+            andTempo:(float)tempo;
 @property (strong, nonatomic) NSNumber *startBPM;
 @property (strong, nonatomic) NSString *droneType;
 @property (strong, nonatomic) NSString *recTrackOne,*recTrackTwo,*recTrackThree,*recTrackFour;

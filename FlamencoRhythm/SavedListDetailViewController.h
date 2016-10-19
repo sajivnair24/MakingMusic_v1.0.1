@@ -21,6 +21,7 @@
 #import "TTOpenInAppActivity.h"
 #import "CustomActionSheet.h"
 #import "MBProgressHUD.h"
+#import "SoundPlayManger.h"
 
 // Add new instance variable
 
@@ -42,7 +43,7 @@
 
 //@interface SavedListDetailViewController : UIViewController<UIGestureRecognizerDelegate,AVAudioPlayerDelegate,UIActionSheetDelegate,UITextFieldDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
-@interface SavedListDetailViewController : UIViewController<UIGestureRecognizerDelegate,AVAudioPlayerDelegate,UIActionSheetDelegate,UITextFieldDelegate>
+@interface SavedListDetailViewController : UIViewController<UIGestureRecognizerDelegate,AVAudioPlayerDelegate,UIActionSheetDelegate,UITextFieldDelegate,SoundManagerDelegate>
 {
     NSArray *topItems;
     NSArray *currentOutputs;

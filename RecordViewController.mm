@@ -1299,6 +1299,11 @@ int caraouselIndex = 0;
 
 - (void)trimAudioFileWithInputFilePath :(NSString *)inputPath toOutputFilePath : (NSString *)outputPath{
     // Path of your source audio file
+    
+    ASYNC_MAIN(
+             MBProgressHUD *hud =  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+               hud.label.text = NSLocalizedString(@"saving...", @"");
+               );
     NSString *strInputFilePath = inputPath;
     NSURL *audioFileInput = [NSURL fileURLWithPath:strInputFilePath];
     
@@ -1348,6 +1353,7 @@ int caraouselIndex = 0;
     
     [exportSession exportAsynchronouslyWithCompletionHandler:^
      {
+        
          if (AVAssetExportSessionStatusCompleted == exportSession.status)
          {
              NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -1359,6 +1365,11 @@ int caraouselIndex = 0;
          {
              // NSLog(@"failed");
          }
+         ASYNC_MAIN(
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [self saveRecordedFileIndatabaseAndOpenDetailViewController];
+                    );
+         
      }];
 }
 
@@ -1381,6 +1392,11 @@ int caraouselIndex = 0;
     
     NSString *str = [NSString stringWithFormat:@"Recording_%d_%@.wav",value,[self timeStamp]];
     [self renameFileName:@"MyAudioMemo.wav" withNewName:str];
+    
+  
+}
+-(void)saveRecordedFileIndatabaseAndOpenDetailViewController{
+     int value = [[userDefaults objectForKey:@"recodingid"] intValue];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat: @"MM/dd/yyyy"];
@@ -1442,7 +1458,6 @@ int caraouselIndex = 0;
     RecordingListData *recordingData = [saveRhythm getFirstRecordingData];
     [_myNavigationController openDetailRecordingView:recordingData atIndex:value];
 }
-
 - (IBAction)onChangeBPM:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     RhythmClass *rhytmObj = appDelegate.latestRhythmClass;

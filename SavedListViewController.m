@@ -131,13 +131,7 @@ static NSString *cellIdentifier = @"CELL";
    // [recordingTableView setEditing:YES];
 }
 
--(void)soundStopped {
-    for (int i = 0; i<[songList count]; i++) {
-        RecordingListData *cellData = [songList objectAtIndex:i];
-        cellData.isSoundPlaying = NO;
-    }
-    [self refreshTableView];
-}
+
 
 -(UIView*)getHeaderView{
     UIView *backgroundView = [[UIView alloc]init];
@@ -417,31 +411,7 @@ static NSString *cellIdentifier = @"CELL";
         [soundPlayer stopAllSound];
         RecordingListData *cellData = [songList objectAtIndex:index];
         
-        mergeOutputPath = [soundPlayer loadFilesForMixingAndSharing:cellData];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if([mergeOutputPath isEqualToString:@""])
-            return;
-        
-        
-        
-        TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.view.frame];
-        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
-        
-        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            // Store reference to superview (UIActionSheet) to allow dismissal
-            openInAppActivity.superViewController = activityViewController;
-            // Show UIActivityViewController
-            [self presentViewController:activityViewController animated:YES completion:NULL];
-        } else {
-            // Create pop up
-            self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
-            // Store reference to superview (UIPopoverController) to allow dismissal
-            openInAppActivity.superViewController = self.activityPopoverController;
-            // Show UIActivityViewController in popup
-            [self.activityPopoverController presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            //            [self.activityPopoverController presentPopoverFromRect:((UIButton *)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-
+        [soundPlayer loadFilesForMixingAndSharing:cellData];
     });
     
     
@@ -525,7 +495,70 @@ static NSString *cellIdentifier = @"CELL";
     //[self removeAdBannerView];
     
 }
+-(void)exportNotPossibleAlertView{
+    ASYNC_MAIN(
+               [MBProgressHUD hideHUDForView:self.view animated:YES];
+               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Export Failed" preferredStyle:UIAlertControllerStyleAlert];
+               [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+    }]];
+               
+               [self presentViewController:alertController animated:YES completion:nil];
+               );
+    
+    
+}
+#pragma mark soundManager delegate
+-(void)soundStopped {
+    for (int i = 0; i<[songList count]; i++) {
+        RecordingListData *cellData = [songList objectAtIndex:i];
+        cellData.isSoundPlaying = NO;
+    }
+    [self refreshTableView];
+}
+-(void)trackExportedFailed{
+    [self exportNotPossibleAlertView];
+}
+-(void)tracksMuted{
+    ASYNC_MAIN(    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Failed !!"
+                                                                   message:@"All channels are muted !"
+                                                                  delegate:nil
+                                                         cancelButtonTitle:@"OK"
+                                                         otherButtonTitles:nil];
+               [alert show];
+               );
 
+
+}
+-(void)trackExportedWithUrl:(NSString *)mergeOutputPath{
+    ASYNC_MAIN(
+               [MBProgressHUD hideHUDForView:self.view animated:YES];
+               if([mergeOutputPath isEqualToString:@""])
+               return;
+               
+               
+               
+               TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.view.frame];
+               UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
+               
+               if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+                   // Store reference to superview (UIActionSheet) to allow dismissal
+                   openInAppActivity.superViewController = activityViewController;
+                   // Show UIActivityViewController
+                   [self presentViewController:activityViewController animated:YES completion:NULL];
+               } else {
+                   // Create pop up
+                   self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
+                   // Store reference to superview (UIPopoverController) to allow dismissal
+                   openInAppActivity.superViewController = self.activityPopoverController;
+                   // Show UIActivityViewController in popup
+                   [self.activityPopoverController presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                   //            [self.activityPopoverController presentPopoverFromRect:((UIButton *)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+               }
+
+    );
+    
+
+}
 -(void)removeAdBannerView {
 //    if([MainNavigationViewController inAppPurchaseEnabled]) {
 //        [self.bannerView removeFromSuperview];

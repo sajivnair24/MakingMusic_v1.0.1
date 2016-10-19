@@ -361,7 +361,7 @@
     [self performSelector:@selector(startAUGraphVC) withObject:self afterDelay:1.0];
 }
 
-- (NSString *)loadFilesForMixingAndSharing:(RecordingListData *)data {
+- (void)loadFilesForMixingAndSharing:(RecordingListData *)data {
     [self setDataFromRecord:data forSharing:YES];
     NSString *fileLocation;
     
@@ -451,26 +451,17 @@
     }
     
     if([mixArray count] == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Failed !!"
-                                                        message:@"All channels are muted !"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return @"";
+        [self.delegate tracksMuted];
+        return ;
     }
+    //  NSString *mergeOutputPath =
+  [self mixAudioFiles:mixArray
+        withTotalDuration:songDuration
+        withRecordingString:currentRythmName
+                andTempo:tempo];
     
-    NSString *mergeOutputPath = [listController mixAudioFiles:mixArray
-                                            withTotalDuration:songDuration
-                                          withRecordingString:currentRythmName
-                                                     andTempo:tempo];
     
-    NSString *beatsDirectory = [self getAbsoluteDocumentsPath:@"Beats"];
-    if ([[NSFileManager defaultManager] isDeletableFileAtPath:beatsDirectory]) {
-        [[NSFileManager defaultManager] removeItemAtPath:beatsDirectory error:nil];
-    }
-    
-    return mergeOutputPath;
+    //return mergeOutputPath;
 }
 
 -(void)startAUGraphVC{
@@ -666,6 +657,218 @@
     if ([[NSFileManager defaultManager] isDeletableFileAtPath:inputPath]) {
         [[NSFileManager defaultManager] removeItemAtPath:inputPath error:&error];
     }
+}
+
+-(void)trimAndConvertRecordedWavFileToM4A:(NSString*)waveFilePath{
+    NSString *m4AOutPutFilePath = [waveFilePath stringByDeletingPathExtension];
+     m4AOutPutFilePath = [m4AOutPutFilePath stringByAppendingString:@".m4a"];
+    
+     NSURL *audioFileOutput = [NSURL fileURLWithPath:m4AOutPutFilePath];
+    
+    
+     NSURL *audioFileInput = [NSURL fileURLWithPath:waveFilePath];
+    AVAsset *asset = [AVAsset assetWithURL:audioFileInput];
+    CMTime audioDuration = asset.duration;
+    float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+    [[NSFileManager defaultManager] removeItemAtURL:audioFileOutput error:NULL];
+     AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
+    
+    float startTrimTime;
+    float endTrimTime;
+    
+    if([MainNavigationViewController isIPhoneOlderThanVersion6])
+        startTrimTime = 0.117;
+    else
+        startTrimTime = 0.15;
+    // End time till which you want the audio file to be saved.
+    // For eg. your file's length.
+    endTrimTime = audioDurationSeconds;
+  
+    
+    CMTime startTime = CMTimeMake((int)(floor(startTrimTime * 44100)), 44100);
+    CMTime stopTime = CMTimeMake((int)(ceil(endTrimTime * 44100)), 44100);
+    CMTimeRange exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime);
+    
+    exportSession.outputURL = audioFileOutput;
+    exportSession.outputFileType = AVFileTypeAppleM4A;
+    exportSession.timeRange = exportTimeRange;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^
+     {
+        [self.delegate wavConvertedIntoM4A];
+         if (AVAssetExportSessionStatusCompleted == exportSession.status)
+         {
+            
+                 
+                 
+                 NSFileManager *fileManager = [NSFileManager defaultManager];
+                 if ([fileManager fileExistsAtPath:waveFilePath]) {
+                     [fileManager removeItemAtPath:waveFilePath error:nil];
+                 }
+            
+             
+                 
+             
+         }
+         else if (AVAssetExportSessionStatusFailed == exportSession.status)
+         {
+             // NSLog(@"failed");
+         }
+     }];
+
+}
+-(void)mixAudioFiles:(NSMutableArray*)audioFileURLArray
+       withTotalDuration:(float)totalAudioDuration
+       withRecordingString:(NSString *)recordingString
+       andTempo:(float)tempo{
+    
+    NSError* error = nil;
+    NSString *outputFile;
+    
+    AVURLAsset* fileAsset;
+    NSArray *fileAssetDetails;
+    AVAssetExportSession* exportSession;
+    AVMutableCompositionTrack* audioTrack;
+    
+    int length = (int)[audioFileURLArray count];
+    
+    AVMutableComposition* composition = [AVMutableComposition composition];
+    
+    // Get the maximum duration of files to be mixed.
+    CMTime maxDuration = [self getMaxAudioAssetDuration:audioFileURLArray withTotalAudioDuration:totalAudioDuration];
+    
+    for(int i = 0; i < length; i++) {
+        
+        audioTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio
+                                              preferredTrackID:kCMPersistentTrackID_Invalid];
+        
+        fileAssetDetails = [[audioFileURLArray objectAtIndex:i] componentsSeparatedByString: @":"];
+        
+        fileAsset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:[fileAssetDetails objectAtIndex:1]]
+                                            options:nil];
+        
+        // If not recordings.
+        if(![[fileAssetDetails objectAtIndex:0] isEqualToString:@"recording"]) {
+            if(CMTimeCompare(maxDuration, fileAsset.duration) == 1 || CMTimeCompare(maxDuration, fileAsset.duration) == 0 ){
+                CMTime currTime = kCMTimeZero;
+                CMTime audioDuration = fileAsset.duration;
+                
+                if(![[fileAssetDetails objectAtIndex:0] isEqualToString:@"Metronome"]) {
+                    if(tempo == 1.0f) {
+                        float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+                        
+                        audioDuration = CMTimeMakeWithSeconds(audioDurationSeconds, 10);
+                    }
+                }
+                
+                while(YES) {
+                    CMTime totalDuration = CMTimeAdd(currTime, audioDuration);
+                    
+                    if(CMTimeCompare(totalDuration, maxDuration)==1){
+                        // Audio duration for last loop.
+                        // Loop files only till maximum duration.
+                        audioDuration = CMTimeSubtract(maxDuration, currTime);
+                    }
+                    [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioDuration)
+                                        ofTrack:[[fileAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0]
+                                         atTime:currTime
+                                          error:nil];
+                    currTime = CMTimeAdd(currTime, audioDuration);
+                    // If loop reaches its last round.
+                    if(CMTimeCompare(currTime, maxDuration) == 1 || CMTimeCompare(currTime, maxDuration) == 0){
+                        break;
+                    }
+                }
+            }
+        } else { // For recordings.
+            DLog(@"file asset duration = %f" ,CMTimeGetSeconds(fileAsset.duration) );
+            DLog(@"file asset Track value = %@ " ,[fileAsset tracksWithMediaType:AVMediaTypeAudio] );
+            DLog(@"file asset Track = %@  " ,[[fileAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] );
+            
+            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, fileAsset.duration)
+                                ofTrack:[[fileAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0]
+                                 atTime:kCMTimeZero
+                                  error:&error];
+        }
+    }
+    
+    exportSession = [AVAssetExportSession exportSessionWithAsset:composition
+                                                      presetName:AVAssetExportPresetAppleM4A];
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/Shared"];
+    
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] removeItemAtPath:dataPath error:nil];
+    
+    //Create folder
+    [[NSFileManager defaultManager] createDirectoryAtPath:dataPath
+                              withIntermediateDirectories:NO
+                                               attributes:nil
+                                                    error:&error];
+    
+    outputFile = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@.m4a", recordingString]];
+    
+    exportSession.outputURL = [NSURL fileURLWithPath:outputFile];
+    exportSession.outputFileType = AVFileTypeAppleM4A;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        
+        // export status changed, check to see if it's done, errored, waiting, etc
+        NSString *beatsDirectory = [self getAbsoluteDocumentsPath:@"Beats"];
+        if ([[NSFileManager defaultManager] isDeletableFileAtPath:beatsDirectory]) {
+            [[NSFileManager defaultManager] removeItemAtPath:beatsDirectory error:nil];
+        }
+
+        switch (exportSession.status)
+        {
+            case AVAssetExportSessionStatusFailed:
+                NSLog(@"#### Failed\n");
+                [self.delegate trackExportedFailed];
+                break;
+            case AVAssetExportSessionStatusCompleted:
+                NSLog(@"### Success\n");
+                [self.delegate trackExportedWithUrl:outputFile];
+                break;
+            case AVAssetExportSessionStatusWaiting:
+                [self.delegate trackExportedFailed];
+                break;
+            default:
+                break;
+        }
+    }];
+    
+    
+}
+- (CMTime)getMaxAudioAssetDuration:(NSMutableArray*)audioFileURLArray withTotalAudioDuration:(float)totalAudioDuration {
+    AVURLAsset* fileAsset;
+    NSArray *fileAssetDetails;
+    CMTime maxDuration  = kCMTimeZero;
+    CMTime lastDuration = kCMTimeZero;
+    
+    int length = (int)[audioFileURLArray count];
+    
+    for(int i = 0; i < length; i++) {
+        fileAssetDetails = [[audioFileURLArray objectAtIndex:i] componentsSeparatedByString: @":"];
+        
+        fileAsset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:[fileAssetDetails objectAtIndex:1]]
+                                            options:nil];
+        
+        if(CMTimeCompare(fileAsset.duration, lastDuration) == 1 || CMTimeCompare(fileAsset.duration, lastDuration) == 0) {
+            maxDuration = fileAsset.duration;
+        }
+        
+        lastDuration = fileAsset.duration;
+    }
+    
+    CMTime totalDuration = CMTimeMakeWithSeconds(totalAudioDuration, 1000);
+    if(CMTimeCompare(totalDuration, maxDuration) == 1)
+        maxDuration = totalDuration;
+    
+    return maxDuration;
 }
 
 @end

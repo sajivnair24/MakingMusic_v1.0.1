@@ -1913,14 +1913,8 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     
     else if(buttonIndex == 0)
     {
-        __block MBProgressHUD *hud;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            hud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.label.text = NSLocalizedString(@"Exporting...", @"");
-            
-            
-            
-        });
+       
+        [self showHUDLoaderWithText:@"Exporting..."];
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             if(playFlag == 1) {
@@ -1985,63 +1979,83 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
             {
                 NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackOne lastPathComponent]];
                 [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
+                
             }
             
             if(recFlag2 == 1)
             {
                 NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackTwo lastPathComponent]];
                 [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
+               
             }
             
             if(recFlag3 == 1)
             {
                 NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackThree lastPathComponent]];
                 [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
+              
             }
             
             if(recFlag4 == 1)
             {
                 NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[_recTrackFour lastPathComponent]];
                 [recordingMergeArray addObject:[NSString stringWithFormat:@"%@:%@", @"recording", filePath]];
+               
             }
             
             // If mixed file not created
             if([recordingMergeArray count] == 0) {
+                [self hideHUDLoader];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Failed !!"
                                                                 message:@"All channels are muted !"
-                                                               delegate:self
+                                                               delegate:nil
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil];
                 [alert show];
                 return;
             }
             
-            NSString *mergeOutputPath = [self mixAudioFiles:recordingMergeArray
+            SoundPlayManger *soundPlayManager = [[SoundPlayManger alloc]init];
+            soundPlayManager.delegate = self;
+            [soundPlayManager mixAudioFiles:recordingMergeArray
                                           withTotalDuration:[durationStringUnFormatted intValue]
                                         withRecordingString:currentRythmName
                                                    andTempo:tempo];
-            [hud hideAnimated:YES];
-            self.shareCheckString = @"opened";
-            
-            TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.menuButton.frame];
-            UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:mergeOutputPath]] applicationActivities:@[openInAppActivity]];
-            
-            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-                // Store reference to superview (UIActionSheet) to allow dismissal
-                openInAppActivity.superViewController = activityViewController;
-                [self presentViewController:activityViewController animated:YES completion:NULL];
-            } else {
-                // Create pop up
-                self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
-                // Store reference to superview (UIPopoverController) to allow dismissal
-                openInAppActivity.superViewController = self.activityPopoverController;
-                // Show UIActivityViewController in popup
-                [self.activityPopoverController presentPopoverFromRect:self.menuButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            }
-
+          
             
         });
     }
+}
+-(void)trackExportedWithUrl:(NSString *)url{
+     self.shareCheckString = @"opened";
+    [self hideHUDLoader];
+    [self openShareActivityFileUrlPath:url];
+
+}
+-(void)trackExportedFailed{
+    [self hideHUDLoader];
+     [self exportNotPossibleAlertView];
+}
+-(void)openShareActivityFileUrlPath:(NSString*)filePath{
+    ASYNC_MAIN(
+               TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andRect:self.menuButton.frame];
+               UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:filePath]] applicationActivities:@[openInAppActivity]];
+               
+               if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+                   // Store reference to superview (UIActionSheet) to allow dismissal
+                   openInAppActivity.superViewController = activityViewController;
+                   [self presentViewController:activityViewController animated:YES completion:NULL];
+               } else {
+                   // Create pop up
+                   self.activityPopoverController = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
+                   // Store reference to superview (UIPopoverController) to allow dismissal
+                   openInAppActivity.superViewController = self.activityPopoverController;
+                   // Show UIActivityViewController in popup
+                   [self.activityPopoverController presentPopoverFromRect:self.menuButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+               }
+    );
+   
+
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -2747,7 +2761,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     return maxDuration;
 }
 
-- (NSString *)mixAudioFiles:(NSMutableArray*)audioFileURLArray
+/*- (NSString *)mixAudioFiles:(NSMutableArray*)audioFileURLArray
           withTotalDuration:(float)totalAudioDuration
         withRecordingString:(NSString *)recordingString
                    andTempo:(float)tempo{
@@ -2811,6 +2825,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                 }
             }
         } else { // For recordings.
+            DLog(@"file asset duration = %f" ,CMTimeGetSeconds(fileAsset.duration) );
+             DLog(@"file asset Track value = %@ " ,[fileAsset tracksWithMediaType:AVMediaTypeAudio] );
+            DLog(@"file asset Track = %@  " ,[[fileAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] );
+            
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, fileAsset.duration)
                                 ofTrack:[[fileAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0]
                                  atTime:kCMTimeZero
@@ -2844,6 +2862,7 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     [exportSession exportAsynchronouslyWithCompletionHandler:^{
         
         // export status changed, check to see if it's done, errored, waiting, etc
+        [self hideHUDLoader];
         switch (exportSession.status)
         {
             case AVAssetExportSessionStatusFailed:
@@ -2851,6 +2870,10 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
                 break;
             case AVAssetExportSessionStatusCompleted:
                 NSLog(@"### Success\n");
+
+                self.shareCheckString = @"opened";
+                [self exportNotPossibleAlertView];
+               // [self openShareActivityFileUrlPath:outputFile];
                 break;
             case AVAssetExportSessionStatusWaiting:
                 break;
@@ -2860,8 +2883,18 @@ enum UserInputActions { kUserInput_Tap, kUserInput_Swipe };
     }];
     
     return outputFile;
+}*/
+-(void)exportNotPossibleAlertView{
+    ASYNC_MAIN(
+               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Export Failed" preferredStyle:UIAlertControllerStyleAlert];
+               [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+    }]];
+               
+               [self presentViewController:alertController animated:YES completion:nil];
+               );
+   
+    
 }
-
 - (void)updateUIDataWithDuration :(NSString *)duration{
     _TotalTimeLbl.text = [self timeFormatted:[duration intValue]];
     _maxRecDurationLbl.text = [NSString stringWithFormat:@"-%@",[self timeFormatted:[duration intValue]]];
@@ -3640,6 +3673,7 @@ float roundUp (float value, int digits) {
                       toOutputFilePath:(NSString *)outputPath
                               withFlag:(BOOL)isRecordedFile {
     // Path of your source audio file
+    
     NSString *strInputFilePath = inputPath;
     NSURL *audioFileInput = [NSURL fileURLWithPath:strInputFilePath];
     
@@ -3649,6 +3683,7 @@ float roundUp (float value, int digits) {
     NSString *strOutputFilePath;
     
     if(isRecordedFile) {
+       [self showHUDLoaderWithText:@"Saving..."];
         strOutputFilePath = [outputPath stringByDeletingPathExtension];
         strOutputFilePath = [strOutputFilePath stringByAppendingString:@".m4a"];
     } else {
@@ -3699,13 +3734,19 @@ float roundUp (float value, int digits) {
     
     [exportSession exportAsynchronouslyWithCompletionHandler:^
      {
+        [self hideHUDLoader];
          if (AVAssetExportSessionStatusCompleted == exportSession.status)
          {
              if(isRecordedFile) {
+                 
+                
                  NSFileManager *fileManager = [NSFileManager defaultManager];
                  if ([fileManager fileExistsAtPath:inputPath]) {
                      [fileManager removeItemAtPath:inputPath error:nil];
                  }
+                 
+                
+                 
              }
          }
          else if (AVAssetExportSessionStatusFailed == exportSession.status)
@@ -3714,7 +3755,17 @@ float roundUp (float value, int digits) {
          }
      }];
 }
+-(void)hideHUDLoader{
+    ASYNC_MAIN([MBProgressHUD hideHUDForView:self.view animated:YES];);
+}
+-(void)showHUDLoaderWithText:(NSString*)text{
+    __block MBProgressHUD *hud;
+    ASYNC_MAIN(
+               hud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+               hud.label.text = NSLocalizedString(text, @"");
+               );
 
+}
 - (void)trimAudioFileInputFilePath:(NSString *)inputPath
                   toOutputFilePath:(NSString *)outputPath
                  withStartTrimTime:(float)startTrimTime {
